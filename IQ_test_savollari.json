@@ -1,365 +1,323 @@
 [
   {
-    "id": 1,
-    "question": "Keyingi raqam qaysi? 2, 4, 8, 16, ?",
-    "options": ["24", "32", "28", "36"],
-    "correct": 1,
-    "type": "sequence",
-    "difficulty": "easy",
-    "time_limit": 60
-  },
-  {
-    "id": 2,
-    "question": "Qaysi so'z ortiqcha? Olma, Nok, Banan, Sabzi, Uzum",
-    "options": ["Olma", "Nok", "Sabzi", "Uzum"],
-    "correct": 2,
-    "type": "odd_one_out",
-    "difficulty": "easy",
-    "time_limit": 45
-  },
-  {
-    "id": 3,
-    "question": "Agar KITOB = 2850, DAFTAR = 3200 bo'lsa, QALAM = ?",
-    "options": ["2400", "2600", "2800", "3000"],
-    "correct": 1,
-    "type": "pattern",
-    "difficulty": "medium",
-    "time_limit": 90
-  },
-  {
-    "id": 4,
-    "question": "Qaysi shakl keyingi o'rinda kelishi kerak?",
-    "image": "pattern_1.png",
-    "options": ["A", "B", "C", "D"],
-    "correct": 2,
-    "type": "visual",
-    "difficulty": "medium",
-    "time_limit": 60
-  },
-  {
-    "id": 5,
-    "question": "5 ta olma 10 ming so'm tursa, 8 ta olma qancha turadi?",
-    "options": ["15000", "16000", "18000", "20000"],
-    "correct": 1,
-    "type": "math",
-    "difficulty": "easy",
-    "time_limit": 45
-  },
-  {
-    "id": 6,
-    "question": "Quyidagi harflar ketma-ketligini davom ettiring: A, C, F, J, O, ?",
-    "options": ["T", "U", "V", "W"],
-    "correct": 1,
-    "type": "sequence",
-    "difficulty": "hard",
-    "time_limit": 90
-  },
-  {
-    "id": 7,
-    "question": "Agar bugun seshanba bo'lsa, 100 kundan keyin qaysi kun bo'ladi?",
-    "options": ["Dushanba", "Seshanba", "Chorshanba", "Payshanba"],
-    "correct": 3,
-    "type": "logic",
-    "difficulty": "medium",
-    "time_limit": 75
-  },
-  {
-    "id": 8,
-    "question": "Qaysi raqam noto'g'ri yozilgan? 16, 25, 36, 48, 64",
-    "options": ["25", "36", "48", "64"],
-    "correct": 2,
-    "type": "pattern",
-    "difficulty": "medium",
-    "time_limit": 60
-  },
-  {
-    "id": 9,
-    "question": "DOCTOR so'zidagi harflarni qayta tartiblasak, qaysi kasb nomini hosil qilish mumkin?",
-    "options": ["ROTCOD", "Kasb hosil bo'lmaydi", "COTDOR", "TORCOD"],
-    "correct": 1,
-    "type": "anagram",
-    "difficulty": "easy",
-    "time_limit": 60
-  },
-  {
-    "id": 10,
-    "question": "Agar 3 + 2 = 10, 7 + 2 = 63, 6 + 5 = 66 bo'lsa, 8 + 4 = ?",
-    "options": ["96", "88", "92", "84"],
-    "correct": 0,
-    "type": "pattern",
-    "difficulty": "hard",
-    "time_limit": 120
-  },
-  {
-    "id": 11,
-    "question": "Qaysi so'z antonim (qarama-qarshi ma'no)? BALAND",
-    "options": ["Uzun", "Keng", "Past", "Tor"],
-    "correct": 2,
-    "type": "verbal",
-    "difficulty": "easy",
-    "time_limit": 30
-  },
-  {
-    "id": 12,
-    "question": "1, 1, 2, 3, 5, 8, 13, ?",
-    "options": ["18", "21", "24", "26"],
-    "correct": 1,
-    "type": "sequence",
-    "difficulty": "medium",
-    "time_limit": 60
-  },
-  {
-    "id": 13,
-    "question": "Agar soat 3:15 ni ko'rsatayotgan bo'lsa, soat va minut millari orasidagi burchak necha gradus?",
-    "options": ["0°", "7.5°", "15°", "22.5°"],
-    "correct": 1,
-    "type": "spatial",
-    "difficulty": "hard",
-    "time_limit": 90
-  },
-  {
-    "id": 14,
-    "question": "100 dan 1 gacha bo'lgan barcha toq sonlar yig'indisi qancha?",
-    "options": ["2500", "2450", "2550", "2600"],
-    "correct": 0,
-    "type": "math",
-    "difficulty": "medium",
-    "time_limit": 90
-  },
-  {
-    "id": 15,
-    "question": "Qaysi figura boshqalardan farq qiladi?",
-    "image": "shapes_1.png",
-    "options": ["A", "B", "C", "D"],
-    "correct": 3,
-    "type": "visual",
-    "difficulty": "easy",
-    "time_limit": 45
-  },
-  {
-    "id": 16,
-    "question": "Ahmad Bekdan 2 marta katta, Bek Davrondan 3 yosh kichik. Agar Davron 18 yoshda bo'lsa, Ahmad necha yoshda?",
-    "options": ["30", "32", "28", "26"],
-    "correct": 0,
-    "type": "logic",
-    "difficulty": "medium",
-    "time_limit": 90
-  },
-  {
-    "id": 17,
-    "question": "Qaysi so'z ma'nosi jihatidan boshqalardan farq qiladi?",
-    "options": ["Yugurmoq", "Chopmoq", "Shoshilmoq", "O'tirmoq"],
-    "correct": 3,
-    "type": "verbal",
-    "difficulty": "easy",
-    "time_limit": 45
-  },
-  {
-    "id": 18,
-    "question": "27, 9, 3, 1, ?",
-    "options": ["0", "1/3", "1/2", "2/3"],
-    "correct": 1,
-    "type": "sequence",
-    "difficulty": "medium",
-    "time_limit": 60
-  },
-  {
-    "id": 19,
-    "question": "Kubning nechta qirrasi bor?",
-    "options": ["6", "8", "10", "12"],
-    "correct": 3,
-    "type": "spatial",
-    "difficulty": "medium",
-    "time_limit": 45
-  },
-  {
-    "id": 20,
-    "question": "Agar OLMA = 4, NOK = 3, UZUM = 4 bo'lsa, BANAN = ?",
-    "options": ["4", "5", "6", "7"],
-    "correct": 1,
-    "type": "pattern",
-    "difficulty": "easy",
-    "time_limit": 60
-  },
-  {
-    "id": 21,
-    "question": "Poyezd 120 km/soat tezlikda 3 soat yurdi. Qancha masofa bosib o'tdi?",
-    "options": ["240 km", "300 km", "360 km", "420 km"],
-    "correct": 2,
-    "type": "math",
-    "difficulty": "easy",
-    "time_limit": 45
-  },
-  {
-    "id": 22,
-    "question": "Qaysi raqamlar juftligi qolganlardan farq qiladi?",
-    "options": ["(3,9)", "(4,16)", "(5,25)", "(6,35)"],
-    "correct": 3,
-    "type": "pattern",
-    "difficulty": "medium",
-    "time_limit": 75
-  },
-  {
-    "id": 23,
-    "question": "Agar barcha itlar hayvon va barcha hayvonlar tirik mavjudot bo'lsa, quyidagilardan qaysi biri to'g'ri?",
-    "options": ["Barcha tirik mavjudotlar it", "Barcha itlar tirik mavjudot", "Ba'zi hayvonlar it emas", "B va C to'g'ri"],
-    "correct": 3,
-    "type": "logic",
-    "difficulty": "medium",
-    "time_limit": 90
-  },
-  {
-    "id": 24,
-    "question": "Soat mili 12 soatda necha marta 90 graduslik burchak hosil qiladi?",
-    "options": ["22", "24", "44", "48"],
-    "correct": 2,
-    "type": "spatial",
-    "difficulty": "hard",
-    "time_limit": 120
-  },
-  {
-    "id": 25,
-    "question": "Qaysi so'z sinonimi (o'xshash ma'no)? CHIROYLI",
-    "options": ["Yomon", "Go'zal", "Katta", "Kichik"],
-    "correct": 1,
-    "type": "verbal",
-    "difficulty": "easy",
-    "time_limit": 30
-  },
-  {
-    "id": 26,
-    "question": "64, 32, 16, 8, ?",
-    "options": ["2", "3", "4", "6"],
-    "correct": 2,
-    "type": "sequence",
-    "difficulty": "easy",
-    "time_limit": 45
-  },
-  {
-    "id": 27,
-    "question": "Agar A+B=10 va A-B=4 bo'lsa, A*B=?",
-    "options": ["21", "24", "28", "32"],
-    "correct": 0,
-    "type": "math",
-    "difficulty": "medium",
-    "time_limit": 90
-  },
-  {
-    "id": 28,
-    "question": "Qaysi shakl 3D ob'ektning 2D ko'rinishi bo'la olmaydi?",
-    "image": "3d_view.png",
-    "options": ["A", "B", "C", "D"],
-    "correct": 2,
-    "type": "visual",
-    "difficulty": "hard",
-    "time_limit": 90
-  },
-  {
-    "id": 29,
-    "question": "5 ta ishchi 10 kunada ish tugatsalar, 10 ta ishchi necha kunda tugatadi?",
-    "options": ["2 kun", "4 kun", "5 kun", "20 kun"],
-    "correct": 2,
-    "type": "logic",
-    "difficulty": "easy",
-    "time_limit": 60
-  },
-  {
-    "id": 30,
-    "question": "QUYOSH : KUN = OY : ?",
-    "options": ["Yulduz", "Tun", "Osmon", "Yer"],
-    "correct": 1,
-    "type": "analogy",
-    "difficulty": "easy",
-    "time_limit": 45
-  },
-  {
-    "id": 31,
-    "question": "125, 64, 27, 8, ?",
-    "options": ["1", "2", "3", "4"],
-    "correct": 0,
-    "type": "sequence",
-    "difficulty": "medium",
-    "time_limit": 60
-  },
-  {
-    "id": 32,
-    "question": "Doira ichida uchburchak, uchburchak ichida kvadrat bo'lsa, quyidagilardan qaysi biri to'g'ri?",
-    "options": ["Kvadrat doira ichida", "Doira kvadrat ichida", "Uchburchak kvadrat ichida", "Hech biri"],
-    "correct": 0,
-    "type": "spatial",
-    "difficulty": "medium",
-    "time_limit": 75
-  },
-  {
-    "id": 33,
-    "question": "Agar 40% = 0.4 bo'lsa, 0.05 necha foizni tashkil etadi?",
-    "options": ["0.5%", "5%", "50%", "500%"],
-    "correct": 1,
-    "type": "math",
-    "difficulty": "medium",
-    "time_limit": 60
-  },
-  {
-    "id": 34,
-    "question": "TALABA so'zidan foydalanib nechta ma'noli so'z tuzish mumkin?",
-    "options": ["3", "4", "5", "6"],
-    "correct": 2,
-    "type": "verbal",
-    "difficulty": "hard",
-    "time_limit": 120
-  },
-  {
-    "id": 35,
-    "question": "Qaysi tenglik noto'g'ri?",
-    "options": ["2³ = 8", "3² = 9", "4² = 16", "5² = 26"],
-    "correct": 3,
-    "type": "math",
-    "difficulty": "easy",
-    "time_limit": 45
-  },
-  {
-    "id": 36,
-    "question": "Agar hamma A lar B va ba'zi B lar C bo'lsa:",
-    "options": ["Hamma A lar C", "Ba'zi A lar C", "Hech qaysi A C emas", "Ma'lumot yetarli emas"],
-    "correct": 3,
-    "type": "logic",
-    "difficulty": "hard",
-    "time_limit": 90
-  },
-  {
-    "id": 37,
-    "question": "Qaysi raqam keyingi o'rinda kelishi kerak? 2, 6, 12, 20, 30, ?",
-    "options": ["40", "42", "44", "46"],
-    "correct": 1,
-    "type": "sequence",
-    "difficulty": "medium",
-    "time_limit": 75
-  },
-  {
-    "id": 38,
-    "question": "MAKTAB : O'QUVCHI = KASALXONA : ?",
-    "options": ["Shifokor", "Bemor", "Dori", "Hamshira"],
-    "correct": 1,
-    "type": "analogy",
-    "difficulty": "easy",
-    "time_limit": 45
-  },
-  {
-    "id": 39,
-    "question": "Agar soat teskari aylansa va hozir 3:00 bo'lsa, 5 soatdan keyin necha bo'ladi?",
-    "options": ["8:00", "10:00", "11:00", "22:00"],
-    "correct": 2,
-    "type": "logic",
-    "difficulty": "hard",
-    "time_limit": 90
-  },
-  {
-    "id": 40,
-    "question": "1000 dan 9999 gacha nechta raqamda kamida bitta 5 raqami bor?",
-    "options": ["2439", "3168", "3439", "3600"],
-    "correct": 2,
-    "type": "math",
-    "difficulty": "hard",
-    "time_limit": 150
-  }
-]
+      "id": 1,
+      "question": "Ketma-ketlikni davom ettiring: 2, 4, 8, 16, ?",
+      "options": ["24", "32", "28", "36"],
+      "correct": 1,
+      "type": "sequence",
+      "difficulty": "easy"
+    },
+    {
+      "id": 2,
+      "question": "Qaysi so‘z ortiqcha? Qush, Baliq, Qovun, Ot",
+      "options": ["Qush", "Baliq", "Qovun", "Ot"],
+      "correct": 2,
+      "type": "odd_one_out",
+      "difficulty": "easy"
+    },
+    {
+      "id": 3,
+      "question": "Agar 2 + 2 = 8 bo‘lsa, 3 + 3 = ?",
+      "options": ["12", "6", "18", "9"],
+      "correct": 0,
+      "type": "pattern",
+      "difficulty": "medium"
+    },
+    {
+      "id": 4,
+      "question": "Yangi so‘zning antonimini tanlang.",
+      "options": ["Eski", "Katta", "Yaxshi", "Toza"],
+      "correct": 0,
+      "type": "verbal",
+      "difficulty": "easy"
+    },
+    {
+      "id": 5,
+      "question": "5 ta kitob har biri 12 ming so‘mdan. Jami narx?",
+      "options": ["48 000", "60 000", "72 000", "54 000"],
+      "correct": 1,
+      "type": "math",
+      "difficulty": "easy"
+    },
+    {
+      "id": 6,
+      "question": "Bugun payshanba. 17 kundan keyin qaysi kun?",
+      "options": ["Yakshanba", "Dushanba", "Seshanba", "Chorshanba"],
+      "correct": 3,
+      "type": "logic",
+      "difficulty": "medium"
+    },
+    {
+      "id": 7,
+      "question": "Qaysi so‘z sinonimi? Tez",
+      "options": ["Sekin", "Zud", "Kuchli", "Yangi"],
+      "correct": 1,
+      "type": "verbal",
+      "difficulty": "easy"
+    },
+    {
+      "id": 8,
+      "question": "Ketma-ketlikni davom ettiring: 8, 16, 32, ?, 128",
+      "options": ["48", "56", "64", "96"],
+      "correct": 2,
+      "type": "sequence",
+      "difficulty": "easy"
+    },
+    {
+      "id": 9,
+      "question": "Qaysi so‘z antonimi? Kuchli",
+      "options": ["Katta", "Zaif", "Tez", "Yangi"],
+      "correct": 1,
+      "type": "verbal",
+      "difficulty": "easy"
+    },
+    {
+      "id": 10,
+      "question": "7 x 8 = ?",
+      "options": ["54", "56", "58", "64"],
+      "correct": 1,
+      "type": "math",
+      "difficulty": "easy"
+    },
+    {
+      "id": 11,
+      "question": "Qaysi hayvon suvda yashaydi?",
+      "options": ["Kapalak", "Baliq", "Qarg‘a", "Ot"],
+      "correct": 1,
+      "type": "odd_one_out",
+      "difficulty": "easy"
+    },
+    {
+      "id": 12,
+      "question": "Ketma-ketlik: 11, 13, 17, 19, ?",
+      "options": ["21", "23", "25", "29"],
+      "correct": 1,
+      "type": "sequence",
+      "difficulty": "medium"
+    },
+    {
+      "id": 13,
+      "question": "Qaysi so‘z sinonimi? Toza",
+      "options": ["Yangi", "Chiroyli", "Pok", "Katta"],
+      "correct": 2,
+      "type": "verbal",
+      "difficulty": "easy"
+    },
+    {
+      "id": 14,
+      "question": "Agar 12 ta olma 24 ming so‘m bo‘lsa, 6 ta olma qancha?",
+      "options": ["10 000", "12 000", "14 000", "16 000"],
+      "correct": 1,
+      "type": "math",
+      "difficulty": "easy"
+    },
+    {
+      "id": 15,
+      "question": "Qaysi so‘z antonimi? Past",
+      "options": ["Yuqori", "Tez", "Katta", "Baland"],
+      "correct": 3,
+      "type": "verbal",
+      "difficulty": "easy"
+    },
+    {
+      "id": 16,
+      "question": "Qaysi raqam boshqalardan farq qiladi? 9, 16, 25, 35, 49",
+      "options": ["9", "16", "25", "35"],
+      "correct": 3,
+      "type": "odd_one_out",
+      "difficulty": "medium"
+    },
+    {
+      "id": 17,
+      "question": "Quyidagi so‘zlarning sinonimini tanlang: Yaxshi",
+      "options": ["Yomon", "Go‘zal", "A’lo", "Katta"],
+      "correct": 2,
+      "type": "verbal",
+      "difficulty": "easy"
+    },
+    {
+      "id": 18,
+      "question": "21, 18, 15, 12, ?",
+      "options": ["6", "9", "10", "8"],
+      "correct": 1,
+      "type": "sequence",
+      "difficulty": "medium"
+    },
+    {
+      "id": 19,
+      "question": "Agar 5 ishchi 20 kunda ish tugatsa, 10 ishchi necha kunda tugatadi?",
+      "options": ["10", "5", "20", "15"],
+      "correct": 0,
+      "type": "logic",
+      "difficulty": "medium"
+    },
+    {
+      "id": 20,
+      "question": "Qaysi so‘z antonimi? Qorong‘i",
+      "options": ["Yorug‘", "Katta", "Tez", "Yangi"],
+      "correct": 0,
+      "type": "verbal",
+      "difficulty": "easy"
+    },
+    {
+      "id": 21,
+      "question": "Bugun dushanba. 15 kundan keyin qaysi kun?",
+      "options": ["Payshanba", "Chorshanba", "Yakshanba", "Seshanba"],
+      "correct": 2,
+      "type": "logic",
+      "difficulty": "medium"
+    },
+    {
+      "id": 22,
+      "question": "6 x 7 = ?",
+      "options": ["42", "36", "48", "54"],
+      "correct": 0,
+      "type": "math",
+      "difficulty": "easy"
+    },
+    {
+      "id": 23,
+      "question": "Qaysi hayvon suvda yashamaydi?",
+      "options": ["Baliq", "Qirg‘iy", "Suv toshbaqasi", "Delfin"],
+      "correct": 1,
+      "type": "odd_one_out",
+      "difficulty": "easy"
+    },
+    {
+      "id": 24,
+      "question": "Qaysi raqam boshqalardan farq qiladi? 2, 5, 7, 11, 15",
+      "options": ["2", "5", "11", "15"],
+      "correct": 3,
+      "type": "odd_one_out",
+      "difficulty": "medium"
+    },
+    {
+      "id": 25,
+      "question": "Qaysi so‘z sinonimi? Katta",
+      "options": ["Yashil", "Ulkan", "Tez", "Yangi"],
+      "correct": 1,
+      "type": "verbal",
+      "difficulty": "easy"
+    },
+    {
+      "id": 26,
+      "question": "13, 16, 19, 22, ?",
+      "options": ["25", "26", "27", "28"],
+      "correct": 0,
+      "type": "sequence",
+      "difficulty": "easy"
+    },
+    {
+      "id": 27,
+      "question": "Agar 7 ta non har biri 4 ming so‘mdan bo‘lsa, jami narxi?",
+      "options": ["21 000", "28 000", "35 000", "14 000"],
+      "correct": 1,
+      "type": "math",
+      "difficulty": "easy"
+    },
+    {
+      "id": 28,
+      "question": "Qaysi so‘z antonimi? Qattiq",
+      "options": ["Yumshoq", "Tez", "Yangi", "Katta"],
+      "correct": 0,
+      "type": "verbal",
+      "difficulty": "easy"
+    },
+    {
+      "id": 29,
+      "question": "Qaysi raqam boshqalardan farq qiladi? 1, 4, 9, 16, 20",
+      "options": ["1", "4", "16", "20"],
+      "correct": 3,
+      "type": "odd_one_out",
+      "difficulty": "medium"
+    },
+    {
+      "id": 30,
+      "question": "Qaysi so‘z sinonimi? Chiroyli",
+      "options": ["Go‘zal", "Yaxshi", "Yangi", "Katta"],
+      "correct": 0,
+      "type": "verbal",
+      "difficulty": "easy"
+    },
+    {
+      "id": 31,
+      "question": "24, 20, 16, 12, ?",
+      "options": ["8", "10", "6", "4"],
+      "correct": 0,
+      "type": "sequence",
+      "difficulty": "easy"
+    },
+    {
+      "id": 32,
+      "question": "Agar 8 ta o‘quvchi 32 soatda ish tugatsa, 4 ta o‘quvchi necha soatda tugatadi?",
+      "options": ["16", "32", "48", "64"],
+      "correct": 2,
+      "type": "logic",
+      "difficulty": "medium"
+    },
+    {
+      "id": 33,
+      "question": "Qaysi so‘z antonimi? Oson",
+      "options": ["Qiyin", "Tez", "Yangi", "Katta"],
+      "correct": 0,
+      "type": "verbal",
+      "difficulty": "easy"
+    },
+    {
+      "id": 34,
+      "question": "Qaysi so‘z sinonimi? Do‘st",
+      "options": ["Dushman", "Yaqin", "Odam", "Tez"],
+      "correct": 1,
+      "type": "verbal",
+      "difficulty": "easy"
+    },
+    {
+      "id": 35,
+      "question": "Qaysi raqam boshqalardan farq qiladi? 10, 15, 20, 25, 27",
+      "options": ["10", "15", "25", "27"],
+      "correct": 3,
+      "type": "odd_one_out",
+      "difficulty": "medium"
+    },
+    {
+      "id": 36,
+      "question": "Agar bugun seshanba bo‘lsa, 100 kundan keyin qaysi kun bo‘ladi?",
+      "options": ["Dushanba", "Seshanba", "Chorshanba", "Payshanba"],
+      "correct": 3,
+      "type": "logic",
+      "difficulty": "medium"
+    },
+    {
+      "id": 37,
+      "question": "Agar 3 + 2 = 10, 7 + 2 = 63, 6 + 5 = 66 bo‘lsa, 8 + 4 = ?",
+      "options": ["96", "88", "92", "84"],
+      "correct": 0,
+      "type": "pattern",
+      "difficulty": "hard"
+    },
+    {
+      "id": 38,
+      "question": "Qaysi so‘z antonimi? BALAND",
+      "options": ["Uzun", "Keng", "Past", "Tor"],
+      "correct": 2,
+      "type": "verbal",
+      "difficulty": "easy"
+    },
+    {
+      "id": 39,
+      "question": "Ketma-ketlik: 3, 6, 12, 24, ?",
+      "options": ["36", "42", "48", "50"],
+      "correct": 2,
+      "type": "sequence",
+      "difficulty": "easy"
+    },
+    {
+      "id": 40,
+      "question": "Qaysi so‘z ma’nosi jihatidan boshqalardan farq qiladi?",
+      "options": ["Yugurmoq", "Chopmoq", "Shoshilmoq", "O’tirmoq"],
+      "correct": 3,
+      "type": "verbal",
+      "difficulty": "easy"
+    }
+  ]
+  

@@ -311,11 +311,11 @@
             
             <div class="small-card-container" aria-hidden="false">
                 <div class="small-card">
-                    <h4 data-target="12" data-suffix="+">0+</h4>
+                    <h4 data-target="20" data-suffix="+">0+</h4>
                     <p>Kasb yo'nalishlari</p>
                 </div>
                 <div class="small-card">
-                    <h4 data-target="30" data-suffix="+">0+</h4>
+                    <h4 data-target="60" data-suffix="+">0+</h4>
                     <p>Savol testlari</p>
                 </div>
                 <div class="small-card">
@@ -416,7 +416,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             const counters = document.querySelectorAll('.small-card h4');
-            const speed = 60;
+            const speed = 100;
             counters.forEach(counter => {
                 const target = parseInt(counter.getAttribute('data-target')) || 0;
                 const suffix = counter.getAttribute('data-suffix') || '';
