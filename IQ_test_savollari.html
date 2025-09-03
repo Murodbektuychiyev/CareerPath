@@ -338,6 +338,9 @@ let timer;
 const TIME_LIMIT = 600;
 const PASS_PERCENTAGE = 70;
 
+// NEW: certIdValue will hold the certificate ID that we save and show
+let certIdValue = null;
+
 const questionContainer = document.querySelector('.question-container');
 const prevBtn = document.getElementById('prev-btn');
 const nextBtn = document.getElementById('next-btn');
@@ -440,25 +443,16 @@ const showCertificate = (score, totalQuestions) => {
     certScore.textContent = `${score} / ${totalQuestions}`;
     certTotal.textContent = totalQuestions;
     certDate.textContent = new Date().toLocaleDateString();
-    certId.textContent = Math.floor(100000 + Math.random() * 900000);
+    // Use the generated certIdValue (if not set, create a fallback)
+    if (!certIdValue) certIdValue = Math.floor(100000 + Math.random() * 900000);
+    certId.textContent = certIdValue;
     certificateContainer.style.display = 'block';
     window.scrollTo({ top: certificateContainer.offsetTop, behavior: 'smooth' });
 };
 
-downloadCertBtn.onclick = function() {
-    // html2canvas faqat oddiy background uchun yaxshi ishlaydi.
-    html2canvas(certificateContainer, {
-        useCORS: true,
-        backgroundColor: "#e0f7fa", // Sertifikat foniga mos
-        scale: 2 // Sifat oshirish uchun
-    }).then(function(canvas) {
-        var link = document.createElement('a');
-        link.download = 'IQ-sertifikat.png';
-        link.href = canvas.toDataURL();
-        link.click();
-    });
-};
+// Removed html2canvas usage (PDF-only flow kept)
 
+// calculateResults unchanged (still shows results and certificate)
 const calculateResults = () => {
     let score = 0;
     questions.forEach(q => {
@@ -508,16 +502,22 @@ const handleFinishTest = async (isTimeUp = false) => {
         }
     });
     const percentage = (score / questions.length) * 100;
+
+    // NEW: generate certIdValue for this test attempt (will be shown and saved)
+    certIdValue = Math.floor(100000 + Math.random() * 900000);
+
     if (auth.currentUser) {
         userName = auth.currentUser.displayName || auth.currentUser.email || "Foydalanuvchi";
         try {
+            // Keep same document path as before but add certId field
             const resultsRef = doc(db, "iq_test_results", auth.currentUser.uid);
             await setDoc(resultsRef, {
                 answers: userAnswers,
                 score: score,
                 percentage: percentage,
                 completedAt: new Date(),
-                passed: percentage >= PASS_PERCENTAGE
+                passed: percentage >= PASS_PERCENTAGE,
+                certId: certIdValue // <-- NEW: store certificate ID in Firestore
             });
             calculateResults();
         } catch (err) {
@@ -526,6 +526,7 @@ const handleFinishTest = async (isTimeUp = false) => {
             calculateResults();
         }
     } else {
+        // Not logged in: still show results and certificate (certIdValue already set)
         calculateResults();
     }
 };
@@ -590,13 +591,13 @@ menuToggle.addEventListener('click', () => {
     menuToggle.classList.toggle('active');
 });
 
-        // Sertifikatni PDF ga eksport qilish (faqat PDF, PNG yo'q!)
+        // Sertifikatni PDF ga eksport qilish (faqat PDF)
         document.getElementById('download-cert').onclick = function() {
-            const certName = document.getElementById('cert-name').textContent;
-            const certDate = document.getElementById('cert-date').textContent;
-            const certScore = document.getElementById('cert-score').textContent;
-            const certTotal = document.getElementById('cert-total').textContent;
-            const certNumber = document.getElementById('cert-id').textContent;
+            const certNameText = document.getElementById('cert-name').textContent;
+            const certDateText = document.getElementById('cert-date').textContent;
+            const certScoreText = document.getElementById('cert-score').textContent;
+            const certTotalText = document.getElementById('cert-total').textContent;
+            const certNumberText = document.getElementById('cert-id').textContent;
             const logoImg = document.getElementById('cert-logo');
 
             function getImageBase64(img, callback) {
@@ -609,48 +610,49 @@ menuToggle.addEventListener('click', () => {
                 callback(dataURL);
             }
 
-            if (!logoImg.complete) {
-                logoImg.onload = doPdf;
-            } else {
-                doPdf();
-            }
-            function doPdf() {
-                getImageBase64(logoImg, function(logoData) {
-                    const { jsPDF } = window.jspdf;
-                    const doc = new jsPDF({
-                        orientation: "portrait",
-                        unit: "mm",
-                        format: "a4"
-                    });
-                    doc.setFillColor(224,247,250);
-                    doc.rect(0, 0, 210, 297, "F");
-                    doc.addImage(logoData, "JPEG", 85, 15, 40, 40);
-                    doc.setTextColor(33,150,243);
-                    doc.setFont("helvetica", "bold");
-                    doc.setFontSize(24);
-                    doc.text("IQ Test Sertifikati", 105, 65, { align: "center" });
-                    doc.setFontSize(14);
-                    doc.setFont("helvetica", "normal");
-                    doc.setTextColor(34,34,34);
-                    doc.text(`Tabriklaymiz, ${certName}!`, 105, 80, { align: "center" });
-                    doc.setFontSize(12);
-                    doc.setTextColor(76,175,80);
-                    doc.text(`Siz ${certDate} kuni IQ testidan muvaffaqiyatli o'tdingiz.`, 105, 90, { align: "center" });
-                    doc.setFontSize(16);
-                    doc.setTextColor(34,34,34);
-                    doc.text(`Natija: ${certScore}`, 105, 110, { align: "center" });
-                    doc.setFontSize(13);
-                    doc.text(`Test savollari soni: ${certTotal}`, 105, 120, { align: "center" });
-                    doc.setFontSize(12);
-                    doc.setFillColor(255,224,130);
-                    doc.roundedRect(62, 130, 86, 14, 4, 4, "F");
-                    doc.setTextColor(100,100,100);
-                    doc.text(`Sertifikat raqami: ${certNumber}`, 105, 139, { align: "center" });
-                    doc.setFontSize(11);
-                    doc.setTextColor(160,160,160);
-                    doc.text("careerpath.uz", 105, 154, { align: "center" });
-                    doc.save("IQ-sertifikat.pdf");
+            function doPdf(logoData) {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF({
+                    orientation: "portrait",
+                    unit: "mm",
+                    format: "a4"
                 });
+                doc.setFillColor(224,247,250);
+                doc.rect(0, 0, 210, 297, "F");
+                if (logoData) {
+                    try { doc.addImage(logoData, "JPEG", 85, 15, 40, 40); } catch(e){ console.warn(e); }
+                }
+                doc.setTextColor(33,150,243);
+                doc.setFont("helvetica", "bold");
+                doc.setFontSize(24);
+                doc.text("IQ Test Sertifikati", 105, 65, { align: "center" });
+                doc.setFontSize(14);
+                doc.setFont("helvetica", "normal");
+                doc.setTextColor(34,34,34);
+                doc.text(`Tabriklaymiz, ${certNameText}!`, 105, 80, { align: "center" });
+                doc.setFontSize(12);
+                doc.setTextColor(76,175,80);
+                doc.text(`Siz ${certDateText} kuni IQ testidan muvaffaqiyatli o'tdingiz.`, 105, 90, { align: "center" });
+                doc.setFontSize(16);
+                doc.setTextColor(34,34,34);
+                doc.text(`Natija: ${certScoreText}`, 105, 110, { align: "center" });
+                doc.setFontSize(13);
+                doc.text(`Test savollari soni: ${certTotalText}`, 105, 120, { align: "center" });
+                doc.setFontSize(12);
+                doc.setFillColor(255,224,130);
+                doc.roundedRect(62, 130, 86, 14, 4, 4, "F");
+                doc.setTextColor(100,100,100);
+                doc.text(`Sertifikat raqami: ${certNumberText}`, 105, 139, { align: "center" });
+                doc.setFontSize(11);
+                doc.setTextColor(160,160,160);
+                doc.text("careerpath.uz", 105, 154, { align: "center" });
+                doc.save("IQ-sertifikat.pdf");
+            }
+
+            if (!logoImg.complete) {
+                logoImg.onload = () => getImageBase64(logoImg, doPdf);
+            } else {
+                getImageBase64(logoImg, doPdf);
             }
         };
     </script>
