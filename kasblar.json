@@ -12,7 +12,7 @@
     },
     "growth_rate": "22%",
     "category": "IT",
-    "personality_match": ["openness", "conscientiousness"],
+    "personality_match": ["openness", "conscientiousness", "introversion"],
     "min_iq": 110,
     "rasm_url": "./images/software-developer.jpg"
   },
@@ -29,7 +29,7 @@
     },
     "growth_rate": "25%",
     "category": "IT",
-    "personality_match": ["openness", "conscientiousness"],
+    "personality_match": ["openness", "conscientiousness", "introversion"],
     "min_iq": 115,
     "rasm_url": "./images/data-scientist.jpg"
   },
@@ -46,7 +46,7 @@
     },
     "growth_rate": "15%",
     "category": "Tibbiyot",
-    "personality_match": ["conscientiousness", "agreeableness"],
+    "personality_match": ["conscientiousness", "agreeableness", "emotional_stability"],
     "min_iq": 115,
     "rasm_url": "./images/doctor.jpg"
   },
@@ -80,7 +80,7 @@
     },
     "growth_rate": "10%",
     "category": "Huquq",
-    "personality_match": ["conscientiousness", "extraversion"],
+    "personality_match": ["conscientiousness", "extraversion", "emotional_stability"],
     "min_iq": 115,
     "rasm_url": "./images/lawyer.jpg"
   },
@@ -97,7 +97,7 @@
     },
     "growth_rate": "7%",
     "category": "Moliya",
-    "personality_match": ["conscientiousness"],
+    "personality_match": ["conscientiousness", "introversion", "emotional_stability"],
     "min_iq": 105,
     "rasm_url": "./images/accountant.jpg"
   },
@@ -182,7 +182,7 @@
     },
     "growth_rate": "12%",
     "category": "Tibbiyot",
-    "personality_match": ["agreeableness", "conscientiousness"],
+    "personality_match": ["agreeableness", "conscientiousness", "emotional_stability"],
     "min_iq": 100,
     "rasm_url": "./images/nurse.jpg"
   },
@@ -250,7 +250,7 @@
     },
     "growth_rate": "9%",
     "category": "Texnik",
-    "personality_match": ["conscientiousness"],
+    "personality_match": ["conscientiousness", "introversion"],
     "min_iq": 95,
     "rasm_url": "./images/electrician.jpg"
   },
@@ -267,7 +267,7 @@
     },
     "growth_rate": "8%",
     "category": "Arxitektura",
-    "personality_match": ["openness", "conscientiousness"],
+    "personality_match": ["openness", "conscientiousness", "introversion"],
     "min_iq": 110,
     "rasm_url": "./images/architect.jpg"
   },
@@ -335,7 +335,7 @@
     },
     "growth_rate": "20%",
     "category": "Tillar",
-    "personality_match": ["openness", "conscientiousness"],
+    "personality_match": ["openness", "conscientiousness", "introversion"],
     "min_iq": 110,
     "rasm_url": "./images/translator.jpg"
   },
@@ -352,7 +352,7 @@
     },
     "growth_rate": "16%",
     "category": "Veterinariya",
-    "personality_match": ["agreeableness", "conscientiousness"],
+    "personality_match": ["agreeableness", "conscientiousness", "emotional_stability"],
     "min_iq": 105,
     "rasm_url": "./images/veterinarian.jpg"
   },
@@ -403,7 +403,7 @@
     },
     "growth_rate": "7%",
     "category": "Texnik",
-    "personality_match": ["conscientiousness"],
+    "personality_match": ["conscientiousness", "introversion"],
     "min_iq": 95,
     "rasm_url": "./images/mechanic.jpg"
   },
@@ -437,7 +437,7 @@
     },
     "growth_rate": "11%",
     "category": "Tibbiyot",
-    "personality_match": ["conscientiousness", "agreeableness"],
+    "personality_match": ["conscientiousness", "agreeableness", "emotional_stability"],
     "min_iq": 110,
     "rasm_url": "./images/dentist.jpg"
   },
@@ -471,7 +471,7 @@
     },
     "growth_rate": "16%",
     "category": "Moliya",
-    "personality_match": ["conscientiousness", "openness"],
+    "personality_match": ["conscientiousness", "openness", "introversion", "emotional_stability"],
     "min_iq": 115,
     "rasm_url": "./images/financial-analyst.jpg"
   },
@@ -505,7 +505,7 @@
     },
     "growth_rate": "6%",
     "category": "Xavfsizlik",
-    "personality_match": ["conscientiousness"],
+    "personality_match": ["conscientiousness", "introversion", "emotional_stability"],
     "min_iq": 90,
     "rasm_url": "./images/security-guard.jpg"
   },
@@ -556,7 +556,7 @@
     },
     "growth_rate": "8%",
     "category": "Oshpazlik",
-    "personality_match": ["conscientiousness"],
+    "personality_match": ["conscientiousness", "introversion"],
     "min_iq": 90,
     "rasm_url": "./images/baker.jpg"
   },
@@ -573,7 +573,7 @@
     },
     "growth_rate": "5%",
     "category": "Ta'lim",
-    "personality_match": ["conscientiousness", "agreeableness"],
+    "personality_match": ["conscientiousness", "agreeableness", "introversion"],
     "min_iq": 100,
     "rasm_url": "./images/librarian.jpg"
   },
@@ -607,7 +607,7 @@
     },
     "growth_rate": "3%",
     "category": "Administrativ",
-    "personality_match": ["conscientiousness"],
+    "personality_match": ["conscientiousness", "introversion"],
     "min_iq": 90,
     "rasm_url": "./images/data-entry.jpg"
   },
@@ -675,7 +675,7 @@
     },
     "growth_rate": "9%",
     "category": "Tibbiyot",
-    "personality_match": ["conscientiousness", "agreeableness"],
+    "personality_match": ["conscientiousness", "agreeableness", "emotional_stability"],
     "min_iq": 105,
     "rasm_url": "./images/pharmacist.jpg"
   },
@@ -692,7 +692,7 @@
     },
     "growth_rate": "16%",
     "category": "Yozuvchilik",
-    "personality_match": ["openness", "conscientiousness"],
+    "personality_match": ["openness", "conscientiousness", "introversion"],
     "min_iq": 105,
     "rasm_url": "./images/content-writer.jpg"
   },
@@ -709,7 +709,7 @@
     },
     "growth_rate": "14%",
     "category": "Logistika",
-    "personality_match": ["conscientiousness", "openness"],
+    "personality_match": ["conscientiousness", "openness", "introversion"],
     "min_iq": 105,
     "rasm_url": "./images/logistics-manager.jpg"
   },
@@ -726,7 +726,7 @@
     },
     "growth_rate": "4%",
     "category": "Bank",
-    "personality_match": ["conscientiousness", "agreeableness"],
+    "personality_match": ["conscientiousness", "agreeableness", "emotional_stability"],
     "min_iq": 95,
     "rasm_url": "./images/bank-teller.jpg"
   },
@@ -794,7 +794,7 @@
     },
     "growth_rate": "10%",
     "category": "Sifat nazorati",
-    "personality_match": ["conscientiousness"],
+    "personality_match": ["conscientiousness", "introversion", "emotional_stability"],
     "min_iq": 100,
     "rasm_url": "./images/quality-assurance.jpg"
   },
@@ -811,7 +811,7 @@
     },
     "growth_rate": "27%",
     "category": "IT",
-    "personality_match": ["openness", "conscientiousness", "agreeableness"],
+    "personality_match": ["openness", "conscientiousness", "introversion"],
     "min_iq": 110,
     "rasm_url": "./images/ui-ux-designer.jpg"
   }

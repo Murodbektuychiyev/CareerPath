@@ -51,11 +51,10 @@
             left: 0;
         }
 
-        /* Menyudagi barcha havolalar uchun umumiy uslublar */
         .side-nav a {
-            display: flex; /* Elementlarni bir qatorga teradi */
-            align-items: center; /* Ikonka va matnni vertikal markazga joylashtiradi */
-            gap: 15px; /* Ikonka va matn orasidagi bo'shliq */
+            display: flex;
+            align-items: center;
+            gap: 15px;
             padding: 15px 20px;
             color: var(--light-text-color);
             text-decoration: none;
@@ -67,10 +66,9 @@
             background:#444;
         }
 
-        /* Barcha ikonlar uchun umumiy uslublar */
         .side-nav a .material-icons {
-            font-size: 24px; 
-            width: 24px; 
+            font-size: 24px;
+            width: 24px;
             height: 24px;
             text-align: center;
         }
@@ -196,6 +194,14 @@
         .card h3 {
             color:var(--secondary-color);
             margin-top:0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3 .material-icons {
+            font-size: 28px;
+            color: var(--secondary-color);
         }
 
         .card p {
@@ -261,7 +267,7 @@
         <a href="./careerpath.html"><span class="material-icons">home</span> Asosiy sahifa</a>
         <a href="./dashboard.html"><span class="material-icons">person</span> Mening profilim</a>
         <a href="./tests.html"><span class="material-icons">menu_book</span> Testlar</a>
-        <a href="./aichat.html"><span class="material-icons">auto_awesome</span>AI Maslahatchi</a>
+        <a href="./aichat.html"><span class="material-icons">auto_awesome</span> AI Maslahatchi</a>
         <a href="./cvgenerator.html"><span class="material-icons">description</span> CV Generator</a>
         <a href="./kasblar.html"><span class="material-icons">lightbulb</span> Kasblar</a>
         <a href="./jobs.html"><span class="material-icons">work</span> Ish topish</a>
@@ -291,21 +297,69 @@
         <div class="container" role="main">
             <div class="card-container">
                 <div class="card">
-                    <h3>🧠 Shaxsiyat testi</h3>
-                    <p>O'zingizning qobiliyat va moyilliklaringizni aniqlash uchun testni topshiring.</p>
+                    <h3><span class="material-icons">info</span> Bosh sahifa</h3>
+                    <p>Saytning asosiy funksiyalari bilan tanishing va umumiy ma'lumotlarga ega bo'ling.</p>
+                    <a href="./index.html" class="cta-link">Sahifani ko'rish</a>
+                </div>
+
+                <div class="card">
+                    <h3><span class="material-icons">home</span> Asosiy sahifa</h3>
+                    <p>Barcha bo'limlarga tezkor o'tish imkoniyatiga ega bo'ling va asosiy xizmatlardan foydalaning.</p>
+                    <a href="./careerpath.html" class="cta-link">Sahifani ochish</a>
+                </div>
+
+                <div class="card">
+                    <h3><span class="material-icons">person</span> Mening profilim</h3>
+                    <p>Shaxsiy ma'lumotlaringizni tahrirlang, CV-ingizni va ariza holatini kuzatib boring.</p>
+                    <a href="./dashboard.html" class="cta-link">Profilga o'tish</a>
+                </div>
+
+                <div class="card">
+                    <h3><span class="material-icons">menu_book</span> Testlar</h3>
+                    <p>Shaxsiyatingiz, qiziqishlaringiz va qobiliyatlaringizga mos kasbni aniqlash uchun test topshiring.</p>
                     <a href="tests.html" class="cta-link">Testni boshlash</a>
                 </div>
                 
                 <div class="card">
-                    <h3>🤖 AI Maslahatchi</h3>
-                    <p>Sun'iy intellekt bilan suhbatlashing. U sizga kasb yo'nalishida maslahatlar beradi.</p>
+                    <h3><span class="material-icons">auto_awesome</span> AI Maslahatchi</h3>
+                    <p>Sun'iy intellekt bilan suhbatlashing. U sizga kasb tanlash va rivojlanish bo'yicha maslahatlar beradi.</p>
                     <a href="aichat.html" class="cta-link">Chatni ochish</a>
                 </div>
                 
                 <div class="card">
-                    <h3>💼 Ish topish</h3>
-                    <p>Sizning ko'nikmalaringizga mos keladigan ish e'lonlarini toping.</p>
+                    <h3><span class="material-icons">description</span> CV Generator</h3>
+                    <p>Professional rezyume (CV) va motivatsion xatingizni tez va oson yaratish uchun ushbu xizmatdan foydalaning.</p>
+                    <a href="cvgenerator.html" class="cta-link">CV yaratish</a>
+                </div>
+
+                <div class="card">
+                    <h3><span class="material-icons">lightbulb</span> Kasblar</h3>
+                    <p>Turli xil kasblar haqida batafsil ma'lumot, ularga qo'yiladigan talablar va kelajakdagi istiqbollarni o'rganing.</p>
+                    <a href="kasblar.html" class="cta-link">Ko'rib chiqish</a>
+                </div>
+
+                <div class="card">
+                    <h3><span class="material-icons">work</span> Ish topish</h3>
+                    <p>Sizning malakangiz va tajribangizga mos keladigan ish e'lonlarini toping va arizalar yuboring.</p>
                     <a href="./jobs.html" class="cta-link" id="jobs-cta-link">Ish qidirish</a>
+                </div>
+
+                <div class="card">
+                    <h3><span class="material-icons">assignment</span> Arizalar</h3>
+                    <p>Yuborgan ishingizga arizalar holatini kuzatib boring va yangilanishlardan xabardor bo'ling.</p>
+                    <a href="applications.html" class="cta-link">Arizalarim</a>
+                </div>
+
+                <div class="card">
+                    <h3><span class="material-icons">group</span> Biz haqimizda</h3>
+                    <p>Loyiha haqida batafsil ma'lumotga ega bo'ling, bizning maqsad va qadriyatlarimizni o'rganing.</p>
+                    <a href="about.html" class="cta-link">Batafsil ma'lumot</a>
+                </div>
+
+                <div class="card">
+                    <h3><span class="material-icons">contact_mail</span> Bog'lanish</h3>
+                    <p>Biz bilan aloqaga chiqish uchun ma'lumotlarimizni toping yoki bizga xabar yuboring.</p>
+                    <a href="contact.html" class="cta-link">Bog'lanish</a>
                 </div>
             </div>
             
@@ -369,11 +423,11 @@
                 }
 
                 if (role === 'employer') {
-                    jobsLink.setAttribute('href', 'ish-beruvchi-dashboard.html');
-                    jobsCtaLink.setAttribute('href', 'ish-beruvchi-dashboard.html');
+                    if (jobsLink) jobsLink.setAttribute('href', 'ish-beruvchi-dashboard.html');
+                    if (jobsCtaLink) jobsCtaLink.setAttribute('href', 'ish-beruvchi-dashboard.html');
                 } else {
-                    jobsLink.setAttribute('href', 'jobs.html');
-                    jobsCtaLink.setAttribute('href', 'jobs.html');
+                    if (jobsLink) jobsLink.setAttribute('href', 'jobs.html');
+                    if (jobsCtaLink) jobsCtaLink.setAttribute('href', 'jobs.html');
                 }
 
             } catch (err) {
@@ -416,7 +470,7 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             const counters = document.querySelectorAll('.small-card h4');
-            const speed = 100;
+            const speed = 250; // Animation speed
             counters.forEach(counter => {
                 const target = parseInt(counter.getAttribute('data-target')) || 0;
                 const suffix = counter.getAttribute('data-suffix') || '';

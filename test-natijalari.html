@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test natijalari</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" type="image/jpeg" href="./images/careerpathlogo.jpg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #2196F3;
+            --background-color: #f0f2f5;
+            --text-color: #333;
+            --light-text-color: #fff;
+            --card-bg: #fff;
+            --menu-bg: #2d3436;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+            background: var(--background-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* --- UI komponentlari (navbar, hamburger) --- */
+        .side-nav {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: var(--menu-bg);
+            color: var(--light-text-color);
+            padding-top: 60px;
+            transition: left 0.3s ease;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+            z-index: 20;
+        }
+
+        .side-nav.active {
+            left: 0;
+        }
+        
+        .side-nav a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: var(--light-text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            gap: 15px;
+        }
+        
+        .side-nav a:hover {
+            background-color: #444;
+        }
+        
+        .side-nav a .material-icons {
+            font-size: 24px;
+            width: 24px;
+            height: 24px;
+            text-align: center;
+        }
+
+        .main-content-container {
+            flex-grow: 1;
+            padding: 20px;
+            margin-left: 0;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-content-container.menu-open {
+            margin-left: 250px;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.5em;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--light-text-color);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .profile-menu {
+            position: relative;
+        }
+        .profile-btn {
+            background: none;
+            border: none;
+            color: var(--light-text-color);
+            font-family: inherit;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            min-width: 180px;
+            z-index: 10;
+        }
+        .profile-dropdown.active {
+            display: block;
+        }
+        .profile-dropdown a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: background-color 0.2s ease;
+        }
+        .profile-dropdown a:hover {
+            background-color: var(--background-color);
+        }
+        /* --- Asosiy kontent stili --- */
+        .container-results h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            position: static;
+            transform: none;
+        }
+        #results { display: flex; flex-direction: column; gap: 15px; align-items: center; }
+        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #4CAF50; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; display: inline-block; vertical-align: middle; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .result-card { 
+            width: 100%; 
+            max-width: 600px; 
+            background: #fff; 
+            border: 1px solid #ccc; 
+            border-radius: 8px; 
+            padding: 15px; 
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
+            transition: transform 0.2s; 
+            display: flex;
+            flex-direction: column;
+        }
+        .result-card:hover { transform: translateY(-2px); }
+        .result-card ul { list-style: none; margin: 0 0 10px 0; padding: 0; }
+        .result-card li { padding: 5px 0; border-bottom: 1px dashed #eee; }
+        .result-card li:last-child { border-bottom: none; }
+        .career-suggestion { background: #e6f7ff; padding: 10px; border-radius: 5px; font-weight: 600; margin-bottom: 10px; }
+        .career-suggestion ul { margin-top: 10px; }
+        .career-suggestion li { font-weight: normal; margin-bottom: 8px; border-bottom: 1px solid #d0e8f7; }
+        .career-suggestion li:last-child { border-bottom: none; }
+        .career-suggestion small { font-weight: normal; display: block; margin-top: 3px; color: #555; }
+        .full-list-btn {
+            background-color: var(--secondary-color);
+            color: var(--light-text-color);
+            border: none;
+            padding: 10px 15px;
+            font-size: 1em;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            margin-top: 10px;
+            align-self: flex-end;
+        }
+        .full-list-btn:hover {
+            background-color: #1a7bb9;
+        }
+        @media (max-width: 650px) { body { padding: 10px; } .result-card { padding: 10px; } }
+    </style>
+</head>
+<body>
+    <div class="side-nav" id="side-nav">
+        <a href="./index.html"><span class="material-icons">info</span> Bosh sahifa</a>
+        <a href="./careerpath.html"><span class="material-icons">home</span> Asosiy sahifa</a>
+        <a href="./dashboard.html"><span class="material-icons">person</span> Mening profilim</a>
+        <a href="./tests.html"><span class="material-icons">menu_book</span> Testlar</a>
+        <a href="./aichat.html"><span class="material-icons">auto_awesome</span>AI Maslahatchi</a>
+        <a href="./cvgenerator.html"><span class="material-icons">description</span> CV Generator</a>
+        <a href="./kasblar.html"><span class="material-icons">lightbulb</span> Kasblar</a>
+        <a href="./jobs.html"><span class="material-icons">work</span> Ish topish</a>
+        <a href="./applications.html"><span class="material-icons">assignment</span> Arizalar</a>
+        <a href="./about.html"><span class="material-icons">group</span> Biz haqimizda</a>
+        <a href="./contact.html"><span class="material-icons">contact_mail</span> Bog'lanish</a>
+    </div>
+
+    <div class="main-content-container" id="main-content-container">
+        <header class="header">
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <h1>CareerPath</h1>
+            <div class="profile-menu">
+                <button class="profile-btn" id="profile-btn">
+                    <span id="user-email-display">foydalanuvchi@gmail.com</span> ▼
+                </button>
+                <div class="profile-dropdown" id="profile-dropdown">
+                    <a href="dashboard.html">Mening profilim</a>
+                    <a href="#" id="logout-link">Tizimdan chiqish</a>
+                </div>
+            </div>
+        </header>
+
+        <div style="padding: 20px;">
+            <div class="container-results">
+                <h1>📊 Test natijalari va kasb tavsiyalari</h1>
+                <div id="results"><span class="spinner"></span> Yuklanmoqda...</div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA86zhSVi4FSw-GvFBdOZsCPaHMS67XA78",
+            authDomain: "carrer-path-a5810.firebaseapp.com",
+            projectId: "carrer-path-a5810",
+            storageBucket: "carrer-path-a5810.firebasestorage.app",
+            messagingSenderId: "693831778129",
+            appId: "1:693831778129:web:911293c5c284eefe295d70"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let careersList = [];
+
+        async function loadCareers() {
+            try {
+                const res = await fetch("kasblar.json");
+                careersList = await res.json();
+            } catch (err) {
+                console.warn("Kasblar ro'yxati yuklanmadi. Muammoni tekshiring: ", err);
+            }
+        }
+
+        function getCareerSuggestions(score, careers) {
+            if (!score || Object.keys(score).length === 0 || !careers || careers.length === 0) {
+                return "🧭 Natijalar aniqlanmadi.";
+            }
+
+            const userPersonality = {
+                'extraversion': score.Extroversion > score.Introversion,
+                'introversion': score.Introversion >= score.Extroversion,
+                'openness': score.Intuitiv > score.Analitik,
+                'conscientiousness': score.Analitik >= score.Intuitiv,
+                'agreeableness': score.Emotsional > score.Mantiqiy,
+                'emotional_stability': score.Mantiqiy >= score.Emotsional
+            };
+
+            const bigFiveTraits = [];
+            for (const trait in userPersonality) {
+                if (userPersonality[trait]) {
+                    bigFiveTraits.push(trait);
+                }
+            }
+
+            const careersWithScores = careers.map(career => {
+                let matchCount = 0;
+                career.personality_match.forEach(personalityTrait => {
+                    if (bigFiveTraits.includes(personalityTrait)) {
+                        matchCount++;
+                    }
+                });
+                return { ...career, matchCount };
+            });
+
+            careersWithScores.sort((a, b) => b.matchCount - a.matchCount);
+
+            // Faqat eng yaxshi 7 ta mos kasblarni olish
+            const topMatchedCareers = careersWithScores.filter(career => career.matchCount > 0).slice(0, 7);
+
+            if (topMatchedCareers.length === 0) {
+                return "🧭 Siz uchun aniq bir tavsiya topilmadi. O'zingiz yoqtirgan sohaga e'tibor bering.";
+            }
+            
+            let suggestionList = "<ul>";
+            topMatchedCareers.forEach(career => {
+                suggestionList += `<li><b>${career.title}</b><br><small>${career.description.substring(0, 70)}...</small></li>`;
+            });
+            suggestionList += "</ul>";
+            
+            return `🧭 Sizga mos keladigan kasblar: ${suggestionList}`;
+        }
+
+        async function loadResults() {
+            try {
+                await loadCareers();
+
+                const querySnapshot = await getDocs(collection(db, "test_results"));
+                const container = document.getElementById("results");
+                container.innerHTML = "";
+
+                if (querySnapshot.empty) {
+                    container.innerHTML = "<p>❌ Natijalar topilmadi</p>";
+                    return;
+                }
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    let answersText = "";
+                    for (let key in data.answers) {
+                        answersText += `<li>${key}: <b>${data.answers[key]}</b></li>`;
+                    }
+
+                    const recommendedCareersHTML = getCareerSuggestions(data.answers, careersList);
+                    const date = data.completedAt?.toDate ? data.completedAt.toDate().toLocaleString("uz-UZ") : "Noma’lum vaqt";
+
+                    const div = document.createElement("div");
+                    div.className = "result-card";
+                    div.innerHTML = `
+                        <h3>👤 User ID: ${doc.id}</h3>
+                        <ul>${answersText}</ul>
+                        <div class="career-suggestion">${recommendedCareersHTML}</div>
+                        <p>⏰ Tugatgan vaqt: ${date}</p>
+                        <a href="kasblar.html" class="full-list-btn">Barcha kasblarni ko'rish</a>
+                    `;
+                    container.appendChild(div);
+                });
+            } catch (err) {
+                console.error("❌ Xatolik:", err);
+                document.getElementById("results").innerHTML = `<p style="color:red">Xatolik: ${err.message}</p>`;
+            }
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById('user-email-display').textContent = user.email;
+                loadResults();
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+        
+        const profileBtn = document.getElementById('profile-btn');
+        const profileDropdown = document.getElementById('profile-dropdown');
+        if (profileBtn && profileDropdown) {
+             profileBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                profileDropdown.classList.toggle('active');
+            });
+        }
+
+        document.addEventListener('click', (e) => {
+            if (profileDropdown && profileDropdown.classList.contains('active')) {
+                const isClickInside = profileDropdown.contains(e.target) || profileBtn.contains(e.target);
+                if (!isClickInside) {
+                    profileDropdown.classList.remove('active');
+                }
+            }
+        });
+
+        const logoutLink = document.getElementById('logout-link');
+        if (logoutLink) {
+             logoutLink.addEventListener('click', (e) => {
+                 e.preventDefault();
+                 signOut(auth).then(() => {
+                     window.location.href = "login.html";
+                 });
+             });
+        }
+        
+        const menuToggle = document.getElementById('menu-toggle');
+        const sideNav = document.getElementById('side-nav');
+        const mainContent = document.getElementById('main-content-container');
+        
+        menuToggle.addEventListener('click', () => {
+            sideNav.classList.toggle('active');
+            mainContent.classList.toggle('menu-open');
+            menuToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
