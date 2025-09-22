@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Premium rejalar - CareerPath</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/jpeg" href="./images/careerpathlogo.jpg">
+    <style>
+        :root {
+    --primary-color: #4CAF50;
+    --secondary-color: #2196F3;
+    --background-color: #f0f2f5;
+    --text-color: #333;
+    --light-text-color: #fff;
+    --card-bg: #fff;
+    --menu-bg: #2d3436;
+}
+
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.side-nav {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: var(--menu-bg);
+    color: var(--light-text-color);
+    padding-top: 60px;
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+    z-index: 20;
+}
+
+.side-nav.active {
+    left: 0;
+}
+
+.side-nav a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    color: var(--light-text-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.side-nav a:hover {
+    background: #444;
+}
+
+.side-nav a .material-icons {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+}
+
+.main-content-container {
+    flex-grow: 1;
+    padding: 20px;
+    margin-left: 0;
+    transition: margin-left .3s ease;
+}
+
+.main-content-container.menu-open {
+    margin-left: 250px;
+}
+
+.header {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.header h1 {
+    margin:0;
+    font-size:1.5em;
+}
+
+.menu-toggle {
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    cursor:pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--light-text-color);
+    transition: transform .3s;
+}
+
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.profile-menu {
+    position: relative;
+}
+.profile-btn {
+    background: transparent;
+    border: 0;
+    color: var(--light-text-color);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background: #fff;
+    color: #111;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    overflow: hidden;
+    min-width: 160px;
+    z-index: 30;
+}
+
+.profile-dropdown a {
+    display: block;
+    padding: 10px 14px;
+    color: #111;
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+}
+
+.profile-dropdown a:hover {
+    background: #f6f6f6;
+}
+
+.plans-container-wrapper {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.plans-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.plan-card {
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+    width: 100%;
+    max-width: 280px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.plan-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.plan-card.premium {
+    border: 2px solid var(--secondary-color);
+    background: #eef7ff;
+}
+
+.plan-card h3 {
+    font-size: 1.8em;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.plan-card.premium h3 {
+    color: var(--secondary-color);
+}
+
+.plan-card .price {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.plan-card .period {
+    font-size: 0.9em;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.plan-card ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.plan-card li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #555;
+}
+
+.plan-card li .material-icons {
+    font-size: 20px;
+    color: var(--primary-color);
+}
+
+.plan-card.premium li .material-icons {
+    color: var(--secondary-color);
+}
+
+.plan-card .cta-button {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.plan-card .cta-button:hover {
+    background-color: #45a049;
+}
+
+.plan-card.premium .cta-button {
+    background-color: var(--secondary-color);
+}
+
+.plan-card.premium .cta-button:hover {
+    background-color: #1a7bb9;
+}
+
+/* --- Mobilga moslashuvchan @media qoidalari --- */
+@media (max-width: 980px) {
+    .main-content-container {
+        padding: 10px;
+    }
+    .main-content-container.menu-open {
+        margin-left: 0;
+    }
+    .header {
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        padding: 12px 15px;
+    }
+    .plans-container-wrapper {
+        margin-top: 80px;
+        padding: 15px;
+    }
+    .profile-btn span {
+        display: none;
+    }
+    .plans-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .plan-card {
+        max-width: 100%;
+        padding: 20px;
+    }
+}
+@media (max-width: 576px) {
+    .header h1 {
+        font-size: 1.2em;
+    }
+    .menu-toggle {
+        order: -1;
+    }
+    .plan-card h3 {
+        font-size: 1.5em;
+    }
+    .plan-card .price {
+        font-size: 2em;
+    }
+    .plan-card ul {
+        font-size: 0.9em;
+    }
+    .plan-card .cta-button {
+        width: 100%;
+        font-size: 1em;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="side-nav" id="side-nav">
+        <a href="./index.html"><span class="material-icons">info</span> Bosh sahifa</a>
+        <a href="./careerpath.html"><span class="material-icons">home</span> Asosiy sahifa</a>
+        <a href="./dashboard.html"><span class="material-icons">person</span> Mening profilim</a>
+        <a href="./tests.html"><span class="material-icons">menu_book</span> Testlar</a>
+        <a href="./aichat.html"><span class="material-icons">auto_awesome</span>AI Maslahatchi</a>
+        <a href="./cvgenerator.html"><span class="material-icons">description</span> CV Generator</a>
+        <a href="./kasblar.html"><span class="material-icons">lightbulb</span> Kasblar</a>
+        <a href="./jobs.html"><span class="material-icons">work</span> Ish topish</a>
+        <a href="./applications.html"><span class="material-icons">assignment</span> Arizalar</a>
+        <a href="./about.html"><span class="material-icons">group</span> Biz haqimizda</a>
+        <a href="./contact.html"><span class="material-icons">contact_mail</span> Bog'lanish</a>
+    </div>
+
+    <div class="main-content-container" id="main-content-container">
+        <header class="header">
+            <div style="display:flex;align-items:center;gap:12px">
+                <div class="menu-toggle" id="menu-toggle" aria-label="menu toggle" role="button" tabindex="0">
+                    <span></span><span></span><span></span>
+                </div>
+                <h1 style="margin:0">Premium rejalar</h1>
+            </div>
+            <div class="profile-menu">
+                <button class="profile-btn" id="profile-btn"><span id="user-email-display">...</span> ▼</button>
+                <div class="profile-dropdown" id="profile-dropdown">
+                    <a href="dashboard.html">Mening profilim</a>
+                    <a href="#" id="logout-link">Tizimdan chiqish</a>
+                </div>
+            </div>
+        </header>
+
+        <div class="plans-container-wrapper">
+            <div class="plans-container">
+                <div class="plan-card">
+                    <h3>Bepul</h3>
+                    <div class="price">0 so'm</div>
+                    <div class="period">har oy</div>
+                    <ul>
+                        <li><span class="material-icons">check_circle</span> 1 ta CV shabloni</li>
+                        <li><span class="material-icons">check_circle</span> AI maslahatchi (cheklangan)</li>
+                        <li><span class="material-icons">check_circle</span> Asosiy testlar</li>
+                        <li><span class="material-icons" style="color: #e53935;">cancel</span> Premium shablonlar</li>
+                        <li><span class="material-icons" style="color: #e53935;">cancel</span> Cheksiz AI maslahat</li>
+                    </ul>
+                    <button class="cta-button" disabled>Sizda mavjud</button>
+                </div>
+
+                <div class="plan-card premium">
+                    <h3>Premium</h3>
+                    <div class="price">10,000 so'm</div>
+                    <div class="period">har oy</div>
+                    <ul>
+                        <li><span class="material-icons">check_circle</span> Barcha CV shablonlari</li>
+                        <li><span class="material-icons">check_circle</span> Yetarlicha AI maslahat</li>
+                        <li><span class="material-icons">check_circle</span> Barcha testlar va natijalar tahlili</li>
+                        <li><span class="material-icons">check_circle</span> Yuqori darajadagi ish e'lonlari</li>
+                        <li><span class="material-icons">check_circle</span> Ustuvor texnik yordam</li>
+                    </ul>
+                    <button class="cta-button" id="buy-premium-btn">Sotib olish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+        import { getFirestore, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+        // Firebase sozlamalari
+        const firebaseConfig = {
+            apiKey: "AIzaSyA86zhSVi4FSw-GvFBdOZsCPaHMS67XA78",
+            authDomain: "carrer-path-a5810.firebaseapp.com",
+            projectId: "carrer-path-a5810",
+            storageBucket: "carrer-path-a5810.firebasestorage.app",
+            messagingSenderId: "693831778129",
+            appId: "1:693831778129:web:911293c5c284eefe295d70"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Foydalanuvchi holatini tekshirish
+        const userEmailDisplay = document.getElementById('user-email-display');
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                userEmailDisplay.textContent = user.email || 'Foydalanuvchi';
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        // Tizimdan chiqish funksiyasi
+        const logoutLink = document.getElementById('logout-link');
+        if (logoutLink) {
+            logoutLink.addEventListener('click', async (e) => {
+                e.preventDefault();
+                try {
+                    await signOut(auth);
+                    window.location.href = "login.html";
+                } catch (err) {
+                    console.error("Tizimdan chiqishda xatolik yuz berdi:", err);
+                }
+            });
+        }
+        
+        // Menyu toggle va profil dropdown logikasi
+        const menuToggle = document.getElementById('menu-toggle');
+        const sideNav = document.getElementById('side-nav');
+        const mainContent = document.getElementById('main-content-container');
+        const profileBtn = document.getElementById('profile-btn');
+        const profileDropdown = document.getElementById('profile-dropdown');
+
+        if (menuToggle && sideNav && mainContent) {
+            menuToggle.addEventListener('click', () => {
+                sideNav.classList.toggle('active');
+                mainContent.classList.toggle('menu-open');
+                menuToggle.classList.toggle('active');
+            });
+        }
+        
+        if (profileBtn && profileDropdown) {
+            profileBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
+            });
+        }
+
+        document.addEventListener('click', (e) => {
+            if (profileBtn && !profileBtn.contains(e.target)) {
+                profileDropdown.style.display = 'none';
+            }
+        });
+
+        // Tugmani bosish logikasi
+        const buyPremiumBtn = document.getElementById('buy-premium-btn');
+        if (buyPremiumBtn) {
+            buyPremiumBtn.addEventListener('click', async () => {
+                const user = auth.currentUser;
+                if (user) {
+                    try {
+                        const userRef = doc(db, "users", user.uid);
+                        await updateDoc(userRef, {
+                            isPremium: true
+                        });
+                        alert("Tabriklaymiz! Endi siz premium obunaga egasiz.");
+                        window.location.href = "careerpath.html";
+                    } catch (e) {
+                        console.error("Xatolik: ", e);
+                        alert("To'lov amalga oshirishda xatolik yuz berdi. Iltimos, qayta urinib ko'ring.");
+                    }
+                } else {
+                    window.location.href = "login.html";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

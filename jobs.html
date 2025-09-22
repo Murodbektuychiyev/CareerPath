@@ -7,8 +7,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="icon" type="image/jpeg" href="../images/careerpathlogo.jpg">
     <style>
-        /* ... stil hammasi siz yuborgandek ... */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
         :root {
             --primary-color: #4CAF50;
             --secondary-color: #2196F3;
@@ -19,42 +19,348 @@
             --menu-bg: #2d3436;
             --border-color: #ddd;
         }
-        body { font-family: 'Poppins', sans-serif; margin: 0; padding: 0; display: flex; min-height: 100vh; background: var(--background-color); color: var(--text-color); position: relative; overflow-x: hidden;}
-        .side-nav { position: fixed; top: 0; left: -250px; width: 250px; height: 100%; background-color: var(--menu-bg); color: var(--light-text-color); padding-top: 60px; transition: left 0.3s ease; box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3); z-index: 20;}
-        .side-nav.active { left: 0; }
-        .side-nav a { display: flex; align-items: center; padding: 15px 20px; color: var(--light-text-color); text-decoration: none; font-weight: 500; transition: background-color 0.3s ease; gap: 15px;}
-        .side-nav a:hover { background-color: #444; }
-        .side-nav a .material-icons { font-size: 24px; width: 24px; height: 24px; text-align: center;}
-        .main-content-container { flex-grow: 1; padding: 20px; margin-left: 0; transition: margin-left 0.3s ease;}
-        .main-content-container.menu-open { margin-left: 250px; }
-        .header { background-color: var(--primary-color); color: var(--light-text-color); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);}
-        .header h1 { margin: 0; font-size: 1.5em;}
-        .menu-toggle { display: flex; flex-direction: column; gap: 5px; cursor: pointer;}
-        .menu-toggle span { display: block; width: 25px; height: 3px; background-color: var(--light-text-color); transition: transform 0.3s ease;}
-        .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px);}
-        .menu-toggle.active span:nth-child(2) { opacity: 0;}
-        .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px);}
-        .container { max-width: 1200px; margin: 20px auto; padding: 20px; background-color: var(--card-bg); border-radius: 15px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); line-height: 1.6;}
-        .jobs-header { text-align: center; margin-bottom: 30px;}
-        .jobs-header h2 { color: var(--primary-color); margin: 0;}
-        .job-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;}
-        .job-card { background-color: var(--background-color); padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); transition: transform 0.3s ease;}
-        .job-card:hover { transform: translateY(-5px);}
-        .job-card h3 { margin: 0 0 10px 0; color: var(--secondary-color);}
-        .job-card p { margin: 0 0 15px 0;}
-        .job-card .job-actions { display: flex; gap: 10px; margin-top: 15px;}
-        .job-card .job-actions button { background-color: var(--primary-color); color: var(--light-text-color); text-decoration: none; padding: 8px 15px; border-radius: 5px; display: inline-block; border: none; cursor: pointer; transition: background-color 0.3s ease;}
-        .job-card .job-actions button.chat-btn { background-color: var(--secondary-color);}
-        .job-card .job-actions button:hover { background-color: #45a049;}
-        .job-card .job-actions button.chat-btn:hover { background-color: #1a7bb9;}
-        .company-info { display: flex; align-items: center; gap: 15px; margin-bottom: 15px;}
-        .company-logo { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; flex-shrink: 0;}
-        .logo-placeholder { width: 50px; height: 50px; background: #ccc; border-radius: 50%; flex-shrink: 0;}
-        .job-form { max-width: 500px; margin: 30px auto; padding: 20px; background: #f8f8f8; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,.08);}
-        .job-form label { display: block; margin-top: 15px; font-weight: 600;}
-        .job-form input, .job-form textarea { width: 100%; padding: 8px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc;}
-        .job-form button { margin-top: 20px; background: var(--primary-color); color: #fff; border: none; padding: 10px 22px; border-radius: 7px; font-weight: 600; cursor: pointer;}
-        .job-form button:hover { background: var(--secondary-color);}
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+            background: var(--background-color);
+            color: var(--text-color);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .side-nav {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: var(--menu-bg);
+            color: var(--light-text-color);
+            padding-top: 60px;
+            transition: left 0.3s ease;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+            z-index: 20;
+        }
+
+        .side-nav.active {
+            left: 0;
+        }
+
+        .side-nav a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: var(--light-text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            gap: 15px;
+        }
+
+        .side-nav a:hover {
+            background-color: #444;
+        }
+
+        .side-nav a .material-icons {
+            font-size: 24px;
+            width: 24px;
+            height: 24px;
+            text-align: center;
+        }
+
+        .main-content-container {
+            flex-grow: 1;
+            padding: 20px;
+            margin-left: 0;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-content-container.menu-open {
+            margin-left: 250px;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--light-text-color);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            line-height: 1.6;
+        }
+
+        .jobs-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .jobs-header h2 {
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .job-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .job-card {
+            background-color: var(--background-color);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .job-card h3 {
+            margin: 0 0 10px 0;
+            color: var(--secondary-color);
+        }
+
+        .job-card p {
+            margin: 0 0 15px 0;
+        }
+        
+        .job-card .editable-input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .job-card .job-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .job-card .job-actions button {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .job-card .job-actions button.chat-btn {
+            background-color: var(--secondary-color);
+        }
+
+        .job-card .job-actions button:hover {
+            background-color: #45a049;
+        }
+
+        .job-card .job-actions button.chat-btn:hover {
+            background-color: #1a7bb9;
+        }
+
+        .company-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .company-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .logo-placeholder {
+            width: 50px;
+            height: 50px;
+            background: #ccc;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .job-form {
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #f8f8f8;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .08);
+        }
+
+        .job-form label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        .job-form input,
+        .job-form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .job-form button {
+            margin-top: 20px;
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 7px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .job-form button:hover {
+            background: var(--secondary-color);
+        }
+        
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            min-width: 180px;
+            z-index: 10;
+        }
+        
+        .profile-dropdown a {
+            display: block;
+            padding: 12px 16px;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+        
+        .profile-dropdown a:hover {
+            background-color: var(--background-color);
+        }
+
+        .profile-btn {
+            background-color: transparent;
+            border: none;
+            color: var(--light-text-color);
+            font-size: 1em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .profile-btn span {
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* --- Mobilga moslashuvchan @media qoidalari --- */
+        @media (max-width: 980px) {
+            .main-content-container.menu-open {
+                margin-left: 0;
+            }
+            .side-nav.active {
+                left: 0;
+                width: 250px;
+            }
+            .container {
+                max-width: 100%;
+                margin-top: 80px;
+                padding: 15px;
+                border-radius: 0;
+                box-shadow: none;
+            }
+            .job-list {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .profile-btn span {
+                display: none;
+            }
+        }
+        @media (max-width: 576px) {
+            .header h1 {
+                font-size: 1.2em;
+            }
+            .menu-toggle {
+                order: -1;
+            }
+            .job-card .job-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            .job-card .job-actions button {
+                width: 100%;
+            }
+            .job-form {
+                max-width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -77,7 +383,7 @@
                 <span></span><span></span><span></span>
             </div>
             <h1>CareerPath</h1>
-            <div class="profile-menu">
+            <div style="position: relative;">
                 <button class="profile-btn" id="profile-btn">
                     <span id="user-email-display">Yuklanmoqda...</span> ▼
                 </button>
@@ -112,230 +418,346 @@
         </div>
     </div>
     <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-    import { getFirestore, collection, getDocs, doc, getDoc, addDoc, query, where } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-    const firebaseConfig = {
-        apiKey: "AIzaSyA86zhSVi4FSw-GvFBdOZsCPaHMS67XA78",
-        authDomain: "carrer-path-a5810.firebaseapp.com",
-        projectId: "carrer-path-a5810",
-        storageBucket: "carrer-path-a5810.appspot.com",
-        messagingSenderId: "693831778129",
-        appId: "1:693831778129:web:911293c5c284eefe295d70"
-    };
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    let currentUser = null;
-    let userRole = "user"; // default
-    function escapeHtml(s) {
-        if (!s) return '';
-        return String(s)
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#039;');
-    }
-    const jobListContainer = document.getElementById('job-list');
-    const jobForm = document.getElementById('job-form');
-    const jobsHeaderDesc = document.getElementById('jobs-header-desc');
-    function renderJobs(jobs) {
-        jobListContainer.innerHTML = '';
-        if (!jobs || jobs.length === 0) {
-            jobListContainer.innerHTML = '<p style="text-align:center;">Ish e\'lonlari topilmadi.</p>';
-            return;
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+        import { getFirestore, collection, getDocs, doc, getDoc, addDoc, query, where, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+        
+        // **DIQQAT: API kaliti bu yerda namuna uchun ko'rsatilgan. Haqiqiy loyihada xavfsizlik uchun uni server yoki environment variables orqali ishlating.**
+        const firebaseConfig = {
+            apiKey: "AIzaSyA86zhSVi4FSw-GvFBdOZsCPaHMS67XA78",
+            authDomain: "carrer-path-a5810.firebaseapp.com",
+            projectId: "carrer-path-a5810",
+            storageBucket: "carrer-path-a5810.appspot.com",
+            messagingSenderId: "693831778129",
+            appId: "1:693831778129:web:911293c5c284eefe295d70"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        let currentUser = null;
+        let userRole = "user";
+
+        function escapeHtml(s) {
+            if (!s) return '';
+            return String(s)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
         }
-        const placeholder = 'https://placehold.co/50x50/cccccc/333333?text=Logo';
-        jobs.forEach(job => {
-            const jobCard = document.createElement('div');
-            jobCard.className = 'job-card';
-            const companyInfo = document.createElement('div');
-            companyInfo.className = 'company-info';
-            const img = document.createElement('img');
-            img.className = 'company-logo';
-            img.src = job.logoUrl || placeholder;
-            img.alt = 'Kompaniya logosi';
-            img.onerror = function () { this.onerror = null; this.src = placeholder; };
-            const infoDiv = document.createElement('div');
-            const h3 = document.createElement('h3');
-            h3.textContent = job.title || '—';
-            const pCompany = document.createElement('p');
-            const strong = document.createElement('strong');
-            strong.textContent = 'Kompaniya: ';
-            pCompany.appendChild(strong);
-            pCompany.appendChild(document.createTextNode(job.company || '—'));
-            infoDiv.appendChild(h3);
-            infoDiv.appendChild(pCompany);
-            companyInfo.appendChild(img);
-            companyInfo.appendChild(infoDiv);
-            const pType = document.createElement('p');
-            pType.innerHTML = `<strong>Ish turi:</strong> ${escapeHtml(job.type || '—')}`;
-            const pLocation = document.createElement('p');
-            pLocation.innerHTML = `<strong>Joylashuv:</strong> ${escapeHtml(job.location || '—')}`;
-            const pDesc = document.createElement('p');
-            pDesc.textContent = job.description || '';
-            const pEmail = document.createElement('p');
-            pEmail.innerHTML = `<strong>📧 Email:</strong> ${escapeHtml(job.employerEmail || '—')}`;
-            // Faqat oddiy foydalanuvchi uchun ariza tugmasi
-            if (userRole === 'user') {
+
+        const jobListContainer = document.getElementById('job-list');
+        const jobForm = document.getElementById('job-form');
+        const jobsHeaderDesc = document.getElementById('jobs-header-desc');
+
+        function renderJobs(jobs) {
+            jobListContainer.innerHTML = '';
+            if (!jobs || jobs.length === 0) {
+                jobListContainer.innerHTML = '<p style="text-align:center;">Ish e\'lonlari topilmadi.</p>';
+                return;
+            }
+            
+            const placeholder = 'https://placehold.co/50x50/cccccc/333333?text=Logo';
+
+            jobs.forEach(job => {
+                const jobCard = document.createElement('div');
+                jobCard.className = 'job-card';
+                jobCard.dataset.jobId = job.id;
+
+                const companyInfo = document.createElement('div');
+                companyInfo.className = 'company-info';
+
+                const img = document.createElement('img');
+                img.className = 'company-logo';
+                img.src = job.logoUrl || placeholder;
+                img.alt = 'Kompaniya logosi';
+                img.onerror = function () { this.onerror = null; this.src = placeholder; };
+
+                const infoDiv = document.createElement('div');
+                const h3 = document.createElement('h3');
+                h3.textContent = job.title || '—';
+
+                const pCompany = document.createElement('p');
+                const strongCompany = document.createElement('strong');
+                strongCompany.textContent = 'Kompaniya: ';
+                pCompany.appendChild(strongCompany);
+                pCompany.appendChild(document.createTextNode(job.company || '—'));
+
+                infoDiv.appendChild(h3);
+                infoDiv.appendChild(pCompany);
+                companyInfo.appendChild(img);
+                companyInfo.appendChild(infoDiv);
+
+                const pType = document.createElement('p');
+                pType.innerHTML = `<strong>Ish turi:</strong> <span class="job-type-span">${escapeHtml(job.type || '—')}</span>`;
+
+                const pLocation = document.createElement('p');
+                pLocation.innerHTML = `<strong>Joylashuv:</strong> <span class="job-location-span">${escapeHtml(job.location || '—')}</span>`;
+
+                const pDesc = document.createElement('p');
+                pDesc.className = 'job-description-span';
+                pDesc.textContent = job.description || '';
+
+                const pEmail = document.createElement('p');
+                pEmail.innerHTML = `<strong>📧 Email:</strong> ${escapeHtml(job.employerEmail || '—')}`;
+
+                jobCard.appendChild(companyInfo);
+                jobCard.appendChild(pType);
+                jobCard.appendChild(pLocation);
+                jobCard.appendChild(pDesc);
+                jobCard.appendChild(pEmail);
+
                 const actions = document.createElement('div');
                 actions.className = 'job-actions';
-                const applyBtn = document.createElement('button');
-                applyBtn.className = 'apply-btn';
-                applyBtn.textContent = 'Ariza yuborish';
-                applyBtn.addEventListener('click', async () => {
-                    if (!currentUser) {
-                        alert('Ariza yuborish uchun avval tizimga kiring.');
-                        window.location.href = 'login.html';
-                        return;
-                    }
-                    if (currentUser.uid === job.employerId) {
-                        alert('O\'z e\'loningizga ariza yubora olmaysiz.');
-                        return;
-                    }
-                    try {
-                        const userProfileRef = doc(db, 'users', currentUser.uid);
-                        const userProfileSnap = await getDoc(userProfileRef);
-                        if (!userProfileSnap.exists()) {
-                            alert('Profil ma\'lumotlaringiz to\'liq emas. Iltimos, profil sahifasiga o\'tib, ma\'lumotlarni to\'ldiring.');
-                            window.location.href = 'dashboard.html';
-                            return;
-                        }
-                        const userData = userProfileSnap.data();
-                        const newApplication = {
-                            jobId: job.id,
-                            jobTitle: job.title,
-                            company: job.company,
-                            employerEmail: job.employerEmail,
-                            userId: currentUser.uid,
-                            userEmail: currentUser.email,
-                            fullName: userData.fullName || 'Noma\'lum',
-                            location: userData.location || 'Noma\'lum',
-                            phoneNumber: userData.phoneNumber || 'Noma\'lum',
-                            status: 'pending',
-                            appliedAt: new Date()
-                        };
-                        await addDoc(collection(db, 'applications'), newApplication);
-                        alert('Arizangiz muvaffaqiyatli yuborildi!');
-                    } catch (err) {
-                        console.error('Ariza yuborishda xato:', err);
-                        alert('Ariza yuborishda xato yuz berdi. Iltimos, keyinroq urinib ko\'ring.');
-                    }
-                });
-                actions.appendChild(applyBtn);
-                jobCard.appendChild(companyInfo);
-                jobCard.appendChild(pType);
-                jobCard.appendChild(pLocation);
-                jobCard.appendChild(pDesc);
-                jobCard.appendChild(pEmail);
+
+                if (userRole === 'employer' && currentUser && currentUser.uid === job.employerId) {
+                    const editBtn = document.createElement('button');
+                    editBtn.textContent = 'Tahrirlash';
+                    editBtn.className = 'edit-btn';
+                    editBtn.addEventListener('click', () => toggleEditMode(jobCard));
+
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.textContent = 'O\'chirish';
+                    deleteBtn.className = 'delete-btn';
+                    deleteBtn.addEventListener('click', () => deleteJob(job.id));
+
+                    const saveBtn = document.createElement('button');
+                    saveBtn.textContent = 'Saqlash';
+                    saveBtn.className = 'save-btn';
+                    saveBtn.style.display = 'none';
+                    saveBtn.addEventListener('click', () => saveJobChanges(jobCard, job.id));
+                    
+                    actions.appendChild(editBtn);
+                    actions.appendChild(deleteBtn);
+                    actions.appendChild(saveBtn);
+                } else if (userRole === 'user' && currentUser) {
+                    const applyBtn = document.createElement('button');
+                    applyBtn.className = 'apply-btn';
+                    applyBtn.textContent = 'Ariza yuborish';
+                    applyBtn.addEventListener('click', () => applyForJob(job));
+                    actions.appendChild(applyBtn);
+                }
                 jobCard.appendChild(actions);
-            } else {
-                // Ish beruvchi uchun faqat ko'rsatish
-                jobCard.appendChild(companyInfo);
-                jobCard.appendChild(pType);
-                jobCard.appendChild(pLocation);
-                jobCard.appendChild(pDesc);
-                jobCard.appendChild(pEmail);
-            }
-            jobListContainer.appendChild(jobCard);
-        });
-    }
-    async function fetchJobs() {
-        jobListContainer.innerHTML = '<p style="text-align:center;">Ish e\'lonlari yuklanmoqda...</p>';
-        try {
-            const jobsCol = collection(db, 'jobs');
-            const jobsSnapshot = await getDocs(jobsCol);
-            const jobs = [];
-            jobsSnapshot.forEach(d => jobs.push({ id: d.id, ...d.data() }));
-            renderJobs(jobs);
-        } catch (err) {
-            console.error('Fetch jobs error:', err);
-            jobListContainer.innerHTML = '<p style="text-align:center; color:red;">Ish e\'lonlarini yuklashda xato yuz berdi.</p>';
-        }
-    }
-    async function getUserRole(user) {
-        // Foydalanuvchi hujjatidan role ni o'qish
-        try {
-            const userRef = doc(db, "users", user.uid);
-            const userSnap = await getDoc(userRef);
-            if (userSnap.exists() && userSnap.data().role) {
-                return userSnap.data().role;
-            }
-        } catch {}
-        return "user";
-    }
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            currentUser = user;
-            document.getElementById('user-email-display').textContent = user.email || user.uid;
-            userRole = await getUserRole(user);
-            if (userRole === "employer") {
-                jobsHeaderDesc.textContent = "Siz ish beruvchisiz. Quyida e'lonlarni ko'ring va yangi ish e'lonini joylashtiring.";
-                jobForm.style.display = "block";
-            } else {
-                jobsHeaderDesc.textContent = "Sizning ko'nikmalaringizga mos keladigan ish e'lonlarini toping.";
-                jobForm.style.display = "none";
-            }
-            await fetchJobs();
-        } else {
-            window.location.href = 'login.html';
-        }
-    });
-    jobForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        if (!currentUser || userRole !== "employer") return;
-        const title = document.getElementById('job-title').value.trim();
-        const company = document.getElementById('job-company').value.trim();
-        const type = document.getElementById('job-type').value.trim();
-        const location = document.getElementById('job-location').value.trim();
-        const description = document.getElementById('job-description').value.trim();
-        const logoUrl = document.getElementById('job-logo').value.trim();
-        if (!title || !company || !type || !location || !description) {
-            alert("Barcha maydonlarni to'ldiring!");
-            return;
-        }
-        try {
-            await addDoc(collection(db, "jobs"), {
-                title, company, type, location, description, logoUrl,
-                employerId: currentUser.uid,
-                employerEmail: currentUser.email
+                jobListContainer.appendChild(jobCard);
             });
-            alert("Ish e'loni joylashtirildi!");
-            jobForm.reset();
-            await fetchJobs();
-        } catch (err) {
-            alert("E'lon joylashtirishda xato.");
         }
-    });
-    // Profil menyu va logout
-    const profileBtn = document.getElementById('profile-btn');
-    const profileDropdown = document.getElementById('profile-dropdown');
-    profileBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        profileDropdown.style.display = profileDropdown.style.display === 'none' ? 'block' : 'none';
-    });
-    document.addEventListener('click', (e) => {
-        if (profileBtn && !profileBtn.contains(e.target)) profileDropdown.style.display = 'none';
-    });
-    const logoutLink = document.getElementById('logout-link');
-    logoutLink.addEventListener('click', async (e) => {
-        e.preventDefault();
-        try {
-            await signOut(auth);
-            window.location.href = 'login.html';
-        } catch (err) {
-            console.error('Sign out error', err);
+        
+        async function deleteJob(jobId) {
+            if (confirm("Haqiqatdan ham bu ish e'lonini o'chirmoqchimisiz?")) {
+                try {
+                    await deleteDoc(doc(db, "jobs", jobId));
+                    alert("Ish e'loni o'chirildi!");
+                    fetchJobs();
+                } catch (err) {
+                    console.error("O'chirishda xato:", err);
+                    alert("O'chirishda xatolik yuz berdi.");
+                }
+            }
         }
-    });
-    // Menu toggle
-    const menuToggle = document.getElementById('menu-toggle');
-    const sideNav = document.getElementById('side-nav');
-    const mainContent = document.getElementById('main-content-container');
-    menuToggle.addEventListener('click', () => {
-        sideNav.classList.toggle('active');
-        mainContent.classList.toggle('menu-open');
-    });
+        
+        function toggleEditMode(jobCard) {
+            const isEditing = jobCard.classList.toggle('is-editing');
+            const saveBtn = jobCard.querySelector('.save-btn');
+            const editBtn = jobCard.querySelector('.edit-btn');
+            const typeSpan = jobCard.querySelector('.job-type-span');
+            const locationSpan = jobCard.querySelector('.job-location-span');
+            const descriptionSpan = jobCard.querySelector('.job-description-span');
+
+            if (isEditing) {
+                editBtn.style.display = 'none';
+                saveBtn.style.display = 'inline-block';
+                
+                const typeInput = document.createElement('input');
+                typeInput.type = 'text';
+                typeInput.value = typeSpan.textContent;
+                typeInput.className = 'editable-input editable-type';
+                typeSpan.replaceWith(typeInput);
+
+                const locationInput = document.createElement('input');
+                locationInput.type = 'text';
+                locationInput.value = locationSpan.textContent;
+                locationInput.className = 'editable-input editable-location';
+                locationSpan.replaceWith(locationInput);
+
+                const descriptionTextarea = document.createElement('textarea');
+                descriptionTextarea.value = descriptionSpan.textContent;
+                descriptionTextarea.className = 'editable-input editable-description';
+                descriptionTextarea.rows = 3;
+                descriptionSpan.replaceWith(descriptionTextarea);
+            } else {
+                // Bu joyda hozircha hech narsa yo'q, saqlash tugmasi bosilganda ishlaydi
+            }
+        }
+        
+        async function saveJobChanges(jobCard, jobId) {
+            try {
+                const typeInput = jobCard.querySelector('.editable-type');
+                const locationInput = jobCard.querySelector('.editable-location');
+                const descriptionTextarea = jobCard.querySelector('.editable-description');
+
+                const updatedData = {
+                    type: typeInput.value.trim(),
+                    location: locationInput.value.trim(),
+                    description: descriptionTextarea.value.trim()
+                };
+
+                await updateDoc(doc(db, 'jobs', jobId), updatedData);
+                alert("O'zgarishlar saqlandi!");
+                fetchJobs(); // E'lonlarni qayta yuklash
+            } catch (err) {
+                console.error("Saqlashda xato:", err);
+                alert("Saqlashda xatolik yuz berdi.");
+            }
+        }
+        
+        async function applyForJob(job) {
+            if (!currentUser) {
+                alert('Ariza yuborish uchun avval tizimga kiring.');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            try {
+                const userProfileRef = doc(db, 'users', currentUser.uid);
+                const userProfileSnap = await getDoc(userProfileRef);
+                if (!userProfileSnap.exists() || !userProfileSnap.data().fullName) {
+                    alert('Profil ma\'lumotlaringiz to\'liq emas. Iltimos, profil sahifasiga o\'tib, ma\'lumotlarni to\'ldiring.');
+                    window.location.href = 'dashboard.html';
+                    return;
+                }
+                const userData = userProfileSnap.data();
+                const newApplication = {
+                    jobId: job.id,
+                    jobTitle: job.title,
+                    company: job.company,
+                    employerEmail: job.employerEmail,
+                    userId: currentUser.uid,
+                    userEmail: currentUser.email,
+                    fullName: userData.fullName || 'Noma\'lum',
+                    location: userData.location || 'Noma\'lum',
+                    phoneNumber: userData.phoneNumber || 'Noma\'lum',
+                    status: 'pending',
+                    appliedAt: new Date()
+                };
+                await addDoc(collection(db, 'applications'), newApplication);
+                alert('Arizangiz muvaffaqiyatli yuborildi!');
+            } catch (err) {
+                console.error('Ariza yuborishda xato:', err);
+                alert('Ariza yuborishda xato yuz berdi. Iltimos, keyinroq urinib ko\'ring.');
+            }
+        }
+        
+        async function fetchJobs() {
+            jobListContainer.innerHTML = '<p style="text-align:center;">Ish e\'lonlari yuklanmoqda...</p>';
+            try {
+                const jobsCol = collection(db, 'jobs');
+                const jobsSnapshot = await getDocs(jobsCol);
+                const jobs = [];
+                jobsSnapshot.forEach(d => jobs.push({ id: d.id, ...d.data() }));
+                renderJobs(jobs);
+            } catch (err) {
+                console.error('Fetch jobs error:', err);
+                jobListContainer.innerHTML = '<p style="text-align:center; color:red;">Ish e\'lonlarini yuklashda xato yuz berdi.</p>';
+            }
+        }
+        
+        async function getUserRole(user) {
+            try {
+                const userRef = doc(db, "users", user.uid);
+                const userSnap = await getDoc(userRef);
+                if (userSnap.exists() && userSnap.data().role) {
+                    return userSnap.data().role;
+                }
+            } catch {
+                return "user";
+            }
+            return "user";
+        }
+        
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUser = user;
+                document.getElementById('user-email-display').textContent = user.email || user.uid;
+                userRole = await getUserRole(user);
+                if (userRole === "employer") {
+                    jobsHeaderDesc.textContent = "Siz ish beruvchisiz. Quyida e'lonlarni ko'ring va yangi ish e'lonini joylashtiring.";
+                    jobForm.style.display = "block";
+                } else {
+                    jobsHeaderDesc.textContent = "Sizning ko'nikmalaringizga mos keladigan ish e'lonlarini toping.";
+                    jobForm.style.display = "none";
+                }
+                await fetchJobs();
+            } else {
+                if (window.location.pathname !== '/login.html' && window.location.pathname !== '/register.html') {
+                    window.location.href = 'login.html';
+                }
+            }
+        });
+        
+        jobForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!currentUser || userRole !== "employer") return;
+            
+            const title = document.getElementById('job-title').value.trim();
+            const company = document.getElementById('job-company').value.trim();
+            const type = document.getElementById('job-type').value.trim();
+            const location = document.getElementById('job-location').value.trim();
+            const description = document.getElementById('job-description').value.trim();
+            const logoUrl = document.getElementById('job-logo').value.trim();
+            
+            if (!title || !company || !type || !location || !description) {
+                alert("Barcha maydonlarni to'ldiring!");
+                return;
+            }
+            
+            try {
+                await addDoc(collection(db, "jobs"), {
+                    title, company, type, location, description, logoUrl,
+                    employerId: currentUser.uid,
+                    employerEmail: currentUser.email
+                });
+                alert("Ish e'loni joylashtirildi!");
+                jobForm.reset();
+                await fetchJobs();
+            } catch (err) {
+                alert("E'lon joylashtirishda xato.");
+            }
+        });
+        
+        const profileBtn = document.getElementById('profile-btn');
+        const profileDropdown = document.getElementById('profile-dropdown');
+        
+        profileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            profileDropdown.style.display = profileDropdown.style.display === 'none' ? 'block' : 'none';
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (profileBtn && !profileBtn.contains(e.target)) {
+                profileDropdown.style.display = 'none';
+            }
+        });
+        
+        const logoutLink = document.getElementById('logout-link');
+        logoutLink.addEventListener('click', async (e) => {
+            e.preventDefault();
+            try {
+                await signOut(auth);
+                window.location.href = 'login.html';
+            } catch (err) {
+                console.error('Sign out error', err);
+            }
+        });
+        
+        const menuToggle = document.getElementById('menu-toggle');
+        const sideNav = document.getElementById('side-nav');
+        const mainContent = document.getElementById('main-content-container');
+        
+        menuToggle.addEventListener('click', () => {
+            sideNav.classList.toggle('active');
+            mainContent.classList.toggle('menu-open');
+        });
     </script>
 </body>
 </html>

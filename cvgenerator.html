@@ -8,10 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/jpeg" href="./images/careerpathlogo.jpg">
     <link rel="stylesheet" href="./cvgenerator.css">
-    <!-- jsPDF for PDF export -->
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <!-- html-docx-js for DOCX export -->
-    <script src="https://cdn.jsdelivr.net/npm/html-docx-js@0.4.1/dist/html-docx.js"></script>
 </head>
 <body>
     <div class="side-nav" id="side-nav">
@@ -27,6 +26,7 @@
         <a href="./about.html"><span class="material-icons">group</span> Biz haqimizda</a>
         <a href="./contact.html"><span class="material-icons">contact_mail</span> Bog'lanish</a>
     </div>
+
     <div class="main-content-container" id="main-content-container">
         <header class="header">
             <div style="display:flex;align-items:center;gap:12px">
@@ -43,7 +43,26 @@
                 </div>
             </div>
         </header>
+
         <div class="cv-form-container" id="cv-form-section">
+            <div class="color-picker-container">
+                <label>Shablon rangini tanlang:</label>
+                <div class="color-options" id="color-options">
+                    <div class="color-box selected" data-primary="#4CAF50" data-secondary="#388E3C"></div>
+                    <div class="color-box" data-primary="#2196F3" data-secondary="#1976D2"></div>
+                    <div class="color-box" data-primary="#F44336" data-secondary="#D32F2F"></div>
+                    <div class="color-box" data-primary="#FF9800" data-secondary="#F57C00"></div>
+                    <div class="color-box" data-primary="#9C27B0" data-secondary="#7B1FA2"></div>
+                    <div class="color-box" data-primary="#607D8B" data-secondary="#455A64"></div>
+                    <div class="color-box" data-primary="#FFEB3B" data-secondary="#FBC02D"></div>
+                    <div class="color-box" data-primary="#00BCD4" data-secondary="#00838F"></div>
+                    <div class="color-box" data-primary="#E91E63" data-secondary="#C2185B"></div>
+                    <div class="color-box" data-primary="#795548" data-secondary="#5D4037"></div>
+                    <div class="color-box" data-primary="#009688" data-secondary="#00796B"></div>
+                    <div class="color-box" data-primary="#673AB7" data-secondary="#512DA8"></div>
+                </div>
+            </div>
+            
             <form id="cv-form" autocomplete="off">
                 <div>
                     <label for="photo">Profil rasmi:</label>
@@ -88,7 +107,7 @@
             </form>
             <div class="cv-action-btns">
                 <button id="export-pdf-btn" type="button">PDF chiqarish</button>
-                <button id="export-docx-btn" type="button">DOCX chiqarish</button>
+                <button id="export-png-btn" type="button">PNG chiqarish</button>
             </div>
         </div>
         <div id="cv-preview" style="margin-bottom:50px;"></div>

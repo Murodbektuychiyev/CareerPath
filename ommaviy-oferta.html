@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Ommaviy oferta - CareerPath</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/jpeg" href="./images/careerpathlogo.jpg">
+    <style>
+        :root {
+    --primary-color: #4CAF50;
+    --secondary-color: #2196F3;
+    --background-color: #f0f2f5;
+    --text-color: #333;
+    --light-text-color: #fff;
+    --card-bg: #fff;
+    --menu-bg: #2d3436;
+}
+
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    margin: 0;
+    background: var(--background-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+.side-nav {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: var(--menu-bg);
+    color: var(--light-text-color);
+    padding-top: 60px;
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+    z-index: 20;
+}
+
+.side-nav.active { 
+    left: 0; 
+}
+
+.side-nav a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    color: var(--light-text-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.side-nav a:hover { 
+    background: #444; 
+}
+
+.side-nav a .material-icons { 
+    font-size: 24px; 
+    width: 24px; 
+    height: 24px; 
+    text-align: center; 
+}
+
+.main-content-container {
+    flex-grow: 1;
+    padding: 20px;
+    margin-left: 0;
+    transition: margin-left .3s ease;
+}
+
+.main-content-container.menu-open { 
+    margin-left: 250px; 
+}
+
+.header {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.header h1 { 
+    margin:0; 
+    font-size:1.5em; 
+}
+
+.menu-toggle { 
+    display:flex; 
+    flex-direction:column; 
+    gap:5px; 
+    cursor:pointer; 
+}
+
+.menu-toggle span {
+    display: block; 
+    width: 25px; 
+    height: 3px;
+    background-color: var(--light-text-color); 
+    transition: transform .3s;
+}
+
+.menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.menu-toggle.active span:nth-child(2) { opacity: 0; }
+.menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+.profile-menu { position: relative; }
+.profile-btn { 
+    background: transparent; 
+    border: 0; 
+    color: var(--light-text-color); 
+    cursor: pointer; 
+    font-weight: 600; 
+}
+
+.profile-dropdown {
+    display: none; 
+    position: absolute; 
+    right: 0; 
+    top: 40px; 
+    background: #fff; 
+    color: #111;
+    border-radius: 8px; 
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08); 
+    overflow: hidden; 
+    min-width: 160px; 
+    z-index: 30;
+}
+
+.profile-dropdown a {
+    display: block; 
+    padding: 10px 14px; 
+    color: #111; 
+    text-decoration: none; 
+    border-bottom: 1px solid #eee;
+}
+
+.profile-dropdown a:hover { 
+    background: #f6f6f6; 
+}
+
+.main-content {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 40px;
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    line-height: 1.8;
+}
+
+h2, h3 {
+    color: var(--secondary-color);
+    border-bottom: 2px solid #eee;
+    padding-bottom: 5px;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-size: 1.8em;
+}
+h3 {
+    font-size: 1.3em;
+}
+
+ul, ol {
+    margin: 0;
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+p {
+    margin: 0 0 15px 0;
+}
+
+.last-update {
+    font-style: italic;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.acceptance-text {
+    font-weight: 600;
+    color: var(--primary-color);
+    text-align: center;
+    margin-top: 30px;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    border-top: 1px solid #ddd;
+    margin-top: auto;
+}
+
+/* --- Mobilga moslashuvchan @media qoidalari --- */
+@media (max-width: 980px) {
+    .main-content-container.menu-open {
+        margin-left: 0;
+    }
+    .side-nav.active {
+        left: 0;
+        width: 250px;
+    }
+    .header {
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        padding: 12px 15px;
+    }
+    .main-content {
+        max-width: 100%;
+        margin-top: 80px;
+        padding: 20px;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .profile-btn span {
+        display: none;
+    }
+}
+@media (max-width: 576px) {
+    .header h1 {
+        font-size: 1.2em;
+    }
+    .menu-toggle {
+        order: -1;
+    }
+    .main-content {
+        padding: 15px;
+        margin-top: 60px;
+    }
+    h2 {
+        font-size: 1.5em;
+    }
+    h3 {
+        font-size: 1.1em;
+    }
+    p, li {
+        font-size: 0.9em;
+    }
+    .footer {
+        padding: 15px;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="side-nav" id="side-nav">
+        <a href="./index.html"><span class="material-icons">info</span> Bosh sahifa</a>
+        <a href="./careerpath.html"><span class="material-icons">home</span> Asosiy sahifa</a>
+        <a href="./dashboard.html"><span class="material-icons">person</span> Mening profilim</a>
+        <a href="./tests.html"><span class="material-icons">menu_book</span> Testlar</a>
+        <a href="./aichat.html"><span class="material-icons">auto_awesome</span>AI Maslahatchi</a>
+        <a href="./cvgenerator.html"><span class="material-icons">description</span> CV Generator</a>
+        <a href="./kasblar.html"><span class="material-icons">lightbulb</span> Kasblar</a>
+        <a href="./jobs.html"><span class="material-icons">work</span> Ish topish</a>
+        <a href="./applications.html"><span class="material-icons">assignment</span> Arizalar</a>
+        <a href="./about.html"><span class="material-icons">group</span> Biz haqimizda</a>
+        <a href="./contact.html"><span class="material-icons">contact_mail</span> Bog'lanish</a>
+    </div>
+
+    <div class="main-content-container" id="main-content-container">
+        <header class="header">
+            <div style="display:flex;align-items:center;gap:12px">
+                <div class="menu-toggle" id="menu-toggle" aria-label="menu toggle" role="button" tabindex="0">
+                    <span></span><span></span><span></span>
+                </div>
+                <h1 style="margin:0">Ommaviy oferta</h1>
+            </div>
+            <div class="profile-menu">
+                <button class="profile-btn" id="profile-btn"><span id="user-email-display">...</span> ▼</button>
+                <div class="profile-dropdown" id="profile-dropdown">
+                    <a href="dashboard.html">Mening profilim</a>
+                    <a href="#" id="logout-link">Tizimdan chiqish</a>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <h2>CAREERPATH MCHJ – OMMAVIY OFERTA</h2>
+            <p class="last-update">So‘nggi yangilanish: 21.09.2025</p>
+
+            <h3>1. Terminlar va ta’riflar</h3>
+            <ul>
+                <li><strong>Sotuvchi:</strong> “CareerPath” MCHJ, Qashqadaryo viloyati, Koson tumani, [mahalla/ko‘cha nomi], internet orqali masofadan xizmat ko‘rsatadi.</li>
+                <li><strong>Xaridor:</strong> jismoniy va yuridik shaxslar.</li>
+                <li><strong>Oferta:</strong> sotuvchining internet orqali xizmat sotish bo‘yicha taklifi.</li>
+                <li><strong>Aksept:</strong> xaridor tomonidan ofertani to‘liq qabul qilish.</li>
+                <li><strong>Shartnoma:</strong> xaridor va sotuvchi o‘rtasida xizmat sotib olish bo‘yicha kelishuv.</li>
+                <li><strong>Buyurtma:</strong> xaridor tanlagan xizmat, narxi va yetkazib berish ma’lumotlarini o‘z ichiga olgan elektron hujjat.</li>
+                <li><strong>To‘lov kodi:</strong> buyurtmaga bir marta beriladigan yagona raqam.</li>
+                <li><strong>Xizmatlar:</strong> masofaviy ta’lim, testlar, tanlovlar, nomoddiy va moddiy xizmatlar.</li>
+            </ul>
+
+            <h3>2. Umumiy shartlar</h3>
+            <ul>
+                <li>Saytdagi xizmatlar ommaviy oferta hisoblanadi.</li>
+                <li>Xaridor buyurtmani shakllantirganda ushbu shartlarga rozi bo‘ladi.</li>
+                <li>Xizmatlarni sotish hududi – O‘zbekiston Respublikasi va dunyo bo‘ylab.</li>
+                <li>Sotuvchi xizmatlarni sotish jarayonida xaridor roziligisiz uchinchi tomonlarni jalb qilishi mumkin.</li>
+                <li>Xizmatlardan tijorat maqsadida foydalanish taqiqlanadi; buzilgan taqdirda kursdan chetlatish va qonuniy choralar ko‘riladi.</li>
+            </ul>
+
+            <h3>3. Buyurtmani shakllantirish tartibi</h3>
+            <ul>
+                <li>Xaridor saytda ko‘rsatilgan shakl orqali buyurtma beradi.</li>
+                <li>Birinchi marta buyurtma qilayotgan xaridor ro‘yxatdan o‘tadi; keyinchalik avtorizatsiyadan o‘tadi.</li>
+                <li>Buyurtma to‘lov tugmasini bosish bilan yakunlanadi va 5 kun ichida to‘lov amalga oshirilishi kerak.</li>
+            </ul>
+
+            <h3>4. To‘lovni amalga oshirish</h3>
+            <ul>
+                <li>To‘lovlar faqat saytda ko‘rsatilgan operatorlar orqali amalga oshiriladi.</li>
+                <li>Moddiy eltmalar va xizmatlar faqat 100% oldindan to‘lov amalga oshirilgandan keyin yetkaziladi.</li>
+            </ul>
+
+            <h3>5. Xizmatlar natijalari va moddiy eltmalarni yetkazib berish</h3>
+            <ul>
+                <li>Nomoddiy eltmalar internet yoki SMS orqali zudlik bilan yetkaziladi.</li>
+                <li>Moddiy eltma kuryer orqali yoki pochta orqali yetkaziladi.</li>
+                <li>Xaridor eltmani qabul qilib olganidan keyin mulkiy huquq unga o‘tadi.</li>
+            </ul>
+
+            <h3>6. E’tirozlarni taqdim etish</h3>
+            <ul>
+                <li>Xaridor xizmatni olganidan 5 kun ichida e’tiroz bildirish huquqiga ega.</li>
+                <li>E’tirozlar ekspertiza orqali tekshirilishi mumkin; xaridor xatolari aniqlansa, xarajatlar xaridor zimmasida bo‘ladi.</li>
+            </ul>
+
+            <h3>7. Javobgarlik</h3>
+            <ul>
+                <li>Masofadan xizmat ko‘rsatilishi va nomoddiy mulk berilishi inobatga olinadi.</li>
+                <li>Xaridor to‘lovni amalga oshirganidan keyin foyda yo‘qotilishi yoki ma’naviy zarar bo‘yicha da’vo qila olmaydi.</li>
+                <li>Kurs materiallarini noqonuniy tarqatish yoki qayta sotish kursdan chetlatish va jarima to‘lashga olib keladi.</li>
+            </ul>
+
+            <h3>8. Boshqa shartlar</h3>
+            <ul>
+                <li>Xaridor taqdim etgan ma’lumotlarning to‘g‘riligiga javob beradi.</li>
+                <li>Saytda chop etilgan reklama va axborot xabarlari e’tirozsiz qabul qilinadi.</li>
+            </ul>
+
+            <h3>9. Shartnomaga o‘zgartirishlar</h3>
+            <ul>
+                <li>Sotuvchi shartnomani bir tomonlama o‘zgartirish huquqiga ega, xaridor sayt orqali xabardor qilinadi.</li>
+            </ul>
+
+            <h3>10. Munozaralarni yechish</h3>
+            <ul>
+                <li>Nizolar muzokaralar orqali hal qilinadi, muvaffaqiyatsiz bo‘lsa, sudga murojaat qilinadi.</li>
+            </ul>
+
+            <h3>11. Intellektual mulk</h3>
+            <ul>
+                <li>Saytdagi barcha ma’lumotlar sotuvchi mulkidir; tijorat maqsadida foydalanish taqiqlanadi.</li>
+            </ul>
+
+            <h3>12. Shaxsga doir ma’lumotlar</h3>
+            <ul>
+                <li>Sotuvchi shaxsiy ma’lumotlarni himoya qiladi.</li>
+                <li>Ishga joylashtirish yoki stajirovka maqsadida ma’lumotlar uchinchi tomonlarga yuborilishi mumkin.</li>
+            </ul>
+
+            <h3>13. Obuna va tadbirlar</h3>
+            <ul>
+                <li>Obuna oylik yoki muddatli bo‘lishi mumkin.</li>
+                <li>Sotuvchi turli intellektual o‘yinlar va aksiyalar o‘tkazishi mumkin.</li>
+            </ul>
+
+            <h3>14. Sayt rekvizitlari</h3>
+            <p><strong>CareerPath MCHJ</strong><br>
+            Yuridik manzil: Qashqadaryo viloyati, Koson tumani, Ushoqtepa MFY<br>
+            MFO: Noma'lum<br>
+            INN: Noma'lum<br>
+            X/r: Noma'lum<br>
+            Bank nomi: Noma'lum<br>
+            Direktor: Zokir Shukurov</p>
+
+            <p class="acceptance-text">Mazkur shartnomani qabul qilish orqali siz barcha shartlarni shartsiz qabul qilganingizni tasdiqlaysiz.</p>
+        </div>
+    
+        <footer class="footer">
+            <p>© CareerPath 2025. Barcha huquqlar himoyalangan.</p>
+        </footer>
+    </div>
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA86zhSVi4FSw-GvFBdOZsCPaHMS67XA78",
+            authDomain: "carrer-path-a5810.firebaseapp.com",
+            projectId: "carrer-path-a5810",
+            storageBucket: "carrer-path-a5810.firebasestorage.app",
+            messagingSenderId: "693831778129",
+            appId: "1:693831778129:web:911293c5c284eefe295d70"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const userEmailDisplay = document.getElementById('user-email-display');
+        const logoutLink = document.getElementById('logout-link');
+        const menuToggle = document.getElementById('menu-toggle');
+        const sideNav = document.getElementById('side-nav');
+        const mainContent = document.getElementById('main-content-container');
+        const profileBtn = document.getElementById('profile-btn');
+        const profileDropdown = document.getElementById('profile-dropdown');
+        
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                userEmailDisplay.textContent = user.email || 'Foydalanuvchi';
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        if (logoutLink) {
+            logoutLink.addEventListener('click', async (e) => {
+                e.preventDefault();
+                try {
+                    await signOut(auth);
+                    window.location.href = "login.html";
+                } catch (err) {
+                    console.error("Tizimdan chiqishda xatolik yuz berdi:", err);
+                }
+            });
+        }
+        
+        if (menuToggle && sideNav && mainContent) {
+            menuToggle.addEventListener('click', () => {
+                sideNav.classList.toggle('active');
+                mainContent.classList.toggle('menu-open');
+                menuToggle.classList.toggle('active');
+            });
+        }
+        
+        if (profileBtn && profileDropdown) {
+            profileBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
+            });
+        }
+
+        document.addEventListener('click', (e) => {
+            if (profileBtn && !profileBtn.contains(e.target)) {
+                profileDropdown.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

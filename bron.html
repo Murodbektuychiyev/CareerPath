@@ -4,15 +4,72 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bron qilish</title>
+  <link rel="icon" type="image/jpeg" href="./images/careerpathlogo.jpg">
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; background:#f0f2f5; color:#333; }
-    h2 { margin-bottom: 20px; }
-    .job-details { border: 1px solid #ddd; padding: 15px; border-radius: 8px; margin-bottom: 20px; background:#fff; }
-    .job-details p { margin: 5px 0; }
-    .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight:600; }
-    .btn-confirm { background: #4CAF50; color: #fff; }
-    .btn-cancel { background: #ccc; color:#111; }
-  </style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background: #f0f2f5;
+        color: #333;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+    }
+
+    .job-details {
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        background: #fff;
+    }
+
+    .job-details p {
+        margin: 5px 0;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    .btn-confirm {
+        background: #4CAF50;
+        color: #fff;
+    }
+
+    .btn-cancel {
+        background: #ccc;
+        color: #111;
+    }
+
+    /* Mobil qurilmalar uchun @media qoidalari */
+    @media (max-width: 768px) {
+        body {
+            margin: 10px;
+            font-size: 14px; /* Shrift o'lchamini kichraytirish */
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .job-details {
+            padding: 15px;
+        }
+
+        .btn {
+            width: 100%; /* Tugmalarni to'liq kenglikda qilish */
+            margin-top: 10px;
+            box-sizing: border-box; /* Padding bilan kenglik hisoblanishi uchun */
+        }
+    }
+</style>
 </head>
 <body>
   <h2>Bron qilish</h2>

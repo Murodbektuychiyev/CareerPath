@@ -9,150 +9,264 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #4CAF50;
-            --secondary-color: #2196F3;
-            --background-color: #f0f2f5;
-            --text-color: #333;
-            --light-text-color: #fff;
-            --card-bg: #fff;
-            --menu-bg: #2d3436;
-            --border-color: #ddd;
-        }
+    --primary-color: #4CAF50;
+    --secondary-color: #2196F3;
+    --background-color: #f0f2f5;
+    --text-color: #333;
+    --light-text-color: #fff;
+    --card-bg: #fff;
+    --menu-bg: #2d3436;
+    --border-color: #ddd;
+}
 
-        * { box-sizing: border-box; }
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            min-height: 100vh;
-            background: var(--background-color);
-            color: var(--text-color);
-            overflow-x: hidden;
-        }
-        
-        .side-nav {
-            position: fixed;
-            top: 0;
-            left: -250px;
-            width: 250px;
-            height: 100%;
-            background-color: var(--menu-bg);
-            color: var(--light-text-color);
-            padding-top: 60px;
-            transition: left 0.3s ease;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
-            z-index: 20;
-        }
-        .side-nav.active { left: 0; }
-        .side-nav a {
-            display: flex;
-            align-items: center;
-            padding: 15px 20px;
-            color: var(--light-text-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: background-color 0.3s ease;
-            gap: 15px;
-        }
-        .side-nav a:hover { background-color: #444; }
-        .side-nav a .material-icons {
-            font-size: 24px;
-            width: 24px;
-            height: 24px;
-            text-align: center;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        .main-content-container {
-            flex-grow: 1;
-            padding: 20px;
-            margin-left: 0;
-            transition: margin-left 0.3s ease;
-        }
-        .main-content-container.menu-open { margin-left: 250px; }
-        .header {
-            background-color: var(--primary-color);
-            color: var(--light-text-color);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .header h1 { margin: 0; font-size: 1.5em; }
-        .menu-toggle {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-        }
-        .menu-toggle span {
-            display: block;
-            width: 25px;
-            height: 3px;
-            background-color: var(--light-text-color);
-            transition: transform 0.3s ease;
-        }
-        .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-        .menu-toggle.active span:nth-child(2) { opacity: 0; }
-        .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: var(--card-bg);
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-        }
-        .job-detail-card {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-top: 30px;
-        }
-        .job-detail-card img {
-            width: 100%;
-            max-width: 400px;
-            height: auto;
-            border-radius: 10px;
-            object-fit: cover;
-            margin-bottom: 20px;
-        }
-        .job-detail-card h2 { color: var(--primary-color); margin: 0 0 10px 0; }
-        .job-detail-card p { margin: 0 0 15px 0; line-height: 1.6; }
-        .details-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .details-item {
-            background-color: var(--background-color);
-            padding: 15px;
-            border-radius: 10px;
-        }
-        .details-item h4 { color: var(--secondary-color); margin: 0 0 5px 0; }
-        .details-item p, .details-item ul { margin: 0; font-size: 0.9em; }
-        .details-item ul { padding-left: 20px; }
-        .select-job-btn {
-            background-color: var(--primary-color);
-            color: var(--light-text-color);
-            border: none;
-            padding: 12px 25px;
-            font-size: 1em;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: background-color 0.3s ease;
-        }
-        .select-job-btn.delete-btn { background-color: #f44336; }
-        .select-job-btn:hover { background-color: #45a049; }
-        .select-job-btn.delete-btn:hover { background-color: #d32f2f; }
-        
-        @media (max-width: 768px) {
-            .details-grid { grid-template-columns: 1fr; }
-        }
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
+    background: var(--background-color);
+    color: var(--text-color);
+    overflow-x: hidden;
+}
+
+.side-nav {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: var(--menu-bg);
+    color: var(--light-text-color);
+    padding-top: 60px;
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+    z-index: 20;
+}
+.side-nav.active {
+    left: 0;
+}
+.side-nav a {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: var(--light-text-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    gap: 15px;
+}
+.side-nav a:hover {
+    background-color: #444;
+}
+.side-nav a .material-icons {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+}
+
+.main-content-container {
+    flex-grow: 1;
+    padding: 20px;
+    margin-left: 0;
+    transition: margin-left 0.3s ease;
+}
+.main-content-container.menu-open {
+    margin-left: 250px;
+}
+.header {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.header h1 {
+    margin: 0;
+    font-size: 1.5em;
+}
+.menu-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+.menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--light-text-color);
+    transition: transform 0.3s ease;
+}
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background: #fff;
+    color: #111;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    min-width: 160px;
+    z-index: 30;
+}
+.profile-dropdown a {
+    display: block;
+    padding: 10px 14px;
+    color: #111;
+    text-decoration: none;
+    border-bottom: 1px solid #eee;
+}
+.profile-dropdown a:hover {
+    background: #f6f6f6;
+}
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+.job-detail-card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 30px;
+}
+.job-detail-card img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+.job-detail-card h2 {
+    color: var(--primary-color);
+    margin: 0 0 10px 0;
+}
+.job-detail-card p {
+    margin: 0 0 15px 0;
+    line-height: 1.6;
+}
+.details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+.details-item {
+    background-color: var(--background-color);
+    padding: 15px;
+    border-radius: 10px;
+}
+.details-item h4 {
+    color: var(--secondary-color);
+    margin: 0 0 5px 0;
+}
+.details-item p,
+.details-item ul {
+    margin: 0;
+    font-size: 0.9em;
+}
+.details-item ul {
+    padding-left: 20px;
+}
+.select-job-btn {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    border: none;
+    padding: 12px 25px;
+    font-size: 1em;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+.select-job-btn.delete-btn {
+    background-color: #f44336;
+}
+.select-job-btn:hover {
+    background-color: #45a049;
+}
+.select-job-btn.delete-btn:hover {
+    background-color: #d32f2f;
+}
+
+/* --- Mobil qurilmalar uchun yangilangan @media qoidalari --- */
+@media (max-width: 980px) {
+    .main-content-container {
+        padding: 10px;
+    }
+    .main-content-container.menu-open {
+        margin-left: 0;
+    }
+    .header {
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        padding: 12px 15px;
+    }
+    .container {
+        margin-top: 80px;
+        padding: 15px;
+    }
+    .profile-btn span {
+        display: none;
+    }
+    .job-detail-card img {
+        max-width: 100%;
+    }
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 576px) {
+    .header h1 {
+        font-size: 1.2em;
+    }
+    .menu-toggle span {
+        width: 20px;
+        height: 2px;
+    }
+    .job-detail-card h2 {
+        font-size: 1.5em;
+    }
+    .job-detail-card p {
+        font-size: 0.9em;
+    }
+    .details-item h4 {
+        font-size: 1em;
+    }
+    .details-item p,
+    .details-item ul {
+        font-size: 0.85em;
+    }
+    .select-job-btn {
+        width: 100%;
+    }
+}
     </style>
 </head>
 <body>

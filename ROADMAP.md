@@ -18,9 +18,9 @@ Quyida CareerPath platformasi uchun rejalashtirilgan bosqichlar keltirilgan.
 ## 2026 - Keyingi bosqich
 - [ ] Mobil ilova (React Native yoki Flutter)
 - [x] O'zbek tilida qo‘llab-quvvatlash
-- [ ] Premium obuna rejimi
+- [x] Premium obuna rejimi
 
 ## Kelajakdagi g‘oyalar
 - [ ] O‘zbekistondagi universitet va kurslar bilan integratsiya
-- [ ] AI yordamida avtomatik CV yaratish
+- [x] CV yaratish
 - [ ] Blockchain asosida sertifikatlash tizimi

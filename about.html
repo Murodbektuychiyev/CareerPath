@@ -68,6 +68,11 @@
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
+            transition: transform 0.3s ease;
+        }
+        
+        .main-header .logo-link.menu-open {
+            transform: translateX(calc(-50% + 125px));
         }
 
         /* Menu Toggle */
@@ -118,7 +123,6 @@
             left: 0;
         }
         
-        /* Barcha menyu elementlari uchun umumiy sozlama */
         .side-nav a {
             display: flex;
             align-items: center;
@@ -127,14 +131,13 @@
             text-decoration: none;
             font-weight: 500;
             transition: background-color 0.3s ease;
-            gap: 15px; /* Ikona va matn orasidagi bo'shliq */
+            gap: 15px;
         }
         
         .side-nav a:hover {
             background-color: #444;
         }
         
-        /* Barcha ikonalar uchun umumiy sozlama */
         .side-nav a .material-icons {
             font-size: 24px;
             width: 24px;
@@ -145,6 +148,11 @@
         /* Main Content Padding */
         main {
             padding-top: 80px;
+            transition: padding-left 0.3s ease;
+        }
+        
+        body.menu-open main {
+            padding-left: 250px;
         }
 
         /* Hero Section */
@@ -210,37 +218,14 @@
             position: relative;
             height: 400px;
             overflow: hidden;
-        }
-        
-        /* Rasmlar konteynerlari uchun uslublar */
-        .mission-image-container,
-        .team-images {
-            cursor: pointer;
-            transition: filter 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .mission-image-container:hover,
-        .team-images:hover {
-            filter: brightness(1.1);
-            box-shadow: var(--hover-shadow);
-        }
-
-        /* Rasm animatsiyasi uchun uslublar */
-        .content-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
             border-radius: 10px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
-
-        .content-image img.active {
-            opacity: 1;
+        
+        .content-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .section-content h2 {
@@ -411,48 +396,65 @@
             padding: 2rem 0;
         }
 
-        /* Animatsiyalar (scroll uchun) */
-        .animate-on-scroll {
+        /* Yangi animatsiya uslublari */
+        .image-animation {
             opacity: 0;
             transform: translateY(50px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
-
-        .animate-on-scroll.is-visible {
+        
+        .image-animation.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* Oldinga qarab chiqish animatsiyasi uchun yangi klass */
-        .animate-pop-in {
+        /* Kontent bloklari uchun animatsiya */
+        .content-block-animation {
             opacity: 0;
-            transform: scale(0.8) translateZ(0);
+            transform: translateX(-50px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
 
-        .animate-pop-in.is-visible {
+        .content-block-animation.is-visible {
             opacity: 1;
-            transform: scale(1) translateZ(0);
+            transform: translateX(0);
         }
-
-        .delay-1 { transition-delay: 0.2s; }
-        .delay-2 { transition-delay: 0.4s; }
-        .delay-3 { transition-delay: 0.6s; }
-        .delay-4 { transition-delay: 0.8s; }
-        .delay-5 { transition-delay: 1.0s; }
-        .delay-6 { transition-delay: 1.2s; }
-        .delay-7 { transition-delay: 1.4s; }
-        .delay-8 { transition-delay: 1.6s; }
-        .delay-9 { transition-delay: 1.8s; }
-        .delay-10 { transition-delay: 2.0s; }
+        .content-block-animation.reverse {
+            transform: translateX(50px);
+        }
+        .content-block-animation.reverse.is-visible {
+            transform: translateX(0);
+        }
 
         /* Mobil qurilmalar uchun */
         @media (max-width: 768px) {
+            .main-header .logo-link {
+                left: 50%;
+                transform: translateX(-50%);
+                transition: transform 0.3s ease;
+            }
+            .main-header .logo-link.menu-open {
+                transform: translateX(calc(-50% + 125px));
+            }
+            
             .hero-about h1 { font-size: 2.5rem; }
             .hero-about p { font-size: 1rem; }
-            .section-content { flex-direction: column; text-align: center; }
+            .section-content { flex-direction: column; text-align: center; gap: 2rem; }
             .section-content.reverse-layout { flex-direction: column; }
             .contact-section h2 { font-size: 2rem; }
+            .section-content .content-image { height: 300px; }
+            .tech-list { gap: 2rem; }
+        }
+        @media (max-width: 480px) {
+            .hero-about { padding: 8rem 1rem; }
+            .hero-about h1 { font-size: 2rem; }
+            .hero-about p { font-size: 0.9rem; }
+            .section-content h2 { font-size: 2rem; }
+            .section-content p { font-size: 1rem; }
+            .values-section h2, .tech-section h2 { font-size: 2rem; }
+            .values-grid { grid-template-columns: 1fr; }
+            .tech-item { padding: 1.5rem; }
+            .tech-item img { width: 80px; height: 80px; }
+            .contact-section h2 { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -464,7 +466,7 @@
             <span></span>
             <span></span>
         </div>
-        <a href="./careerpath.html" class="logo-link">CareerPath</a>
+        <a href="./careerpath.html" class="logo-link" id="logo-link">CareerPath</a>
     </header>
 
     <div class="side-nav" id="side-nav">
@@ -472,7 +474,7 @@
         <a href="./careerpath.html"><span class="material-icons">home</span> Asosiy sahifa</a>
         <a href="./dashboard.html"><span class="material-icons">person</span> Mening profilim</a>
         <a href="./tests.html"><span class="material-icons">menu_book</span> Testlar</a>
-        <a href="./aichat.html"><span class="material-icons ai-icon">auto_awesomey</span>AI Maslahatchi</a>
+        <a href="./aichat.html"><span class="material-icons">auto_awesome</span>AI Maslahatchi</a>
         <a href="./cvgenerator.html"><span class="material-icons">description</span> CV Generator</a>
         <a href="./kasblar.html"><span class="material-icons">lightbulb</span> Kasblar</a>
         <a href="./jobs.html"><span class="material-icons">work</span> Ish topish</a>
@@ -489,23 +491,23 @@
             </p>
         </section>
 
-        <section class="section-content mission-section animate-on-scroll">
-            <div class="content-text">
+        <section class="section-content mission-section">
+            <div class="content-text content-block-animation">
                 <h2>Bizning Missiyamiz</h2>
                 <p>
                     CareerPath loyihasi sun’iy intellektning imkoniyatlaridan foydalanib, foydalanuvchilarning shaxsiyat xususiyatlari va ko‘nikmalarini tahlil qiladi. Biz yoshlar va mutaxassislarga ularning qiziqishlari, kuchli tomonlari va bozor talablariga mos keladigan kasblarni aniqlashga yordam beramiz.
                 </p>
             </div>
-            <div class="content-image mission-image-container animate-on-scroll">
-                <img class="active" src="./images/careerpathlogo.jpg" alt="Bizning missiya rasmi">
+            <div class="content-image mission-image-container image-animation">
+                <img src="./images/careerpathlogo.jpg" alt="Bizning missiya rasmi">
             </div>
         </section>
 
-        <section class="section-content team-section reverse-layout animate-on-scroll">
-            <div class="content-image team-images animate-on-scroll delay-1">
-                <img class="active" src="./images/team.jpg" alt="Bizning jamoamiz rasmi">
+        <section class="section-content team-section reverse-layout">
+            <div class="content-image team-images image-animation delay-1">
+                <img src="./images/team.jpg" alt="Bizning jamoamiz rasmi">
             </div>
-            <div class="content-text">
+            <div class="content-text content-block-animation reverse">
                 <h2>Bizning Jamoamiz</h2>
                 <p>
                     Biz yosh, g‘ayratli va o‘z ishiga fidoyi mutaxassislardan iborat jamoamiz. Dasturchilar, dizaynerlar va AI bo‘yicha ekspertlarimiz birgalikda siz uchun eng yaxshi platformani yaratishga intiladi. Har birimiz CareerPath’ning muvaffaqiyatiga katta hissa qo‘shamiz.
@@ -513,26 +515,26 @@
             </div>
         </section>
 
-        <section class="values-section animate-on-scroll">
-            <h2>Bizning Qadriyatlarimiz</h2>
+        <section class="values-section">
+            <h2 class="content-block-animation">Bizning Qadriyatlarimiz</h2>
             <div class="values-grid">
-                <div class="value-item animate-on-scroll animate-pop-in delay-2">
+                <div class="value-item animate-pop-in delay-2">
                     <h3>Innovatsiya</h3>
                     <p>Doimiy rivojlanish va yangi g‘oyalarni joriy etishga intilamiz.</p>
                 </div>
-                <div class="value-item animate-on-scroll animate-pop-in delay-3">
+                <div class="value-item animate-pop-in delay-3">
                     <h3>Foydalanuvchiga e'tibor</h3>
                     <p>Foydalanuvchilarimizning ehtiyojlari biz uchun eng ustuvor vazifa.</p>
                 </div>
-                <div class="value-item animate-on-scroll animate-pop-in delay-4">
+                <div class="value-item animate-pop-in delay-4">
                     <h3>Ochiqlik</h3>
                     <p>Biz ochiq muloqot va shaffoflikka ishonamiz.</p>
                 </div>
             </div>
         </section>
 
-        <section class="tech-section animate-on-scroll">
-            <h2>Ishlatilgan Texnologiyalar</h2>
+        <section class="tech-section">
+            <h2 class="content-block-animation">Ishlatilgan Texnologiyalar</h2>
             <div class="tech-list">
                 <div class="tech-item animate-pop-in delay-5">
                     <img src="./images/htmllogo.png" alt="HTML5 logo">
@@ -552,10 +554,10 @@
             </div>
         </section>
 
-        <section class="contact-section animate-on-scroll">
-            <h2>Savollaringiz bormi?</h2>
-            <p>Biz bilan bog'laning va kelajagingiz haqida suhbatlashaylik.</p>
-            <a href="./contact.html">Bog'lanish</a>
+        <section class="contact-section">
+            <h2 class="content-block-animation">Savollaringiz bormi?</h2>
+            <p class="content-block-animation">Biz bilan bog'laning va kelajagingiz haqida suhbatlashaylik.</p>
+            <a href="./contact.html" class="content-block-animation">Bog'lanish</a>
         </section>
     </main>
 
@@ -565,50 +567,39 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Yon panel (Side-nav) funksiyasi
             const menuToggle = document.getElementById('menu-toggle');
             const sideNav = document.getElementById('side-nav');
-            
+            const body = document.body;
+            const logoLink = document.getElementById('logo-link');
+
             if (menuToggle && sideNav) {
                 menuToggle.addEventListener('click', () => {
                     menuToggle.classList.toggle('active');
                     sideNav.classList.toggle('active');
+                    body.classList.toggle('menu-open');
+                    logoLink.classList.toggle('menu-open');
                 });
             }
-
-            // Rasmlarni avtomatik o'zgartirish funksiyasi
-            const teamImageContainer = document.querySelector('.team-images');
-            if (teamImageContainer) {
-                const images = teamImageContainer.querySelectorAll('img');
-                let currentImageIndex = 0;
-
-                function showNextImage() {
-                    if (images.length > 1) {
-                        images[currentImageIndex].classList.remove('active');
-                        currentImageIndex = (currentImageIndex + 1) % images.length;
-                        images[currentImageIndex].classList.add('active');
-                    }
+            
+            document.addEventListener('click', (e) => {
+                if (!sideNav.contains(e.target) && !menuToggle.contains(e.target) && sideNav.classList.contains('active')) {
+                    menuToggle.classList.remove('active');
+                    sideNav.classList.remove('active');
+                    body.classList.remove('menu-open');
+                    logoLink.classList.remove('menu-open');
                 }
-                
-                if (images.length > 0) {
-                    images[0].classList.add('active');
-                }
-
-                setInterval(showNextImage, 5000); // 5 soniya
-            }
+            });
 
             // Animatsiya funksiyasi
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
-                    } else {
-                        entry.target.classList.remove('is-visible');
                     }
                 });
             }, { threshold: 0.2 });
 
-            const animatedElements = document.querySelectorAll('.animate-on-scroll, .animate-pop-in');
+            const animatedElements = document.querySelectorAll('.image-animation, .content-block-animation, .values-grid > div, .tech-list > div');
             animatedElements.forEach(element => {
                 observer.observe(element);
             });

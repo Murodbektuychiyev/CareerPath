@@ -8,136 +8,204 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
-    :root {
-      --primary-color: #4CAF50;
-      --secondary-color: #2196F3;
-      --background-color: #f0f2f5;
-      --text-color: #333;
-      --light-text-color: #fff;
-      --card-bg: #fff;
-      --border-color: #ddd;
-    }
+:root {
+    --primary-color: #4CAF50;
+    --secondary-color: #2196F3;
+    --background-color: #f0f2f5;
+    --text-color: #333;
+    --light-text-color: #fff;
+    --card-bg: #fff;
+    --border-color: #ddd;
+}
 
-    *{
-        box-sizing:border-box;
-    }
-    
-    body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background: var(--background-color);
-      color: var(--text-color);
-      position: relative;
-    }
+* {
+    box-sizing: border-box;
+}
 
-    body::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('../images/entrance-bg.jpg') no-repeat center center/cover;
-      filter: blur(1px) brightness(0.6);
-      z-index: -1;
-    }
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: var(--background-color);
+    color: var(--text-color);
+    position: relative;
+}
 
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../images/entrance-bg.jpg') no-repeat center center/cover;
+    filter: blur(1px) brightness(0.6);
+    z-index: -1;
+}
+
+.container {
+    width: 100%;
+    max-width: 540px;
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.tab-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.tab-button {
+    padding: 10px 20px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    color: #888;
+}
+
+.tab-button.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn .4s ease-in-out;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.05em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color .25s;
+}
+
+.submit-btn:disabled {
+    opacity: .7;
+    cursor: not-allowed;
+}
+
+.submit-btn:hover:not([disabled]) {
+    background-color: #45a049;
+}
+
+.note {
+    font-size: .9em;
+    color: #666;
+    margin-top: 10px;
+    text-align: center;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px)
+    }
+    to {
+        opacity: 1;
+        transform: none
+    }
+}
+
+/* --- Mobil qurilmalar uchun yangilangan @media qoidalari --- */
+@media (max-width: 768px) {
     .container {
-      width: 100%;
-      max-width: 540px;
-      background: var(--card-bg);
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    }
-
-    h2 {text-align:center;
-      color:var(--primary-color);
-      margin-bottom:20px;
+        max-width: 90%;
+        margin: 20px;
+        padding: 25px;
     }
 
     .tab-buttons {
-      display:flex;
-      justify-content:center;
-      margin-bottom:20px;
-      border-bottom:2px solid var(--border-color);
+        flex-direction: column;
+        gap: 10px;
+        border-bottom: none;
     }
 
     .tab-button {
-      padding:10px 20px;
-      border:none;
-      background:transparent;
-      cursor:pointer;
-      font-size:1em;
-      font-weight:600;
-      color:#888;
-    }
-
-    .tab-button.active {
-      color:var(--primary-color);
-      border-bottom:2px solid var(--primary-color);
-    }
-
-    .tab-content {
-      display:none;
-    }
-
-    .tab-content.active {
-      display:block;
-      animation: fadeIn .4s ease-in-out;
-    }
-
-    .form-group {
-      margin-bottom:16px;
+        width: 100%;
+        border-bottom: 2px solid var(--border-color);
     }
     
-    .form-group label {
-      display:block;
-      margin-bottom:8px;
-      font-weight:500;
+    .tab-button.active {
+        border-color: var(--primary-color);
+    }
+}
+
+@media (max-width: 500px) {
+    .container {
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .tab-button {
+        font-size: 0.9em;
+        padding: 8px 15px;
     }
 
     .form-group input {
-      width:100%;
-      padding:12px;
-      border:1px solid var(--border-color);
-      border-radius:8px;
-      font-family:'Poppins',sans-serif;
-      font-size:1em;
+        font-size: 0.9em;
+        padding: 10px;
     }
 
     .submit-btn {
-      width:100%;
-      padding:14px;
-      background-color:var(--primary-color);
-      color:var(--light-text-color);
-      border:none;
-      border-radius:8px;
-      font-size:1.05em;
-      font-weight:600;
-      cursor:pointer;
-      transition:background-color .25s;
+        font-size: 1em;
+        padding: 12px;
     }
-
-    .submit-btn:disabled {
-      opacity:.7;
-      cursor:not-allowed;
-    }
-
+    
     .note {
-      font-size:.9em;
-      color:#666;
-      margin-top:10px;
-      text-align:center;
+        font-size: 0.8em;
     }
-
-    @keyframes fadeIn {from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none} }
-    @media(max-width:560px){ .container{padding:22px} }
+}
   </style>
 
   <script defer src="https://cdn.jsdelivr.net/npm/@vercel/speed-insights/dist/inject.min.js"></script>

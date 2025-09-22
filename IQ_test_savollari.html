@@ -30,6 +30,7 @@
             background: var(--background-color);
             color: var(--text-color);
             overflow-x: hidden;
+            position: relative;
         }
         .side-nav {
             position: fixed;
@@ -77,6 +78,9 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         .header h1 { margin: 0; font-size: 1.5em; }
         .menu-toggle {
@@ -107,11 +111,11 @@
             border-radius: 15px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
             line-height: 1.6;
-            text-align: center;
         }
         .test-title {
             color: var(--secondary-color);
             margin-bottom: 30px;
+            text-align: center;
         }
         .question-block {
             display: flex;
@@ -124,6 +128,7 @@
         .question-block h3 {
             margin: 0 0 20px 0;
             font-size: 1.2em;
+            text-align: center;
         }
         .question-card {
             width: 100%;
@@ -168,6 +173,8 @@
             justify-content: center;
             gap: 8px;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+            padding: 0 10px;
         }
         .progress-circle {
             width: 12px;
@@ -190,6 +197,7 @@
             font-weight: bold;
             margin-bottom: 20px;
             color: var(--text-color);
+            text-align: center;
         }
         #certificate-container {
             display: none;
@@ -206,7 +214,7 @@
         }
         @keyframes certAppear {
             from { opacity: 0; transform: scale(0.9);}
-            to   { opacity: 1; transform: scale(1);}
+            to { opacity: 1; transform: scale(1);}
         }
         #certificate-container img { width:80px; margin-bottom:10px; }
         #certificate-container h2 {
@@ -249,6 +257,111 @@
             transition: background 0.2s;
         }
         #download-cert:hover { background: #1976d2;}
+        
+        /* --- Dropdown menyusi uslublari --- */
+        .profile-menu {
+            position: relative;
+        }
+        
+        .profile-btn {
+            background-color: transparent;
+            border: none;
+            color: var(--light-text-color);
+            font-size: 1em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            min-width: 180px;
+            z-index: 10;
+        }
+        .profile-dropdown a {
+            display: block;
+            padding: 12px 16px;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+        .profile-dropdown a:hover {
+            background-color: var(--background-color);
+        }
+
+        /* --- Mobilga moslashuvchan @media qoidalari --- */
+        @media (max-width: 980px) {
+            .main-content-container {
+                padding: 0;
+            }
+            .header {
+                position: fixed;
+                width: 100%;
+                top: 0;
+                left: 0;
+                padding: 12px 15px;
+                z-index: 100;
+            }
+            .container {
+                max-width: 100%;
+                margin-top: 80px;
+                padding: 15px;
+                border-radius: 0;
+                box-shadow: none;
+            }
+            .main-content-container.menu-open {
+                margin-left: 0;
+            }
+            .side-nav.active {
+                left: 0;
+                width: 250px;
+            }
+            .profile-btn span {
+                display: none;
+            }
+        }
+        @media (max-width: 576px) {
+            .header h1 {
+                font-size: 1.2em;
+            }
+            .menu-toggle {
+                order: -1;
+            }
+            .question-block {
+                margin: 20px auto;
+            }
+            .nav-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .nav-buttons button {
+                width: 100%;
+            }
+            .container {
+                text-align: left;
+            }
+            .test-title, .timer-display {
+                text-align: center;
+            }
+            .progress-bar-circles {
+                gap: 5px;
+            }
+            .progress-circle {
+                width: 10px;
+                height: 10px;
+            }
+            .progress-circle.active {
+                width: 12px;
+                height: 12px;
+            }
+        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/@vercel/speed-insights/dist/inject.min.js"></script>
@@ -296,7 +409,6 @@
                 <button id="finish-btn" style="display:none;" disabled>Natijalarni ko'rish</button>
             </div>
         </div>
-        <!-- Sertifikat blok -->
         <div id="certificate-container">
             <img id="cert-logo" src="./images/careerpathlogo.jpg" alt="Logo">
             <h2>IQ Test Sertifikati</h2>
@@ -315,283 +427,283 @@
         </div>
     </div>
     <script type="module">
-       import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyA86zhSVi4FSw-GvFBdOZsCPaHMS67XA78",
-    authDomain: "carrer-path-a5810.firebaseapp.com",
-    projectId: "carrer-path-a5810",
-    storageBucket: "carrer-path-a5810.firebasestorage.app",
-    messagingSenderId: "693831778129",
-    appId: "1:693831778129:web:911293c5c284eefe295d70"
-};
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+        const firebaseConfig = {
+            apiKey: "AIzaSyA86zhSVi4FSw-GvFBdOZsCPaHMS67XA78",
+            authDomain: "carrer-path-a5810.firebaseapp.com",
+            projectId: "carrer-path-a5810",
+            storageBucket: "carrer-path-a5810.firebasestorage.app",
+            messagingSenderId: "693831778129",
+            appId: "1:693831778129:web:911293c5c284eefe295d70"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
 
-let questions = [];
-let currentQuestionIndex = 0;
-let userAnswers = {};
-let timer;
-const TIME_LIMIT = 600;
-const PASS_PERCENTAGE = 70;
+        let questions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = {};
+        let timer;
+        const TIME_LIMIT = 600;
+        const PASS_PERCENTAGE = 70;
+        let certIdValue = null;
+        let userName = "";
 
-// NEW: certIdValue will hold the certificate ID that we save and show
-let certIdValue = null;
+        const questionContainer = document.querySelector('.question-container');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const finishBtn = document.getElementById('finish-btn');
+        const timerDisplay = document.getElementById('timer-display');
+        const certificateContainer = document.getElementById('certificate-container');
+        const certName = document.getElementById('cert-name');
+        const certDate = document.getElementById('cert-date');
+        const certScore = document.getElementById('cert-score');
+        const certTotal = document.getElementById('cert-total');
+        const certId = document.getElementById('cert-id');
+        const downloadCertBtn = document.getElementById('download-cert');
 
-const questionContainer = document.querySelector('.question-container');
-const prevBtn = document.getElementById('prev-btn');
-const nextBtn = document.getElementById('next-btn');
-const finishBtn = document.getElementById('finish-btn');
-const timerDisplay = document.getElementById('timer-display');
+        const fetchQuestions = async () => {
+            try {
+                const response = await fetch('./IQ_test_savollari.json');
+                if (!response.ok) {
+                    throw new Error('Savollar yuklanmadi. Fayl yo\'q yoki server xatosi.');
+                }
+                questions = await response.json();
+                startTest();
+            } catch (error) {
+                console.error('Xato:', error);
+                questionContainer.innerHTML = `<p style="color:red;">Savollar yuklanmadi. Iltimos, keyinroq urinib ko'ring.</p>`;
+                document.querySelector('.nav-buttons').style.display = 'none';
+                timerDisplay.style.display = 'none';
+            }
+        };
 
-// Sertifikat elementlari
-const certificateContainer = document.getElementById('certificate-container');
-const certName = document.getElementById('cert-name');
-const certDate = document.getElementById('cert-date');
-const certScore = document.getElementById('cert-score');
-const certTotal = document.getElementById('cert-total');
-const certId = document.getElementById('cert-id');
-const downloadCertBtn = document.getElementById('download-cert');
+        const startTimer = () => {
+            let timeLeft = TIME_LIMIT;
+            timer = setInterval(() => {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerDisplay.textContent = `Qolgan vaqt: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    handleFinishTest(true);
+                }
+            }, 1000);
+        };
 
-let userName = "";
-
-const fetchQuestions = async () => {
-    try {
-        const response = await fetch('./IQ_test_savollari.json');
-        if (!response.ok) {
-            throw new Error('Savollar yuklanmadi. Fayl yo\'q yoki server xatosi.');
-        }
-        questions = await response.json();
-        startTest();
-    } catch (error) {
-        console.error('Xato:', error);
-        questionContainer.innerHTML = `<p style="color:red;">Savollar yuklanmadi. Iltimos, keyinroq urinib ko'ring.</p>`;
-        document.querySelector('.nav-buttons').style.display = 'none';
-        timerDisplay.style.display = 'none';
-    }
-};
-
-const startTimer = () => {
-    let timeLeft = TIME_LIMIT;
-    timer = setInterval(() => {
-        timeLeft--;
-        const minutes = Math.floor(timeLeft / 60);
-        const seconds = timeLeft % 60;
-        timerDisplay.textContent = `Qolgan vaqt: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            handleFinishTest(true);
-        }
-    }, 1000);
-};
-
-const renderQuestion = () => {
-    questionContainer.innerHTML = '';
-    const q = questions[currentQuestionIndex];
-    if (!q) { console.warn('Savol topilmadi: index=', currentQuestionIndex); return; }
-    const questionBlock = document.createElement('div');
-    questionBlock.className = 'question-block';
-    const questionText = document.createElement('h3');
-    questionText.textContent = q.question;
-    questionBlock.appendChild(questionText);
-    q.options.forEach(option => {
-        const optionCard = document.createElement('div');
-        optionCard.className = 'question-card';
-        optionCard.textContent = option;
-        optionCard.onclick = () => selectAnswer(q.id, option);
-        if (userAnswers[q.id] === option) {
-            optionCard.classList.add('active');
-        }
-        questionBlock.appendChild(optionCard);
-    });
-    questionContainer.appendChild(questionBlock);
-
-    prevBtn.disabled = currentQuestionIndex === 0;
-    nextBtn.style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
-    finishBtn.style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
-    finishBtn.disabled = !userAnswers[q.id];
-
-    updateProgressCircles();
-};
-
-const selectAnswer = (questionId, value) => {
-    userAnswers[questionId] = value;
-    renderQuestion();
-};
-
-const updateProgressCircles = () => {
-    const circleContainer = document.getElementById('progress-bar-circles');
-    circleContainer.innerHTML = '';
-    for (let i = 0; i < questions.length; i++) {
-        const circle = document.createElement('div');
-        circle.className = 'progress-circle';
-        if (userAnswers[questions[i].id]) {
-            circle.classList.add('active');
-        }
-        if (i === currentQuestionIndex) {
-            circle.classList.add('current');
-        }
-        circleContainer.appendChild(circle);
-    }
-};
-
-const showCertificate = (score, totalQuestions) => {
-    certName.textContent = userName ? userName : "Foydalanuvchi";
-    certScore.textContent = `${score} / ${totalQuestions}`;
-    certTotal.textContent = totalQuestions;
-    certDate.textContent = new Date().toLocaleDateString();
-    // Use the generated certIdValue (if not set, create a fallback)
-    if (!certIdValue) certIdValue = Math.floor(100000 + Math.random() * 900000);
-    certId.textContent = certIdValue;
-    certificateContainer.style.display = 'block';
-    window.scrollTo({ top: certificateContainer.offsetTop, behavior: 'smooth' });
-};
-
-// Removed html2canvas usage (PDF-only flow kept)
-
-// calculateResults unchanged (still shows results and certificate)
-const calculateResults = () => {
-    let score = 0;
-    questions.forEach(q => {
-        if (
-            Array.isArray(q.options) &&
-            typeof q.correct === 'number' &&
-            q.options[q.correct] === userAnswers[q.id]
-        ) {
-            score++;
-        }
-    });
-    const totalQuestions = questions.length;
-    const percentage = (score / totalQuestions) * 100;
-    let resultHTML = `
-        <h2 class="test-title">Test yakunlandi!</h2>
-        <div style="text-align:center;">
-            <h3>Sizning natijangiz:</h3>
-            <p>To'g'ri javoblar soni: ${score} / ${totalQuestions}</p>
-            <p>To'g'ri javoblar foizi: ${percentage.toFixed(2)}%</p>
-            <p style="font-size:1.5em; font-weight:bold;">
-                Siz testdan ${percentage >= PASS_PERCENTAGE ? '<span style="color:green;">O\'TDINGIZ!</span> 🎉' : '<span style="color:red;">O\'TA OLMADINGIZ.</span> 😔'}
-            </p>
-        </div>
-    `;
-    questionContainer.innerHTML = resultHTML;
-    document.querySelector('.nav-buttons').style.display = 'none';
-    document.querySelector('.progress-bar-circles').style.display = 'none';
-    clearInterval(timer);
-    if (percentage >= PASS_PERCENTAGE) {
-        showCertificate(score, totalQuestions);
-    }
-};
-
-const handleFinishTest = async (isTimeUp = false) => {
-    if (!isTimeUp && Object.keys(userAnswers).length < questions.length) {
-        alert("Iltimos, barcha savollarga javob bering!");
-        return;
-    }
-    let score = 0;
-    questions.forEach(q => {
-        if (
-            Array.isArray(q.options) &&
-            typeof q.correct === 'number' &&
-            q.options[q.correct] === userAnswers[q.id]
-        ) {
-            score++;
-        }
-    });
-    const percentage = (score / questions.length) * 100;
-
-    // NEW: generate certIdValue for this test attempt (will be shown and saved)
-    certIdValue = Math.floor(100000 + Math.random() * 900000);
-
-    if (auth.currentUser) {
-        userName = auth.currentUser.displayName || auth.currentUser.email || "Foydalanuvchi";
-        try {
-            // Keep same document path as before but add certId field
-            const resultsRef = doc(db, "iq_test_results", auth.currentUser.uid);
-            await setDoc(resultsRef, {
-                answers: userAnswers,
-                score: score,
-                percentage: percentage,
-                completedAt: new Date(),
-                passed: percentage >= PASS_PERCENTAGE,
-                certId: certIdValue // <-- NEW: store certificate ID in Firestore
+        const renderQuestion = () => {
+            questionContainer.innerHTML = '';
+            const q = questions[currentQuestionIndex];
+            if (!q) { console.warn('Savol topilmadi: index=', currentQuestionIndex); return; }
+            const questionBlock = document.createElement('div');
+            questionBlock.className = 'question-block';
+            const questionText = document.createElement('h3');
+            questionText.textContent = q.question;
+            questionBlock.appendChild(questionText);
+            q.options.forEach(option => {
+                const optionCard = document.createElement('div');
+                optionCard.className = 'question-card';
+                optionCard.textContent = option;
+                optionCard.onclick = () => selectAnswer(q.id, option);
+                if (userAnswers[q.id] === option) {
+                    optionCard.classList.add('active');
+                }
+                questionBlock.appendChild(optionCard);
             });
-            calculateResults();
-        } catch (err) {
-            console.error('Saqlashda xato:', err);
-            alert("Natijalarni saqlashda xatolik yuz berdi. Internetga ulanilganini tekshiring.");
-            calculateResults();
-        }
-    } else {
-        // Not logged in: still show results and certificate (certIdValue already set)
-        calculateResults();
-    }
-};
+            questionContainer.appendChild(questionBlock);
 
-const startTest = () => {
-    if (questions.length > 0) {
-        renderQuestion();
-        startTimer();
-    }
-};
+            prevBtn.disabled = currentQuestionIndex === 0;
+            nextBtn.style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'inline-block';
+            finishBtn.style.display = currentQuestionIndex === questions.length - 1 ? 'inline-block' : 'none';
+            finishBtn.disabled = !userAnswers[q.id];
+            updateProgressCircles();
+        };
 
-prevBtn.addEventListener('click', () => {
-    if (currentQuestionIndex > 0) {
-        currentQuestionIndex--;
-        renderQuestion();
-    }
-});
+        const selectAnswer = (questionId, value) => {
+            userAnswers[questionId] = value;
+            renderQuestion();
+        };
 
-nextBtn.addEventListener('click', () => {
-    if (!userAnswers[questions[currentQuestionIndex].id]) {
-        alert("Iltimos, avval bu savolga javob bering!");
-        return;
-    }
-    if (currentQuestionIndex < questions.length - 1) {
-        currentQuestionIndex++;
-        renderQuestion();
-    }
-});
+        const updateProgressCircles = () => {
+            const circleContainer = document.getElementById('progress-bar-circles');
+            circleContainer.innerHTML = '';
+            for (let i = 0; i < questions.length; i++) {
+                const circle = document.createElement('div');
+                circle.className = 'progress-circle';
+                if (userAnswers[questions[i].id]) {
+                    circle.classList.add('active');
+                }
+                if (i === currentQuestionIndex) {
+                    circle.classList.add('current');
+                }
+                circleContainer.appendChild(circle);
+            }
+        };
 
-finishBtn.addEventListener('click', handleFinishTest);
+        const showCertificate = (score, totalQuestions) => {
+            certName.textContent = userName ? userName : "Foydalanuvchi";
+            certScore.textContent = `${score} / ${totalQuestions}`;
+            certTotal.textContent = totalQuestions;
+            certDate.textContent = new Date().toLocaleDateString();
+            if (!certIdValue) certIdValue = Math.floor(100000 + Math.random() * 900000);
+            certId.textContent = certIdValue;
+            certificateContainer.style.display = 'block';
+            window.scrollTo({ top: certificateContainer.offsetTop, behavior: 'smooth' });
+        };
 
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        userName = user.displayName || user.email || "Foydalanuvchi";
-        document.getElementById('user-email-display').textContent = user.email;
-        fetchQuestions();
-    } else {
-        window.location.href = "login.html";
-    }
-});
+        const calculateResults = () => {
+            let score = 0;
+            questions.forEach(q => {
+                if (
+                    Array.isArray(q.options) &&
+                    typeof q.correct === 'number' &&
+                    q.options[q.correct] === userAnswers[q.id]
+                ) {
+                    score++;
+                }
+            });
+            const totalQuestions = questions.length;
+            const percentage = (score / totalQuestions) * 100;
+            let resultHTML = `
+                <h2 class="test-title">Test yakunlandi!</h2>
+                <div style="text-align:center;">
+                    <h3>Sizning natijangiz:</h3>
+                    <p>To'g'ri javoblar soni: ${score} / ${totalQuestions}</p>
+                    <p>To'g'ri javoblar foizi: ${percentage.toFixed(2)}%</p>
+                    <p style="font-size:1.5em; font-weight:bold;">
+                        Siz testdan ${percentage >= PASS_PERCENTAGE ? '<span style="color:green;">O\'TDINGIZ!</span> 🎉' : '<span style="color:red;">O\'TA OLMADINGIZ.</span> 😔'}
+                    </p>
+                </div>
+            `;
+            questionContainer.innerHTML = resultHTML;
+            document.querySelector('.nav-buttons').style.display = 'none';
+            document.querySelector('.progress-bar-circles').style.display = 'none';
+            clearInterval(timer);
+            if (percentage >= PASS_PERCENTAGE) {
+                showCertificate(score, totalQuestions);
+            }
+        };
 
-const profileBtn = document.getElementById('profile-btn');
-const profileDropdown = document.getElementById('profile-dropdown');
-profileBtn.addEventListener('click', () => {
-    profileDropdown.classList.toggle('active');
-});
+        const handleFinishTest = async (isTimeUp = false) => {
+            if (!isTimeUp && Object.keys(userAnswers).length < questions.length) {
+                alert("Iltimos, barcha savollarga javob bering!");
+                return;
+            }
+            let score = 0;
+            questions.forEach(q => {
+                if (
+                    Array.isArray(q.options) &&
+                    typeof q.correct === 'number' &&
+                    q.options[q.correct] === userAnswers[q.id]
+                ) {
+                    score++;
+                }
+            });
+            const percentage = (score / questions.length) * 100;
+            certIdValue = Math.floor(100000 + Math.random() * 900000);
 
-const logoutLink = document.getElementById('logout-link');
-logoutLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    signOut(auth).then(() => {
-        window.location.href = "login.html";
-    });
-});
+            if (auth.currentUser) {
+                userName = auth.currentUser.displayName || auth.currentUser.email || "Foydalanuvchi";
+                try {
+                    const resultsRef = doc(db, "iq_test_results", auth.currentUser.uid);
+                    await setDoc(resultsRef, {
+                        answers: userAnswers,
+                        score: score,
+                        percentage: percentage,
+                        completedAt: new Date(),
+                        passed: percentage >= PASS_PERCENTAGE,
+                        certId: certIdValue
+                    });
+                    calculateResults();
+                } catch (err) {
+                    console.error('Saqlashda xato:', err);
+                    alert("Natijalarni saqlashda xatolik yuz berdi. Internetga ulanilganini tekshiring.");
+                    calculateResults();
+                }
+            } else {
+                calculateResults();
+            }
+        };
 
-const menuToggle = document.getElementById('menu-toggle');
-const sideNav = document.getElementById('side-nav');
-const mainContent = document.getElementById('main-content-container');
-menuToggle.addEventListener('click', () => {
-    sideNav.classList.toggle('active');
-    mainContent.classList.toggle('menu-open');
-    menuToggle.classList.toggle('active');
-});
+        const startTest = () => {
+            if (questions.length > 0) {
+                renderQuestion();
+                startTimer();
+            }
+        };
 
-        // Sertifikatni PDF ga eksport qilish (faqat PDF)
+        prevBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (!userAnswers[questions[currentQuestionIndex].id]) {
+                alert("Iltimos, avval bu savolga javob bering!");
+                return;
+            }
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+            }
+        });
+
+        finishBtn.addEventListener('click', handleFinishTest);
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                userName = user.displayName || user.email || "Foydalanuvchi";
+                const userEmailDisplay = document.getElementById('user-email-display');
+                if (userEmailDisplay) {
+                    userEmailDisplay.textContent = user.email;
+                }
+                fetchQuestions();
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        const profileBtn = document.getElementById('profile-btn');
+        const profileDropdown = document.getElementById('profile-dropdown');
+        
+        profileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!profileBtn.contains(e.target) && !profileDropdown.contains(e.target)) {
+                profileDropdown.style.display = 'none';
+            }
+        });
+
+        const logoutLink = document.getElementById('logout-link');
+        logoutLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            signOut(auth).then(() => {
+                window.location.href = "login.html";
+            }).catch(err => {
+                console.error("Sign out xato:", err);
+                alert("Chiqishda xatolik yuz berdi.");
+            });
+        });
+
+        const menuToggle = document.getElementById('menu-toggle');
+        const sideNav = document.getElementById('side-nav');
+        const mainContent = document.getElementById('main-content-container');
+
+        menuToggle.addEventListener('click', () => {
+            sideNav.classList.toggle('active');
+            mainContent.classList.toggle('menu-open');
+            menuToggle.classList.toggle('active');
+        });
+
         document.getElementById('download-cert').onclick = function() {
             const certNameText = document.getElementById('cert-name').textContent;
             const certDateText = document.getElementById('cert-date').textContent;

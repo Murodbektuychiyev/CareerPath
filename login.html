@@ -8,78 +8,78 @@
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
-    :root{
-        --primary-color:#4CAF50;
-        --secondary-color:#2196F3;
-        --background-color:#f0f2f5;
-        --text-color:#333;
-        --light-text-color:#fff;
-        --card-bg:#fff;
-        --border-color:#ddd;
-    }
+:root{
+    --primary-color:#4CAF50;
+    --secondary-color:#2196F3;
+    --background-color:#f0f2f5;
+    --text-color:#333;
+    --light-text-color:#fff;
+    --card-bg:#fff;
+    --border-color:#ddd;
+}
 
-    *{
-        box-sizing:border-box;
-    }
+*{
+    box-sizing:border-box;
+}
 
-    body{
-        font-family:'Poppins',sans-serif;
-        margin:0;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        min-height:100vh;
-        background:var(--background-color);
-        color:var(--text-color);
-        position:relative;
-    }
+body{
+    font-family:'Poppins',sans-serif;
+    margin:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    background:var(--background-color);
+    color:var(--text-color);
+    position:relative;
+}
 
-    body::before{
-        content:'';
-        position:absolute;
-        top:0;left:0;
-        width:100%;
-        height:100%;
-        background:url('../images/careerpathlogo.jpg') no-repeat center center/cover;
-        filter:blur(0.9px) brightness(1);
-        z-index:-1;
-    }
+body::before{
+    content:'';
+    position:absolute;
+    top:0;left:0;
+    width:100%;
+    height:100%;
+    background:url('../images/careerpathlogo.jpg') no-repeat center center/cover;
+    filter:blur(0.9px) brightness(1);
+    z-index:-1;
+}
 
-  .container{
+.container{
     width:100%;
     max-width:450px;
     background:var(--card-bg);
     padding:40px;
     border-radius:20px;
     box-shadow:0 10px 30px rgba(0,0,0,0.1);
-  }
+}
 
-  h2{
+h2{
     text-align:center;
     color:var(--secondary-color);
     margin-bottom:30px;
-  }
+}
 
-  .form-group{
+.form-group{
     margin-bottom:20px;
-  }
+}
 
-  .form-group label{
+.form-group label{
     display:block;
     margin-bottom:8px;
     font-weight:500;
-  }
+}
 
-  .form-group input{
+.form-group input{
     width:100%;
     padding:12px;
     border:1px solid var(--border-color);
     border-radius:8px;
     font-family:'Poppins',sans-serif;
     font-size:1em;
-  }
+}
 
-  .submit-btn{
+.submit-btn{
     width:100%;
     padding:15px;
     background-color:var(--secondary-color);
@@ -90,22 +90,49 @@
     font-weight:600;
     cursor:pointer;
     transition:background-color .3s;
-    }
-    
-  .submit-btn[disabled]{opacity:.7;cursor:not-allowed}
+}
 
-  .submit-btn:hover:not([disabled]){background-color:#1a7bb9}
+.submit-btn[disabled]{opacity:.7;cursor:not-allowed}
 
-  .link{
+.submit-btn:hover:not([disabled]){background-color:#1a7bb9}
+
+.link{
     text-align:center;
     margin-top:20px;
-  }
+}
 
-  .link a{
+.link a{
     color:var(--primary-color);
     text-decoration:none;
     font-weight:600;
+}
+
+/* Mobilga moslashuvchan uslublar */
+@media (max-width: 576px) {
+    body {
+        padding: 10px;
     }
+    .container {
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    h2 {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+    .form-group input {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+    .submit-btn {
+        padding: 12px;
+        font-size: 1em;
+    }
+    .link p {
+        font-size: 0.9em;
+    }
+}
 </style>
 
 <script defer src="https://cdn.jsdelivr.net/npm/@vercel/speed-insights/dist/inject.min.js"></script>

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>CV Generator - CareerPath</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/jpeg" href="./images/careerpathlogo.jpg">
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #2196F3;
+            --background-color: #f0f2f5;
+            --text-color: #333;
+            --light-text-color: #fff;
+            --card-bg: #fff;
+            --menu-bg: #2d3436;
+        }
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            background: var(--background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+        .side-nav {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: var(--menu-bg);
+            color: var(--light-text-color);
+            padding-top: 60px;
+            transition: left 0.3s ease;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+            z-index: 20;
+        }
+        .side-nav.active { 
+            left: 0; 
+        }
+        .side-nav a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            color: var(--light-text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+        .side-nav a:hover { 
+            background: #444; 
+        }
+        .side-nav a .material-icons { 
+            font-size: 24px; 
+            width: 24px; 
+            height: 24px; 
+            text-align: center; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .main-content-container {
+            flex-grow: 1;
+            padding: 20px;
+            margin-left: 0;
+            transition: margin-left .3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .main-content-container.menu-open { 
+            margin-left: 250px; 
+        }
+        .header {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            width: 100%;
+        }
+        .header h1 { 
+            margin:0; 
+            font-size:1.5em; 
+        }
+        .menu-toggle { 
+            display:flex; 
+            flex-direction:column; 
+            gap:5px; 
+            cursor:pointer; 
+        }
+        .menu-toggle span {
+            display: block; 
+            width: 25px; 
+            height: 3px;
+            background-color: var(--light-text-color); 
+            transition: transform .3s;
+        }
+        .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+        .profile-menu { position: relative; }
+        .profile-btn { 
+            background: transparent; 
+            border: 0; 
+            color: var(--light-text-color); 
+            cursor: pointer; 
+            font-weight: 600; 
+        }
+        .profile-dropdown {
+            display: none; 
+            position: absolute; 
+            right: 0; 
+            top: 40px; 
+            background: #fff; 
+            color: #111;
+            border-radius: 8px; 
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08); 
+            overflow: hidden; 
+            min-width: 160px; 
+            z-index: 30;
+        }
+        .profile-dropdown a {
+            display: block; 
+            padding: 10px 14px; 
+            color: #111; 
+            text-decoration: none; 
+            border-bottom: 1px solid #eee;
+        }
+        .profile-dropdown a:hover { 
+            background: #f6f2f2; 
+        }
+        .promo-container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 40px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .promo-container h2 {
+            font-size: 2.5em;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+        .promo-container p {
+            font-size: 1.1em;
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        /* --- Yangi Karusel Uslublari --- */
+        .carousel-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto; /* Faqat yuqori va pastdan bo'shliqni olib tashladik */
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .carousel-slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .feature-card {
+            flex: 0 0 100%;
+            background-color: #f0f2f5;
+            padding: 25px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .feature-card .material-icons {
+            font-size: 50px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5em;
+            color: var(--text-color);
+            margin: 0 0 10px 0;
+        }
+
+        .feature-card p {
+            font-size: 1em;
+            margin-top: 5px;
+            color: #555;
+        }
+
+        .carousel-button {
+            position: absolute;
+            top: 55%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .carousel-button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+            opacity: 1;
+        }
+
+        .carousel-button.prev {
+            left: 10px;
+        }
+
+        .carousel-button.next {
+            right: 10px;
+        }
+
+        .carousel-dots {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .dot {
+            height: 10px;
+            width: 10px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background-color: var(--primary-color);
+        }
+        /* --- Karusel Uslublari tugadi --- */
+
+        .start-btn-container {
+            margin-top: 40px; /* Tugmani pastga tushirish uchun qo'shimcha bo'shliq */
+        }
+        .start-btn {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+        .start-btn:hover {
+            background-color: #45a049;
+        }
+        @media (max-width: 768px) {
+            .promo-container {
+                padding: 20px;
+            }
+            .promo-container h2 {
+                font-size: 2em;
+            }
+            .carousel-button {
+                top: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="side-nav" id="side-nav">
+        <a href="./index.html"><span class="material-icons">info</span> Bosh sahifa</a>
+        <a href="./careerpath.html"><span class="material-icons">home</span> Asosiy sahifa</a>
+        <a href="./dashboard.html"><span class="material-icons">person</span> Mening profilim</a>
+        <a href="./tests.html"><span class="material-icons">menu_book</span> Testlar</a>
+        <a href="./aichat.html"><span class="material-icons">auto_awesome</span>AI Maslahatchi</a>
+        <a href="./cvgenerator-promo.html"><span class="material-icons">description</span> CV Generator</a>
+        <a href="./kasblar.html"><span class="material-icons">lightbulb</span> Kasblar</a>
+        <a href="./jobs.html"><span class="material-icons">work</span> Ish topish</a>
+        <a href="./applications.html"><span class="material-icons">assignment</span> Arizalar</a>
+        <a href="./about.html"><span class="material-icons">group</span> Biz haqimizda</a>
+        <a href="./contact.html"><span class="material-icons">contact_mail</span> Bog'lanish</a>
+    </div>
+
+    <div class="main-content-container" id="main-content-container">
+        <header class="header">
+            <div style="display:flex;align-items:center;gap:12px">
+                <div class="menu-toggle" id="menu-toggle" aria-label="menu toggle" role="button" tabindex="0">
+                    <span></span><span></span><span></span>
+                </div>
+                <h1 style="margin:0">CV Generator</h1>
+            </div>
+            <div class="profile-menu">
+                <button class="profile-btn" id="profile-btn"><span id="user-email-display">...</span> ▼</button>
+                <div class="profile-dropdown" id="profile-dropdown">
+                    <a href="dashboard.html">Mening profilim</a>
+                    <a href="#" id="logout-link">Tizimdan chiqish</a>
+                </div>
+            </div>
+        </header>
+        <div class="promo-container">
+            <h2>Professional CV'ni tez va oson yarating</h2>
+            <p>
+                Bizning CV Generator yordamida siz o'zingizning professional rezyumeingizni
+                bir necha daqiqada yaratishingiz mumkin. Ish beruvchilarni hayratda qoldiring!
+            </p>
+
+            <div class="carousel-container">
+                <div class="carousel-slides" id="carousel-slides">
+                    <div class="feature-card">
+                        <span class="material-icons">star_rate</span>
+                        <h3>Professional shablonlar</h3>
+                        <p>Zamonaviy va ko'zga tashlanadigan CV shablonlaridan tanlang. Har bir shablon ish beruvchilarni jalb qilish uchun mo'ljallangan.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="material-icons">speed</span>
+                        <h3>Tez va qulay yaratish</h3>
+                        <p>Ma'lumotlaringizni kiriting va darhol professional tayyor CV oling. Vaqtingizni tejang!</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="material-icons">verified_user</span>
+                        <h3>PDF va DOCX eksport</h3>
+                        <p>Tayyor CV'ni o'zingizga qulay formatda (PDF yoki DOCX) yuklab oling va istagan joyingizga yuboring.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="material-icons">edit_note</span>
+                        <h3>Oson tahrirlash</h3>
+                        <p>Har qanday vaqtda CV'ingizni tahrirlang va ma'lumotlaringizni yangilab turing.</p>
+                    </div>
+                </div>
+
+                <button class="carousel-button prev" id="carousel-prev"><span class="material-icons">arrow_back_ios</span></button>
+                <button class="carousel-button next" id="carousel-next"><span class="material-icons">arrow_forward_ios</span></button>
+            </div>
+            <div class="carousel-dots" id="carousel-dots"></div>
+            
+            <div class="start-btn-container">
+                <a href="cvgenerator.html" class="start-btn">CV yaratishni boshlash</a>
+            </div>
+        </div>
+    </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA86zhSVi4FSw-GvFBdOZsCPaHMS67XA78",
+            authDomain: "carrer-path-a5810.firebaseapp.com",
+            projectId: "carrer-path-a5810",
+            storageBucket: "carrer-path-a5810.firebasestorage.app",
+            messagingSenderId: "693831778129",
+            appId: "1:693831778129:web:911293c5c284eefe295d70"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const userEmailDisplay = document.getElementById('user-email-display');
+        const logoutLink = document.getElementById('logout-link');
+        const menuToggle = document.getElementById('menu-toggle');
+        const sideNav = document.getElementById('side-nav');
+        const mainContent = document.getElementById('main-content-container');
+        const profileBtn = document.getElementById('profile-btn');
+        const profileDropdown = document.getElementById('profile-dropdown');
+        
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                userEmailDisplay.textContent = user.email || 'Foydalanuvchi';
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        if (logoutLink) {
+            logoutLink.addEventListener('click', async (e) => {
+                e.preventDefault();
+                try {
+                    await signOut(auth);
+                    window.location.href = "login.html";
+                } catch (err) {
+                    console.error("Tizimdan chiqishda xatolik yuz berdi:", err);
+                }
+            });
+        }
+        
+        if (menuToggle && sideNav && mainContent) {
+            menuToggle.addEventListener('click', () => {
+                sideNav.classList.toggle('active');
+                mainContent.classList.toggle('menu-open');
+                menuToggle.classList.toggle('active');
+            });
+        }
+        
+        if (profileBtn && profileDropdown) {
+            profileBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
+            });
+        }
+
+        document.addEventListener('click', (e) => {
+            if (profileBtn && !profileBtn.contains(e.target)) {
+                profileDropdown.style.display = 'none';
+            }
+        });
+
+        // --- Karusel Logikasi ---
+        const carouselSlides = document.getElementById('carousel-slides');
+        const prevButton = document.getElementById('carousel-prev');
+        const nextButton = document.getElementById('carousel-next');
+        const carouselDotsContainer = document.getElementById('carousel-dots');
+        const slides = document.querySelectorAll('.feature-card');
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+        let slideInterval;
+
+        function createDots() {
+            carouselDotsContainer.innerHTML = '';
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('span');
+                dot.classList.add('dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => {
+                    goToSlide(i);
+                    stopAutoSlide();
+                });
+                carouselDotsContainer.appendChild(dot);
+            }
+        }
+
+        function goToSlide(index) {
+            if (index < 0) {
+                index = totalSlides - 1;
+            } else if (index >= totalSlides) {
+                index = 0;
+            }
+            currentSlide = index;
+            const offset = -currentSlide * 100;
+            carouselSlides.style.transform = `translateX(${offset}%)`;
+            updateDots();
+        }
+
+        function updateDots() {
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            goToSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            goToSlide(currentSlide - 1);
+        }
+
+        function startAutoSlide() {
+            stopAutoSlide();
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+
+        function stopAutoSlide() {
+            clearInterval(slideInterval);
+        }
+
+        if (prevButton) {
+            prevButton.addEventListener('click', prevSlide);
+        }
+        if (nextButton) {
+            nextButton.addEventListener('click', nextSlide);
+        }
+        
+        if (carouselSlides) {
+            createDots();
+            startAutoSlide();
+            carouselSlides.addEventListener('mouseenter', stopAutoSlide);
+            carouselSlides.addEventListener('mouseleave', startAutoSlide);
+        }
+        // --- Karusel Logikasi tugadi ---
+    </script>
+</body>
+</html>

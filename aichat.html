@@ -137,9 +137,17 @@
             background-color: var(--card-bg);
             border-radius: 15px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            height: 80vh;
+        }
+        .test-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--primary-color);
         }
         .chat-container {
-            height: 60vh;
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
             border: 1px solid var(--border-color);
@@ -225,6 +233,184 @@
         .loading-dots span:nth-child(3) {
             animation-delay: 0.4s;
         }
+        .request-info {
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9em;
+            color: var(--text-color);
+        }
+        .request-info a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .premium-locked-cta {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            gap: 20px;
+            padding: 20px;
+            z-index: 10;
+        }
+        .premium-locked-cta h3 {
+            color: var(--secondary-color);
+            margin: 0;
+            font-size: 1.5em;
+        }
+        .premium-locked-cta p {
+            margin: 0;
+            font-size: 1em;
+            color: #555;
+        }
+        .premium-locked-cta a {
+            background-color: var(--secondary-color);
+            color: var(--light-text-color);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* --- Responziv dizayn uchun @media qoidalari --- */
+
+/* Katta ekranlar uchun (1200px va undan yuqori) */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1100px;
+        padding: 40px;
+        height: 85vh;
+    }
+    .chat-messages {
+        font-size: 1.1em;
+    }
+    .chat-input-bar input {
+        font-size: 1em;
+    }
+}
+
+/* Kichik noutbuklar va planshetlar uchun (769px - 1199px) */
+@media (min-width: 769px) and (max-width: 1199px) {
+    .container {
+        max-width: 95%;
+        margin: 20px auto;
+        height: 85vh;
+    }
+    .chat-messages {
+        font-size: 1em;
+    }
+    .chat-input-bar input {
+        font-size: 0.9em;
+    }
+    .side-nav {
+        width: 220px;
+    }
+    .main-content-container.menu-open {
+        margin-left: 220px;
+    }
+}
+
+/* Planshetlar va kichik qurilmalar uchun (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    body {
+        padding-top: 60px;
+    }
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+    }
+    .container {
+        width: 95%;
+        margin: 10px auto;
+        padding: 15px;
+        height: 88vh;
+    }
+    .main-content-container {
+        padding: 0;
+    }
+    .chat-messages {
+        padding: 15px;
+        font-size: 0.95em;
+    }
+    .message-bubble {
+        max-width: 80%;
+    }
+    .chat-input-bar {
+        padding: 8px;
+    }
+    .chat-input-bar input {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+}
+
+/* Mobil qurilmalar uchun (320px - 480px) */
+@media (max-width: 480px) {
+    body {
+        padding-top: 50px;
+    }
+    .header {
+        padding: 10px 15px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+    }
+    .header h1 {
+        font-size: 1.2em;
+    }
+    .profile-btn span {
+        display: none;
+    }
+    .container {
+        width: 100%;
+        margin: 0;
+        padding: 10px;
+        border-radius: 0;
+        height: 90vh;
+    }
+    .main-content-container {
+        padding: 0;
+        margin-left: 0 !important;
+    }
+    .side-nav.active {
+        left: 0;
+    }
+    .chat-messages {
+        padding: 10px;
+        font-size: 0.85em;
+    }
+    .message-bubble {
+        max-width: 90%;
+        font-size: 0.8em;
+        padding: 8px 12px;
+    }
+    .chat-input-bar {
+        flex-direction: column;
+        gap: 5px;
+        padding: 5px;
+    }
+    .chat-input-bar input {
+        width: 100%;
+        margin-left: 0;
+        padding: 10px;
+    }
+    .chat-input-bar button {
+        width: 100%;
+        margin-left: 0;
+    }
+}
     </style>
 </head>
 <body>
@@ -267,6 +453,9 @@
                         <div class="message-bubble">Salom! Men CareerPath AI Maslahatchisi. Sizga qanday yordam bera olaman?</div>
                     </div>
                 </div>
+                <div class="request-info" id="request-limit-info" style="display: none;">
+                    <span id="limit-text"></span>: <span id="requests-left">0</span> / <span id="requests-total">15</span>. <span id="premium-message"></span>
+                </div>
                 <div class="loading-dots" id="loading-dots">
                     <span>.</span><span>.</span><span>.</span>
                 </div>
@@ -277,15 +466,47 @@
             </div>
         </div>
     </div>
-    <script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA86zhSVi4FSw-GvFBdOZsCPaHMS67XA78",
+            authDomain: "carrer-path-a5810.firebaseapp.com",
+            projectId: "carrer-path-a5810",
+            storageBucket: "carrer-path-a5810.firebasestorage.app",
+            messagingSenderId: "693831778129",
+            appId: "1:693831778129:web:911293c5c284eefe295d70"
+        };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
         let chatHistory = [
             { role: 'user', content: "Siz tajribali IT psixologi roliningizni bajaring. Siz faqat IT sohasidagi muammolar, karyera yo'nalishlari, stressni boshqarish, motivatsiya va shaxsiy rivojlanish bo'yicha maslahatlar bera olasiz. Boshqa mavzulardagi savollarga javob bermang." },
             { role: 'assistant', content: "Salom! Men CareerPath AI Maslahatchisi. Sizga qanday yordam bera olaman?" }
         ];
+
         const chatMessages = document.getElementById('chat-messages');
         const chatInput = document.getElementById('chat-input');
         const sendBtn = document.getElementById('send-btn');
         const loadingDots = document.getElementById('loading-dots');
+        const requestsLeftSpan = document.getElementById('requests-left');
+        const requestsTotalSpan = document.getElementById('requests-total');
+        const limitTextSpan = document.getElementById('limit-text');
+        const premiumMessageSpan = document.getElementById('premium-message');
+        const requestLimitInfo = document.getElementById('request-limit-info');
+        const userEmailDisplay = document.getElementById('user-email-display');
+        const logoutLink = document.getElementById('logout-link');
+
+        const FREE_REQUESTS_LIMIT = 15;
+        const PREMIUM_REQUESTS_LIMIT = 112;
+        let isPremiumUser = false;
+        let requestsCount = 0;
+        let currentUserId = null;
+        let currentLimit = FREE_REQUESTS_LIMIT;
+
         function appendMessage(message, sender) {
             const messageRow = document.createElement('div');
             messageRow.className = `message-row ${sender}`;
@@ -296,13 +517,37 @@
             chatMessages.appendChild(messageRow);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
+
+        async function updateRequestsCount() {
+            requestsCount++;
+            let limit = isPremiumUser ? PREMIUM_REQUESTS_LIMIT : FREE_REQUESTS_LIMIT;
+            requestsLeftSpan.textContent = limit - requestsCount;
+            const userRef = doc(db, "users", currentUserId);
+            await updateDoc(userRef, { requestsCount: requestsCount });
+        }
+
         async function sendMessage() {
             const userMessageText = chatInput.value.trim();
             if (userMessageText === '') return;
+            
+            let currentLimit = isPremiumUser ? PREMIUM_REQUESTS_LIMIT : FREE_REQUESTS_LIMIT;
+
+            if (!isPremiumUser && requestsCount >= currentLimit) {
+                alert("Sizning AI Maslahatchiga bepul so'rovlaringiz tugadi. Cheksiz suhbat uchun premium obuna sotib oling.");
+                window.location.href = "premium-plans.html";
+                return;
+            } else if (isPremiumUser && requestsCount >= currentLimit) {
+                alert("Sizning AI Maslahatchiga so'rovlaringiz limiti tugadi. Bu limitni oshirish uchun admin bilan bog'laning.");
+                return;
+            }
+
             appendMessage(userMessageText, 'user');
             chatInput.value = '';
-            loadingDots.style.display = 'flex';
+            loadingDots.style.display = 'block';
             sendBtn.disabled = true;
+
+            await updateRequestsCount();
+            
             try {
                 const response = await fetch('http://localhost:3000/api/chat', {
                     method: 'POST',
@@ -330,21 +575,64 @@
                 sendBtn.disabled = false;
             }
         }
+
         sendBtn.addEventListener('click', sendMessage);
         chatInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 sendMessage();
             }
         });
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                userEmailDisplay.textContent = user.email || 'Foydalanuvchi';
+                currentUserId = user.uid;
+                const userRef = doc(db, "users", currentUserId);
+                const userSnap = await getDoc(userRef);
+
+                if (userSnap.exists()) {
+                    isPremiumUser = userSnap.data().isPremium || false;
+                    requestsCount = userSnap.data().requestsCount || 0;
+                } else {
+                    await setDoc(userRef, {
+                        email: user.email,
+                        role: 'user',
+                        isPremium: false,
+                        requestsCount: 0
+                    });
+                    requestsCount = 0;
+                }
+                
+                let limit = isPremiumUser ? PREMIUM_REQUESTS_LIMIT : FREE_REQUESTS_LIMIT;
+                
+                if (isPremiumUser) {
+                    limitTextSpan.textContent = "Premium so'rovlar soni";
+                    requestsTotalSpan.textContent = limit;
+                    premiumMessageSpan.innerHTML = "";
+                } else {
+                    limitTextSpan.textContent = "Bepul so'rovlar soni";
+                    requestsTotalSpan.textContent = limit;
+                    premiumMessageSpan.innerHTML = `Cheksiz suhbat uchun <a href="premium-plans.html">premiumga o'ting.</a>`;
+                }
+                
+                requestsLeftSpan.textContent = limit - requestsCount;
+                requestLimitInfo.style.display = 'block';
+
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
         const menuToggle = document.getElementById('menu-toggle');
         const sideNav = document.getElementById('side-nav');
         const mainContent = document.getElementById('main-content-container');
+        const profileBtn = document.getElementById('profile-btn');
+        const profileDropdown = document.getElementById('profile-dropdown');
+
         menuToggle.addEventListener('click', () => {
             sideNav.classList.toggle('active');
             mainContent.classList.toggle('menu-open');
         });
-        const profileBtn = document.getElementById('profile-btn');
-        const profileDropdown = document.getElementById('profile-dropdown');
         profileBtn.addEventListener('click', () => {
             profileDropdown.style.display = (profileDropdown.style.display === 'none' || profileDropdown.style.display === '') ? 'block' : 'none';
         });
@@ -353,10 +641,17 @@
                 profileDropdown.style.display = 'none';
             }
         });
-        document.getElementById('logout-link').addEventListener('click', (e) => {
-            e.preventDefault();
-            window.location.href = "login.html";
-        });
+        if (logoutLink) {
+            logoutLink.addEventListener('click', async (e) => {
+                e.preventDefault();
+                try {
+                    await signOut(auth);
+                    window.location.href = "login.html";
+                } catch (err) {
+                    console.error("Tizimdan chiqishda xatolik yuz berdi:", err);
+                }
+            });
+        }
     </script>
 </body>
 </html>

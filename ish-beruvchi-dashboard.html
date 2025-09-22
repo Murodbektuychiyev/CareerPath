@@ -33,6 +33,7 @@
             background: var(--background-color);
             color: var(--text-color);
             overflow-x: hidden;
+            position: relative;
         }
 
         .side-nav {
@@ -53,11 +54,10 @@
             left: 0;
         }
 
-        /* Menyudagi barcha havolalar uchun umumiy uslublar */
         .side-nav a {
-            display: flex; /* Elementlarni bir qatorga teradi */
-            align-items: center; /* Ikonka va matnni vertikal markazga joylashtiradi */
-            gap: 15px; /* Ikonka va matn orasidagi bo'shliq */
+            display: flex;
+            align-items: center;
+            gap: 15px;
             padding: 15px 20px;
             color: var(--light-text-color);
             text-decoration: none;
@@ -69,7 +69,6 @@
             background-color: #444;
         }
 
-        /* Barcha ikonlar uchun umumiy sozlama */
         .side-nav a .material-icons {
             font-size: 24px;
             width: 24px;
@@ -96,6 +95,9 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .header h1 {
@@ -296,6 +298,101 @@
             object-fit: cover;
             flex-shrink: 0;
         }
+
+        /* --- Dropdown menyusi uslublari --- */
+        .profile-menu {
+            position: relative;
+        }
+        
+        .profile-btn {
+            background-color: transparent;
+            border: none;
+            color: var(--light-text-color);
+            font-size: 1em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .profile-dropdown {
+            display: none; /* Menyuni dastlab yashiradi */
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            min-width: 180px;
+            z-index: 10;
+        }
+        
+        .profile-dropdown a {
+            display: block;
+            padding: 12px 16px;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+        
+        .profile-dropdown a:hover {
+            background-color: var(--background-color);
+        }
+
+        /* --- Mobilga moslashuvchan @media qoidalari --- */
+        @media (max-width: 980px) {
+            .main-content-container {
+                padding: 0;
+            }
+            .header {
+                position: fixed;
+                width: 100%;
+                top: 0;
+                left: 0;
+                padding: 12px 15px;
+                z-index: 100;
+            }
+            .container {
+                max-width: 100%;
+                margin-top: 80px;
+                padding: 15px;
+                border-radius: 0;
+                box-shadow: none;
+            }
+            .main-content-container.menu-open {
+                margin-left: 0;
+            }
+            .side-nav.active {
+                left: 0;
+                width: 250px;
+            }
+            .profile-btn span {
+                /* Faqat mobil versiyada emaildan voz kechish */
+                display: none;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header h1 {
+                font-size: 1.2em;
+            }
+            .menu-toggle {
+                order: -1;
+            }
+            .job-list {
+                grid-template-columns: 1fr;
+            }
+            .job-card .job-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            .job-card .job-actions button {
+                width: 100%;
+            }
+            .job-form-container {
+                max-width: 100%;
+            }
+        }
     </style>
 
     <script defer src="https://cdn.jsdelivr.net/npm/@vercel/speed-insights/dist/inject.min.js"></script>
@@ -330,6 +427,7 @@
                     <span id="user-email-display">foydalanuvchi@gmail.com</span> ▼
                 </button>
                 <div class="profile-dropdown" id="profile-dropdown">
+                    <a href="./dashboard.html">Mening profilim</a>
                     <a href="#" id="logout-link" class="logout-link">Tizimdan chiqish</a>
                 </div>
             </div>
@@ -627,7 +725,6 @@
             showJobForm(false);
         });
 
-        // Logoni avtomatik yuklash
         inputLogoUpload.addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (!file) return;
@@ -638,15 +735,21 @@
             }
         });
 
+        // Dropdown menyusi bilan ishlash
         const profileBtn = document.getElementById('profile-btn');
         const profileDropdown = document.getElementById('profile-dropdown');
+        
         profileBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
         });
+        
         document.addEventListener('click', (e) => {
-            if (!profileBtn.contains(e.target)) profileDropdown.style.display = 'none';
+            if (!profileBtn.contains(e.target) && !profileDropdown.contains(e.target)) {
+                profileDropdown.style.display = 'none';
+            }
         });
+        
         const logoutLink = document.getElementById('logout-link');
         logoutLink.addEventListener('click', async (e) => {
             e.preventDefault();
@@ -662,6 +765,7 @@
         const menuToggle = document.getElementById('menu-toggle');
         const sideNav = document.getElementById('side-nav');
         const mainContent = document.getElementById('main-content-container');
+        
         menuToggle.addEventListener('click', () => {
             sideNav.classList.toggle('active');
             mainContent.classList.toggle('menu-open');
