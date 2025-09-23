@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qanday qilib yaxshi CV yozish mumkin? - CareerPath</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" type="image/jpeg" href="./images/careerpathlogo.jpg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #2196F3;
+            --background-color: #f0f2f5;
+            --text-color: #333;
+            --light-text-color: #fff;
+            --card-bg: #fff;
+            --menu-bg: #2d3436;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--background-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .side-nav {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: var(--menu-bg);
+            color: var(--light-text-color);
+            padding-top: 60px;
+            transition: left 0.3s ease;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+            z-index: 20;
+        }
+
+        .side-nav.active {
+            left: 0;
+        }
+
+        .side-nav a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            color: var(--light-text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .side-nav a:hover {
+            background: #444;
+        }
+
+        .side-nav a .material-icons {
+            font-size: 24px;
+            width: 24px;
+            height: 24px;
+            text-align: center;
+        }
+
+        .main-content-container {
+            flex-grow: 1;
+            padding-top: 80px;
+            margin-left: 0;
+            transition: margin-left .3s ease;
+        }
+
+        .main-content-container.menu-open {
+            margin-left: 250px;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: left .3s ease, width .3s ease;
+        }
+
+        .header.menu-open {
+            left: 250px;
+            width: calc(100% - 250px);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+        
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--light-text-color);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .profile-menu {
+            position: relative;
+            z-index: 1001;
+        }
+
+        .profile-btn {
+            background: transparent;
+            border: 0;
+            color: var(--light-text-color);
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 40px;
+            background: #fff;
+            color: #111;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            min-width: 160px;
+            z-index: 30;
+        }
+
+        .profile-dropdown a {
+            display: block;
+            padding: 10px 14px;
+            color: #111;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+        }
+
+        .profile-dropdown a:hover {
+            background: #f6f6f6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            line-height: 1.6;
+        }
+
+        .blog-post-title {
+            color: var(--primary-color);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .blog-post-subtitle {
+            font-size: 1.1em;
+            color: var(--text-color);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .blog-post-image-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .blog-post-image {
+            max-width: 65%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .blog-post-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .blog-section-title {
+            color: var(--secondary-color);
+            font-size: 1.8em;
+            margin-top: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .blog-item {
+            margin-bottom: 25px;
+        }
+        
+        .blog-item h3 {
+            color: var(--text-color);
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .blog-item .material-icons {
+            color: var(--primary-color);
+            font-size: 1.5em;
+        }
+
+        .blog-item p {
+            margin-left: 35px;
+            margin-top: 5px;
+            color: #555;
+        }
+
+        .blog-item ul {
+            list-style: none;
+            padding-left: 35px;
+            margin-top: 10px;
+        }
+
+        .blog-item ul li {
+            position: relative;
+            margin-bottom: 5px;
+            padding-left: 20px;
+        }
+
+        .blog-item ul li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .conclusion {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #f6f8fa;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .conclusion h3 {
+            color: var(--primary-color);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--light-text-color);
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 40px;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #1a7bb9;
+        }
+
+        @media (max-width: 980px) {
+            .main-content-container {
+                padding-top: 80px;
+            }
+            .main-content-container.menu-open {
+                margin-left: 250px;
+            }
+            .header.menu-open {
+                left: 250px;
+                width: calc(100% - 250px);
+            }
+        }
+        @media (max-width: 576px) {
+            .blog-post-title {
+                font-size: 2em;
+            }
+            .blog-post-subtitle {
+                font-size: 1em;
+            }
+            .blog-post-image {
+                max-width: 90%;
+            }
+            .blog-section-title {
+                font-size: 1.5em;
+            }
+            .blog-item h3 {
+                font-size: 1.2em;
+            }
+            .blog-item p {
+                margin-left: 0;
+            }
+            .blog-item ul {
+                padding-left: 20px;
+            }
+        }
+    </style>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/@vercel/speed-insights/dist/inject.min.js"></script>
+</head>
+<body>
+    <div class="side-nav" id="side-nav">
+        <a href="./index.html"><span class="material-icons">info</span> Bosh sahifa</a>
+        <a href="./careerpath.html"><span class="material-icons">home</span> Asosiy sahifa</a>
+        <a href="./dashboard.html"><span class="material-icons">person</span> Mening profilim</a>
+        <a href="./tests.html"><span class="material-icons">menu_book</span> Testlar</a>
+        <a href="./aichat.html"><span class="material-icons">auto_awesome</span> AI Maslahatchi</a>
+        <a href="./cvgenerator.html"><span class="material-icons">description</span> CV Generator</a>
+        <a href="./kasblar.html"><span class="material-icons">lightbulb</span> Kasblar</a>
+        <a href="./jobs.html"><span class="material-icons">work</span> Ish topish</a>
+        <a href="./applications.html"><span class="material-icons">assignment</span> Arizalar</a>
+        <a href="./about.html"><span class="material-icons">group</span> Biz haqimizda</a>
+    </div>
+
+    <header class="header" id="main-header">
+        <div style="display:flex;align-items:center;gap:12px">
+            <div class="menu-toggle" id="menu-toggle" aria-label="menu toggle" role="button" tabindex="0">
+                <span></span><span></span><span></span>
+            </div>
+            <h1 style="margin:0">CareerPath</h1>
+        </div>
+        <div class="profile-menu">
+            <button class="profile-btn" id="profile-btn"><span id="user-email-display">...</span> ▼</button>
+            <div class="profile-dropdown" id="profile-dropdown">
+                <a href="dashboard.html">Mening profilim</a>
+                <a href="#" id="logout-link">Tizimdan chiqish</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content-container" id="main-content-container">
+        <div class="container" role="main">
+            <h1 class="blog-post-title">Qanday qilib yaxshi CV yozish mumkin? To‘liq va batafsil qo‘llanma</h1>
+            <p class="blog-post-subtitle">CV (Curriculum Vitae) — bu sizning professional karyerangizning eng muhim hujjatlaridan biridir. U ish beruvchiga sizning malakangiz, tajribangiz va yutuqlaringiz haqida birinchi va eng muhim taassurotni beradi. Ta’sirchan CV yozish uchun shunchaki ma’lumotlarni ro‘yxatlab chiqish yetarli emas. Uni tuzishda aniqlik, ixchamlik va o‘ziga xoslikka e’tibor qaratish lozim. Ushbu maqolada biz CVni noldan boshlab qanday to‘g‘ri tuzishni batafsil ko‘rib chiqamiz.</p>
+            
+            <div class="blog-post-image-container">
+                <img src="./images/qanday-qilib-yaxshi-CV-yozish-mumkin.png" alt="CV yozish bo'yicha maslahatlar" class="blog-post-image">
+            </div>
+
+            <hr>
+
+            <section class="blog-item">
+                <h3 class="blog-section-title"><span class="material-icons">info</span> 1. CVning asosiy qismlari</h3>
+                <p>CV odatda 1-2 sahifadan iborat bo‘lishi kerak. Uning har bir bo‘limi aniq bir maqsadga xizmat qiladi va sizning professional imkoniyatlaringizni namoyish etadi:</p>
+                <ul>
+                    <li><strong>Shaxsiy ma’lumotlar:</strong> Siz bilan qanday bog‘lanish mumkinligini ko‘rsatadi.</li>
+                    <li><strong>Maqsad (Objective) yoki Qisqacha ma’lumot (Summary):</strong> Ish beruvchiga o‘zingiz haqingizda tezda umumiy tasavvur beradi.</li>
+                    <li><strong>Ta’lim ma’lumotlari:</strong> Sizning akademik bazangizni tasdiqlaydi.</li>
+                    <li><strong>Ish tajribasi:</strong> Sizning amaliy ko‘nikmalaringizni va erishgan yutuqlaringizni namoyish etadi.</li>
+                    <li><strong>Ko‘nikmalar (Skills):</strong> Sizning bilimlaringiz va qobiliyatlaringizni aniq ko‘rsatadi.</li>
+                    <li><strong>Qo‘shimcha ma’lumotlar:</strong> Sertifikatlar, loyihalar va hobbi kabi qo‘shimcha ma’lumotlarni o‘z ichiga oladi.</li>
+                </ul>
+            </section>
+
+            <section class="blog-item">
+                <h3 class="blog-section-title"><span class="material-icons">assignment</span> 2. Har bir bo‘limni to‘g‘ri to‘ldirish</h3>
+                
+                <h4><span class="material-icons">person</span> Shaxsiy ma’lumotlar</h4>
+                <p>Bu bo‘lim CVning eng tepasida, aniq va oson topiladigan joyda bo‘lishi kerak:</p>
+                <ul>
+                    <li><strong>To‘liq ism-sharifingiz:</strong> O‘rta kattalikdagi va qalin shriftda yozing. Bu birinchi navbatda ko‘zga tashlanishi lozim.</li>
+                    <li><strong>Aloqa ma’lumotlari:</strong>
+                        <ul>
+                            <li><strong>Telefon raqami:</strong> To‘liq raqamni xalqaro formatda ko‘rsating (masalan: <code>+998-XX-XXX-XX-XX</code>).</li>
+                            <li><strong>Elektron pochta manzili:</strong> Professional ko‘rinishda bo‘lishi muhim (masalan: <code>ism.familiya@gmail.com</code>). Qiziqarli, bolalarcha pochta manzillaridan saqlaning.</li>
+                            <li><strong>Joylashuv:</strong> Faqat shahar va mamlakatni ko‘rsatish yetarli (masalan: <code>Toshkent, O‘zbekiston</code>). To‘liq uyingiz manzilini yozish shart emas.</li>
+                            <li><strong>Ixtiyoriy:</strong> LinkedIn yoki shaxsiy portfolio profilingizga havola bering. Agar siz dasturchi, dizayner yoki ijodiy soha vakili bo‘lsangiz, bu sizning ishlaringizni ko‘rsatishga yordam beradi.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h4><span class="material-icons">summarize</span> CV haqida qisqacha ma’lumot (Summary)</h4>
+                <p>Bu bo‘lim ish beruvchining e'tiborini bir necha soniyada jalb qilish uchun xizmat qiladi. Qisqa, 2-3 jumlali, lekin ta’sirchan bo‘lishi kerak. Bu qismda siz o'zingizni "sotasiz":</p>
+                <ul>
+                    <li><strong>Qanday yozish kerak:</strong> O‘zingizning asosiy tajribangiz, eng kuchli ko‘nikmalaringiz va lavozimga qanday qiymat keltirishingizni umumlashtiring. Bu yerda sizning motivatsiyangiz va maqsadlaringizni ham ifodalash mumkin.</li>
+                    <li><strong>Misol (Front-end dasturchi uchun):</strong> "O‘zbekistondagi yetakchi IT kompaniyalaridan birida 3 yillik tajribaga ega, samarali va responsiv veb-ilovalarni yaratishga ixtisoslashgan front-end dasturchi. React.js va Vue.js kabi zamonaviy texnologiyalarni chuqur o‘zlashtirgan holda, foydalanuvchi interfeysini optimallashtirish va tezkor yechimlarni taqdim etishda malakali. Kompaniyaning raqamli loyihalarida ishlashga, jamoaviy ishlash ko‘nikmalarimni qo‘llashga va innovatsion mahsulotlar yaratishga qiziqaman."</li>
+                    <li><strong>Misol (Marketing mutaxassisi uchun):</strong> "Raqamli marketing sohasida 5 yillik muvaffaqiyatli tajribaga ega, natijaga yo‘naltirilgan mutaxassis. SEO, SEM, SMM va kontent marketingi strategiyalarini ishlab chiqish va amalga oshirish bo‘yicha chuqur bilimga egaman. Kampaniyalarni optimallashtirish orqali brend xabardorligini va sotuvlarni oshirishda isbotlangan yutuqlarim bor. Dinamik jamoada faoliyat yuritishga va kompaniya maqsadlariga erishishga intilaman."</li>
+                </ul>
+
+                <h3><span class="material-icons">school</span> 3. Ta’lim ma’lumotlari</h3>
+                <p>Ta’lim ma’lumotlarini eng so‘nggi ta’lim muassasangizdan boshlab, hronologik tartibda yozing. Agar bir nechta diplom yoki kurslaringiz bo'lsa, ularni ham ko'rsating.</p>
+                <ul>
+                    <li><strong>Universitet nomi, fakultet va yo‘nalishingiz.</strong></li>
+                    <li><strong>O‘qish boshlangan va tugagan yillar.</strong></li>
+                    <li>Agar hali o‘qiyotgan bo‘lsangiz, taxminiy tugatish sanasini ko‘rsating (masalan: <code>2022 – Hozirgi kungacha, Tugatish sanasi: 2026 yil</code>).</li>
+                    <li>Diplom darajasi (masalan: Bakalavr darajasi, Magistratura) va agar yuqori baholarga erishgan bo‘lsangiz, uni ham qo‘shish mumkin.</li>
+                    <li>**Misol:**
+                        <ul>
+                            <li><strong>Toshkent Axborot Texnologiyalari Universiteti</strong>, Kompyuter injeneringi fakulteti, Bakalavr darajasi, 2018–2022.</li>
+                            <li><strong>"Najot Ta'lim" IT Akademiyasi</strong>, Frontend dasturlash kursi, 2021-2022.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3><span class="material-icons">work_history</span> 4. Ish tajribasi</h3>
+                <p>Bu bo‘lim CVning eng muhim qismi bo‘lib, sizning amaliy mahoratingizni va ish natijalarini ko‘rsatadi. Ish tajribangizni ham eng so‘nggi ish joyingizdan boshlab, hronologik tartibda yozing.</p>
+                <ul>
+                    <li><strong>Kompaniya nomi va joylashuvi.</strong></li>
+                    <li><strong>Lavozimingiz nomi</strong> va **ishlagan yillaringiz** (masalan: <code>Iyun 2020 – Iyul 2023</code>).</li>
+                    <li>**Asosiy vazifalar va yutuqlar:** Har bir lavozimdagi asosiy vazifalarni va erishgan yutuqlarni alohida, kuchli harakat fe'llari bilan boshlab yozing. Eng muhimi – sizning hissangiz va natijalaringizni sonlar bilan ifodalash.
+                        <ul>
+                            <li><strong>Noto‘g‘ri misol:</strong> "Mijozlar bilan ishlagan."</li>
+                            <li><strong>To‘g‘ri misol:</strong> "Mijozlar ehtiyojini qondirish orqali mijozlar qoniqish darajasini <strong>20% ga oshirdim</strong>."</li>
+                            <li><strong>Noto‘g‘ri misol:</strong> "Dastur ishlab chiqqan."</li>
+                            <li><strong>To‘g‘ri misol:</strong> "React.js yordamida yangi veb-ilovani ishlab chiqdim, bu esa sahifalarni yuklash tezligini <strong>30% ga tezlashtirdi</strong> va foydalanuvchi jalb etishni <strong>15% ga oshirdi</strong>."</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h3><span class="material-icons">build</span> 5. Ko‘nikmalar (Skills)</h3>
+                <p>Sizga kerakli bo‘lgan ko‘nikmalarni aniq ko‘rsating. Ular texnik (qattiq ko‘nikmalar) va shaxsiy (yumshoq ko‘nikmalar) ko‘nikmalarga bo‘linishi mumkin.</p>
+                <ul>
+                    <li>**Texnik ko‘nikmalar (Hard Skills):**
+                        <ul>
+                            <li><strong>Dasturlash tillari:</strong> <code>Python, Java, JavaScript (React.js, Vue.js), HTML, CSS</code></li>
+                            <li><strong>Dasturlar va vositalar:</strong> <code>Figma, Adobe Photoshop, Microsoft Office Suite (Word, Excel, PowerPoint), Git, Docker</code></li>
+                            <li><strong>Ma’lumotlar bazalari:</strong> <code>SQL, MongoDB</code></li>
+                            <li><strong>Operatsion tizimlar:</strong> <code>Windows, Linux, macOS</code></li>
+                        </ul>
+                    </li>
+                    <li>**Shaxsiy ko‘nikmalar (Soft Skills):**
+                        <ul>
+                            <li><code>Jamoada ishlash</code>, <code>muloqot</code>, <code>muammolarni hal qilish</code>, <code>kreativlik</code>, <code>vaqtni boshqarish</code>, <code>tahlil qilish</code>, <code>yetakchilik</code>.</li>
+                        </ul>
+                    </li>
+                    <li>**Tillarni bilish darajasi:** Har bir til uchun darajani ko‘rsating (masalan: <code>Ingliz tili - C1 (Yuqori)</code>, <code>Rus tili - B2 (O‘rta)</code>).</li>
+                </ul>
+
+                <h3><span class="material-icons">star</span> 6. Qo‘shimcha ma’lumotlar (Ixtiyoriy)</h3>
+                <p>Agar CVingizning asosiy bo‘limlari to‘liq bo‘lsa va hali joy qolsa, qo‘shimcha ma’lumotlarni kiritishingiz mumkin. Bu sizni boshqalardan ajratib turishga yordam beradi.</p>
+                <ul>
+                    <li><strong>Sertifikatlar va kurslar:</strong> Amaldagi ishga tegishli bo‘lgan barcha sertifikatlarni ko‘rsating (masalan: "Google Digital Marketing Certificate", "CS50x sertifikati").</li>
+                    <li><strong>Loyihalar:</strong> Agar sizda shaxsiy loyihalar, ochiq manbali loyihalarga hissangiz bo‘lsa, ularga havolalar va qisqacha tavsif bering.</li>
+                    <li><strong>Hobbi va qiziqishlar:</strong> Ishga mos bo‘lgan hobbilarni qo‘shish mumkin (masalan: "Kitob o‘qish", "Sport", "Volontyorlik"). Bu sizning shaxsiyatingizni ochishga yordam beradi.</li>
+                    <li><strong>Mukofotlar va yutuqlar:</strong> Akademik yoki professional sohadagi barcha muhim mukofot va yutuqlarni sanab o‘ting.</li>
+                </ul>
+            </section>
+            
+            <hr>
+
+            <div class="conclusion">
+                <h3>Xulosa: Professional CVning sirlari</h3>
+                <p>Yaxshi CV yaratish – bu shunchaki ma’lumotlar ro‘yxati emas, balki sizning mahoratingiz va qiymatingizni namoyish etadigan samarali marketing vositasi. Ish beruvchiga o‘zingizni eng yaxshi tomondan ko‘rsatish uchun quyidagi tamoyillarga rioya qiling:</p>
+                <ul>
+                    <li>**Aniqlik va ixchamlik:** Keraksiz ma’lumotlardan qoching, har bir jumla mazmunli bo‘lsin.</li>
+                    <li>**Natijaga yo‘naltirilganlik:** Vazifalarni emas, balki erishgan natijalarni ko‘rsating.</li>
+                    <li>**O‘ziga xoslik:** Har bir ish joyiga moslab CVni tahrirlashdan erinmang.</li>
+                    <li>**Vizual joziba:** O‘qishga qulay, toza va professional dizayndan foydalaning.</li>
+                    <li>**Imlo va grammatika:** Barcha xatolarni diqqat bilan tekshiring.</li>
+                </ul>
+                <p>Ushbu batafsil qo‘llanma orqali siz ish beruvchining e'tiborini tortadigan va sizni orzu qilgan ishga yaqinlashtiradigan professional CV yaratishingizga ishonamiz. Omad tilaymiz!</p>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="cvgenerator.html" class="cta-button">O'z CVingizni yaratish uchun shu yerni bosing!</a>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA86zhSVi4FSw-GvFBdOZsCPaHMS67XA78",
+            authDomain: "carrer-path-a5810.firebaseapp.com",
+            projectId: "carrer-path-a5810",
+            storageBucket: "carrer-path-a5810.firebasestorage.app",
+            messagingSenderId: "693831778129",
+            appId: "1:693831778129:web:911293c5c284eefe295d70"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const userEmailDisplay = document.getElementById('user-email-display');
+        const profileBtn = document.getElementById('profile-btn');
+        const profileDropdown = document.getElementById('profile-dropdown');
+        const logoutLink = document.getElementById('logout-link');
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            if (userEmailDisplay) {
+                userEmailDisplay.textContent = user.email || 'Foydalanuvchi';
+            }
+        });
+        
+        if (profileBtn && profileDropdown) {
+            profileBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
+            });
+            document.addEventListener('click', (e) => {
+                if (!profileBtn.contains(e.target)) {
+                    profileDropdown.style.display = 'none';
+                }
+            });
+        }
+
+        if (logoutLink) {
+            logoutLink.addEventListener('click', async (e) => {
+                e.preventDefault();
+                try {
+                    await signOut(auth);
+                    window.location.href = "login.html";
+                } catch (err) {
+                    console.error("Logout failed:", err);
+                }
+            });
+        }
+        
+        const menuToggle = document.getElementById('menu-toggle');
+        const sideNav = document.getElementById('side-nav');
+        const mainContent = document.getElementById('main-content-container');
+        const mainHeader = document.getElementById('main-header');
+
+        if (menuToggle && sideNav && mainContent && mainHeader) {
+            menuToggle.addEventListener('click', () => {
+                sideNav.classList.toggle('active');
+                mainHeader.classList.toggle('menu-open');
+                mainContent.classList.toggle('menu-open');
+                menuToggle.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>

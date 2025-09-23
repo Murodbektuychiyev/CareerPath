@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intervyuda muvaffaqiyat siri - CareerPath</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" type="image/jpeg" href="./images/careerpathlogo.jpg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #2196F3;
+            --background-color: #f0f2f5;
+            --text-color: #333;
+            --light-text-color: #fff;
+            --card-bg: #fff;
+            --menu-bg: #2d3436;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--background-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .side-nav {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: var(--menu-bg);
+            color: var(--light-text-color);
+            padding-top: 60px;
+            transition: left 0.3s ease;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+            z-index: 20;
+        }
+
+        .side-nav.active {
+            left: 0;
+        }
+
+        .side-nav a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            color: var(--light-text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .side-nav a:hover {
+            background: #444;
+        }
+
+        .side-nav a .material-icons {
+            font-size: 24px;
+            width: 24px;
+            height: 24px;
+            text-align: center;
+        }
+
+        .main-content-container {
+            flex-grow: 1;
+            padding-top: 80px;
+            margin-left: 0;
+            transition: margin-left .3s ease;
+        }
+
+        .main-content-container.menu-open {
+            margin-left: 250px;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: left .3s ease, width .3s ease;
+        }
+
+        .header.menu-open {
+            left: 250px;
+            width: calc(100% - 250px);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+        
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--light-text-color);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .profile-menu {
+            position: relative;
+            z-index: 1001;
+        }
+
+        .profile-btn {
+            background: transparent;
+            border: 0;
+            color: var(--light-text-color);
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 40px;
+            background: #fff;
+            color: #111;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            min-width: 160px;
+            z-index: 30;
+        }
+
+        .profile-dropdown a {
+            display: block;
+            padding: 10px 14px;
+            color: #111;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+        }
+
+        .profile-dropdown a:hover {
+            background: #f6f6f6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            line-height: 1.6;
+        }
+
+        .blog-post-title {
+            color: var(--primary-color);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .blog-post-subtitle {
+            font-size: 1.1em;
+            color: var(--text-color);
+            margin-bottom: 30px;
+        }
+        
+        /* Rasmni joylashtirish uchun yangi klass */
+        .blog-post-image-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .blog-post-image {
+            max-width: 60%; /* Rasmni kattaroq qilish uchun 80% */
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .blog-post-image:hover {
+            transform: scale(1.05); /* Yengil kattalashish */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Yorqinroq soya */
+        }
+
+        .blog-section-title {
+            color: var(--secondary-color);
+            font-size: 1.8em;
+            margin-top: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .blog-item {
+            margin-bottom: 25px;
+        }
+        
+        .blog-item h3 {
+            color: var(--text-color);
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .blog-item .material-icons {
+            color: var(--primary-color);
+            font-size: 1.5em;
+        }
+
+        .blog-item p {
+            margin-left: 35px;
+            margin-top: 5px;
+            color: #555;
+        }
+
+        .blog-item ul {
+            list-style: none;
+            padding-left: 35px;
+            margin-top: 10px;
+        }
+
+        .blog-item ul li {
+            position: relative;
+            margin-bottom: 5px;
+            padding-left: 20px;
+        }
+
+        .blog-item ul li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .conclusion {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #f6f8fa;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .conclusion h3 {
+            color: var(--primary-color);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--light-text-color);
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 40px;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #1a7bb9;
+        }
+
+        @media (max-width: 980px) {
+            .main-content-container {
+                padding-top: 80px;
+            }
+            .main-content-container.menu-open {
+                margin-left: 250px;
+            }
+            .header.menu-open {
+                left: 250px;
+                width: calc(100% - 250px);
+            }
+        }
+        @media (max-width: 576px) {
+            .blog-post-title {
+                font-size: 2em;
+            }
+            .blog-post-subtitle {
+                font-size: 1em;
+            }
+            .blog-post-image {
+                max-width: 90%;
+            }
+            .blog-section-title {
+                font-size: 1.5em;
+            }
+            .blog-item h3 {
+                font-size: 1.2em;
+            }
+            .blog-item p {
+                margin-left: 0;
+            }
+            .blog-item ul {
+                padding-left: 20px;
+            }
+        }
+    </style>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/@vercel/speed-insights/dist/inject.min.js"></script>
+</head>
+<body>
+    <div class="side-nav" id="side-nav">
+        <a href="./index.html"><span class="material-icons">info</span> Bosh sahifa</a>
+        <a href="./careerpath.html"><span class="material-icons">home</span> Asosiy sahifa</a>
+        <a href="./dashboard.html"><span class="material-icons">person</span> Mening profilim</a>
+        <a href="./tests.html"><span class="material-icons">menu_book</span> Testlar</a>
+        <a href="./aichat.html"><span class="material-icons">auto_awesome</span> AI Maslahatchi</a>
+        <a href="./cvgenerator.html"><span class="material-icons">description</span> CV Generator</a>
+        <a href="./kasblar.html"><span class="material-icons">lightbulb</span> Kasblar</a>
+        <a href="./jobs.html"><span class="material-icons">work</span> Ish topish</a>
+        <a href="./applications.html"><span class="material-icons">assignment</span> Arizalar</a>
+        <a href="./about.html"><span class="material-icons">group</span> Biz haqimizda</a>
+    </div>
+
+    <header class="header" id="main-header">
+        <div style="display:flex;align-items:center;gap:12px">
+            <div class="menu-toggle" id="menu-toggle" aria-label="menu toggle" role="button" tabindex="0">
+                <span></span><span></span><span></span>
+            </div>
+            <h1 style="margin:0">CareerPath</h1>
+        </div>
+        <div class="profile-menu">
+            <button class="profile-btn" id="profile-btn"><span id="user-email-display">...</span> ▼</button>
+            <div class="profile-dropdown" id="profile-dropdown">
+                <a href="dashboard.html">Mening profilim</a>
+                <a href="#" id="logout-link">Tizimdan chiqish</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content-container" id="main-content-container">
+        <div class="container" role="main">
+            <h1 class="blog-post-title">Intervyuda muvaffaqiyat siri</h1>
+            <p class="blog-post-subtitle">Siz o‘z malakangizni isbotlash va orzuingizdagi ishni qo‘lga kiritish uchun tayyormisiz? Intervyu - bu sizning bilim va ko‘nikmalaringizni namoyish etish uchun eng yaxshi imkoniyat. Mana sizga intervyuda muvaffaqiyatga erishishning eng muhim sirlari!</p>
+
+            <div class="blog-post-image-container">
+                <img src="./images/intervyuda_muvaffaqiyat_siri_logo.png" alt="Intervyu sahifasi uchun rasm" class="blog-post-image">
+            </div>
+            
+            <hr>
+
+            <section class="blog-item">
+                <h3 class="blog-section-title"><span class="material-icons">work</span> 1. Intervyu oldidan tadqiqot qiling</h3>
+                <p>Intervyu oldidan kompaniya haqida barcha ma’lumotlarni o‘rganib chiqing. Kompaniyaning maqsadlari, tarixi, mahsulotlari va madaniyati bilan tanishish sizga savollarga aniq javob berishga va kompaniyaga mos ekanligingizni ko‘rsatishga yordam beradi.</p>
+            </section>
+
+            <section class="blog-item">
+                <h3 class="blog-section-title"><span class="material-icons">description</span> 2. Qiyin savollarga tayyorlaning</h3>
+                <p>Intervyuda tez-tez beriladigan savollarga oldindan javob tayyorlab qo‘ying. Misol uchun:</p>
+                <ul>
+                    <li>"O‘zingiz haqingizda gapirib bering."</li>
+                    <li>"Kuchsiz tomoningiz nima?"</li>
+                    <li>"Nima uchun aynan bizning kompaniyada ishlashni xohlaysiz?"</li>
+                    <li>"O‘zingizning muvaffaqiyatli loyihalaringiz haqida aytib bering."</li>
+                </ul>
+            </section>
+            
+            <section class="blog-item">
+                <h3 class="blog-section-title"><span class="material-icons">chat</span> 3. Savollar bering</h3>
+                <p>Intervyu oxirida sizga savol berish imkoniyati beriladi. Bu sizning qiziqishingiz va jiddiy yondashuvingizni ko‘rsatadi. Quyidagi kabi savollar berishingiz mumkin:</p>
+                <ul>
+                    <li>"Bu lavozimda birinchi 30, 60, 90 kun ichida qanday vazifalarni bajarishim kutiladi?"</li>
+                    <li>"Jamoa madaniyati qanday?"</li>
+                    <li>"Kompaniyada o‘sish va rivojlanish imkoniyatlari qanday?"</li>
+                </ul>
+            </section>
+            
+            <section class="blog-item">
+                <h3 class="blog-section-title"><span class="material-icons">thumb_up</span> 4. O‘zingizni ishonchli tuting</h3>
+                <p>Intervyu davomida tana tiliga (body language) e'tibor bering. Tik o‘tiring, ko‘zga qarab gapiring va tabassum qiling. Ishonchli, ammo mag‘rur bo‘lmagan harakatlar ijobiy taassurot qoldiradi.</p>
+            </section>
+            
+            <section class="blog-item">
+                <h3 class="blog-section-title"><span class="material-icons">send</span> 5. Rahamat xatini yuboring</h3>
+                <p>Intervyudan keyin 24 soat ichida intervyuerga qisqacha rahmat xati yuboring. Unda kompaniyaga bo‘lgan qiziqishingizni yana bir bor ta’kidlang va uchrashuv uchun minnatdorchilik bildiring.</p>
+            </section>
+
+            <hr>
+
+            <div class="conclusion">
+                <h3>Xulosa</h3>
+                <p>Intervyu – bu shaxsiy mahoratingizni ko‘rsatish uchun noyob imkoniyat. Ushbu sirlarga amal qilib, siz orzuingizdagi ishni qo‘lga kiritish imkoniyatini oshirasiz.</p>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="jobs.html" class="cta-button">Bo‘sh ish o‘rinlarini ko‘rish</a>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA86zhSVi4FSw-GvFBdOZsCPaHMS67XA78",
+            authDomain: "carrer-path-a5810.firebaseapp.com",
+            projectId: "carrer-path-a5810",
+            storageBucket: "carrer-path-a5810.firebasestorage.app",
+            messagingSenderId: "693831778129",
+            appId: "1:693831778129:web:911293c5c284eefe295d70"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const userEmailDisplay = document.getElementById('user-email-display');
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            if (userEmailDisplay) {
+                userEmailDisplay.textContent = user.email || 'Foydalanuvchi';
+            }
+        });
+        
+        const profileBtn = document.getElementById('profile-btn');
+        const profileDropdown = document.getElementById('profile-dropdown');
+        if (profileBtn && profileDropdown) {
+            profileBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
+            });
+            document.addEventListener('click', (e) => {
+                if (!profileBtn.contains(e.target)) {
+                    profileDropdown.style.display = 'none';
+                }
+            });
+        }
+
+        const logoutLink = document.getElementById('logout-link');
+        if (logoutLink) {
+            logoutLink.addEventListener('click', async (e) => {
+                e.preventDefault();
+                try {
+                    await signOut(auth);
+                    window.location.href = "login.html";
+                } catch (err) {
+                    console.error("Logout failed:", err);
+                }
+            });
+        }
+        
+        const menuToggle = document.getElementById('menu-toggle');
+        const sideNav = document.getElementById('side-nav');
+        const mainContent = document.getElementById('main-content-container');
+        const mainHeader = document.getElementById('main-header');
+
+        if (menuToggle && sideNav && mainContent && mainHeader) {
+            menuToggle.addEventListener('click', () => {
+                sideNav.classList.toggle('active');
+                mainHeader.classList.toggle('menu-open');
+                mainContent.classList.toggle('menu-open');
+                menuToggle.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>

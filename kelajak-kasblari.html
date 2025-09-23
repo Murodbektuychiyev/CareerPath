@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelajak kasblari - CareerPath</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" type="image/jpeg" href="./images/careerpathlogo.jpg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #2196F3;
+            --background-color: #f0f2f5;
+            --text-color: #333;
+            --light-text-color: #fff;
+            --card-bg: #fff;
+            --menu-bg: #2d3436;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--background-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .side-nav {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: var(--menu-bg);
+            color: var(--light-text-color);
+            padding-top: 60px;
+            transition: left 0.3s ease;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+            z-index: 20;
+        }
+
+        .side-nav.active {
+            left: 0;
+        }
+
+        .side-nav a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            color: var(--light-text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .side-nav a:hover {
+            background: #444;
+        }
+
+        .side-nav a .material-icons {
+            font-size: 24px;
+            width: 24px;
+            height: 24px;
+            text-align: center;
+        }
+
+        .main-content-container {
+            flex-grow: 1;
+            padding-top: 80px;
+            margin-left: 0;
+            transition: margin-left .3s ease;
+        }
+
+        .main-content-container.menu-open {
+            margin-left: 250px;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: left .3s ease, width .3s ease;
+        }
+
+        .header.menu-open {
+            left: 250px;
+            width: calc(100% - 250px);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--light-text-color);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .profile-menu {
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            z-index: 1001;
+        }
+
+        .profile-btn {
+            background: transparent;
+            border: 0;
+            color: var(--light-text-color);
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 40px;
+            background: #fff;
+            color: #111;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            min-width: 160px;
+            z-index: 30;
+        }
+
+        .profile-dropdown a {
+            display: block;
+            padding: 10px 14px;
+            color: #111;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+        }
+
+        .profile-dropdown a:hover {
+            background: #f6f6f6;
+        }
+
+        /* Asosiy kontent uchun yangi uslublar */
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            line-height: 1.6;
+        }
+
+        .blog-post-title {
+            color: var(--primary-color);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .blog-post-subtitle {
+            font-size: 1.1em;
+            color: var(--text-color);
+            margin-bottom: 30px;
+        }
+
+        /* Rasm joylashtirish uchun uslublar */
+        .blog-post-image-container {
+            display: flex; /* Flexbox ishlatamiz */
+            justify-content: center; /* Gorizontal markazlashtirish */
+            align-items: center; /* Vertikal markazlashtirish (agar kerak bo'lsa) */
+            margin: 0 auto 30px auto; /* Markazlashtirish va pastki margin */
+            max-width: 80%; /* Kontenterning maksimal kengligi (rasmni o'z ichiga oladi) */
+            border-radius: 15px;
+            overflow: hidden; /* Kattalashganda chegaradan chiqmasligi uchun */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer; /* Kattalashish mumkinligini bildirish uchun */
+        }
+        
+        .blog-post-image-container:hover {
+            transform: scale(1.05); /* Yengil kattalashish */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Yorqinroq soya */
+        }
+
+        .blog-post-image {
+            max-width: 65%; /* Rasm container ichida to'liq joylashishi uchun */
+            height: auto;
+            display: block; /* O'zidan pastga bo'sh joy qoldirmasligi uchun */
+            object-fit: contain; /* Rasmning proporsiyalarini saqlagan holda konteynerga sig'dirish */
+        }
+
+        .blog-section-title {
+            color: var(--secondary-color);
+            font-size: 1.8em;
+            margin-top: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .job-item {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .job-item h3 {
+            color: var(--text-color);
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .job-item .material-icons {
+            color: var(--primary-color);
+            font-size: 1.5em;
+        }
+
+        .job-item p {
+            margin-left: 35px;
+            margin-top: 5px;
+            color: #555;
+        }
+
+        .job-item ul {
+            list-style: none;
+            padding-left: 35px;
+            margin-top: 10px;
+        }
+
+        .job-item ul li {
+            position: relative;
+            margin-bottom: 5px;
+            padding-left: 20px;
+        }
+
+        .job-item ul li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .conclusion {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #f6f8fa;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .conclusion h3 {
+            color: var(--primary-color);
+        }
+        
+        /* Chaqiriq tugmasi */
+        .cta-button {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--light-text-color);
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 40px;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #1a7bb9;
+        }
+    </style>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/@vercel/speed-insights/dist/inject.min.js"></script>
+</head>
+<body>
+    <div class="side-nav" id="side-nav">
+        <a href="./index.html"><span class="material-icons">info</span> Bosh sahifa</a>
+        <a href="./careerpath.html"><span class="material-icons">home</span> Asosiy sahifa</a>
+        <a href="./dashboard.html"><span class="material-icons">person</span> Mening profilim</a>
+        <a href="./tests.html"><span class="material-icons">menu_book</span> Testlar</a>
+        <a href="./aichat.html"><span class="material-icons">auto_awesome</span> AI Maslahatchi</a>
+        <a href="./cvgenerator.html"><span class="material-icons">description</span> CV Generator</a>
+        <a href="./kasblar.html"><span class="material-icons">lightbulb</span> Kasblar</a>
+        <a href="./jobs.html"><span class="material-icons">work</span> Ish topish</a>
+        <a href="./applications.html"><span class="material-icons">assignment</span> Arizalar</a>
+        <a href="./about.html"><span class="material-icons">group</span> Biz haqimizda</a>
+    </div>
+
+    <header class="header" id="main-header">
+        <div style="display:flex;align-items:center;gap:12px">
+            <div class="menu-toggle" id="menu-toggle" aria-label="menu toggle" role="button" tabindex="0">
+                <span></span><span></span><span></span>
+            </div>
+            <h1 style="margin:0">CareerPath</h1>
+        </div>
+    </header>
+
+    <div class="profile-menu" id="profile-menu-container">
+        <button class="profile-btn" id="profile-btn"><span id="user-email-display">...</span> ▼</button>
+        <div class="profile-dropdown" id="profile-dropdown">
+            <a href="dashboard.html">Mening profilim</a>
+            <a href="#" id="logout-link">Tizimdan chiqish</a>
+        </div>
+    </div>
+
+    <div class="main-content-container" id="main-content-container">
+        <div class="container" role="main">
+            <h1 class="blog-post-title">Kelajakda Eng Talabgir Bo‘ladigan 10 Ta Kasb va Unga Qanday Tayyorlanish Kerak?</h1>
+            <p class="blog-post-subtitle">Texnologiya kun sayin rivojlanmoqda, yangi kasblar paydo bo‘lmoqda, ba’zilar esa butunlay yo‘qolmoqda. 2030-yilga kelib hozir mavjud bo‘lmagan mutaxassisliklar juda mashhur bo‘lishi kutilmoqda. Agar siz yoki farzandingiz kelajakda ish bilan ta’minlanishini istasangiz, quyidagi TOP-10 yangi kasblar ro‘yxatiga e’tibor bering va ularga qanday tayyorlanish kerakligini bilib oling!</p>
+
+            <div class="blog-post-image-container">
+                <img src="./images/kelajak-kasblari.png" alt="Kelajak kasblari" class="blog-post-image">
+            </div>
+            
+            <hr>
+
+            <section class="job-item">
+                <h3><span class="material-icons">computer</span> IT-etik mutaxassis</h3>
+                <p><strong>Vazifasi:</strong> Sun’iy intellekt (AI) inson huquqlarini buzmasligi, xavfsiz va adolatli ishlashini ta’minlash.</p>
+                <p><strong>Qanday tayyorlanish?</strong></p>
+                <ul>
+                    <li>Dasturlash (Python, AI asoslari)</li>
+                    <li>Xalqaro huquq va axloq normalari</li>
+                    <li>Psixologiya va madaniyatlararo muloqot</li>
+                </ul>
+            </section>
+
+            <section class="job-item">
+                <h3><span class="material-icons">delete</span> Raqamli chiqindilarni utilizatsiya qiluvchi</h3>
+                <p><strong>Vazifasi:</strong> Internetdagi keraksiz ma’lumotlarni tozalash, tizimlarni optimallashtirish.</p>
+                <p><strong>Qanday tayyorlanish?</strong></p>
+                <ul>
+                    <li>Ma’lumotlar tahlili (Data Science)</li>
+                    <li>Matematik algoritmlar</li>
+                    <li>Sun’iy intellekt vositalari</li>
+                </ul>
+            </section>
+            
+            <section class="job-item">
+                <h3><span class="material-icons">code</span> ML-muhandis (Mashina o‘rganishi mutaxassisi)</h3>
+                <p><strong>Vazifasi:</strong> AI modellarini yaratish (masalan, banklarda risklarni bashorat qilish).</p>
+                <p><strong>Qanday tayyorlanish?</strong></p>
+                <ul>
+                    <li>Python, R dasturlash tillari</li>
+                    <li>Statistika va ehtimollar nazariyasi</li>
+                    <li>Katta ma’lumotlar (Big Data)</li>
+                </ul>
+            </section>
+            
+            <section class="job-item">
+                <h3><span class="material-icons">eco</span> Ekologik qurilish mutaxassisi</h3>
+                <p><strong>Vazifasi:</strong> Atrof-muhitga zararsiz, energiya tejovchi uy-joylar qurish.</p>
+                <p><strong>Qanday tayyorlanish?</strong></p>
+                <ul>
+                    <li>Qurilish muhandisligi</li>
+                    <li>"Yashil" texnologiyalar</li>
+                    <li>Barqaror energiya manbalari</li>
+                </ul>
+            </section>
+            
+            <section class="job-item">
+                <h3><span class="material-icons">vr_pano</span> Virtual olamlar dizayneri</h3>
+                <p><strong>Vazifasi:</strong> Metavers va VR dunyolarini yaratish (o‘yinlar, virtual ofislar).</p>
+                <p><strong>Qanday tayyorlanish?</strong></p>
+                <ul>
+                    <li>3D modellezish (Blender, Maya)</li>
+                    <li>Dasturlash (Unity, Unreal Engine)</li>
+                    <li>Dizayn va ijodiy fikrlash</li>
+                </ul>
+            </section>
+            
+            <section class="job-item">
+                <h3><span class="material-icons">location_city</span> Aqlli shaharlar loyihalovchisi</h3>
+                <p><strong>Vazifasi:</strong> Shaharni AI va IoT (Internet of Things) bilan boshqarish.</p>
+                <p><strong>Qanday tayyorlanish?</strong></p>
+                <ul>
+                    <li>Shaharsozlik va infratuzilma</li>
+                    <li>Dasturlash (Python, C++)</li>
+                    <li>Ma’lumotlar tahlili</li>
+                </ul>
+            </section>
+            
+            <section class="job-item">
+                <h3><span class="material-icons">drone</span> Biomuhofaza dron operatori</h3>
+                <p><strong>Vazifasi:</strong> Qishloq xo‘jaligida zararkunandalarga qarshi tabiiy usullar bilan kurashish.</p>
+                <p><strong>Qanday tayyorlanish?</strong></p>
+                <ul>
+                    <li>Dron boshqarish</li>
+                    <li>Agronomiya va biologiya</li>
+                    <li>Ekologik himoya</li>
+                </ul>
+            </section>
+            
+            <section class="job-item">
+                <h3><span class="material-icons">flight</span> Dirigabl va ekranoplan piloti</h3>
+                <p><strong>Vazifasi:</strong> Ekologik toza transport vositalarini boshqarish.</p>
+                <p><strong>Qanday tayyorlanish?</strong></p>
+                <ul>
+                    <li>Aviatsiya muhandisligi</li>
+                    <li>Logistika va boshqaruv</li>
+                    <li>Gibrid texnologiyalar</li>
+                </ul>
+            </section>
+            
+            <section class="job-item">
+                <h3><span class="material-icons">science</span> Genetika muhandisi</h3>
+                <p><strong>Vazifasi:</strong> Genlarni tahrirlash (masalan, iqlim o‘zgarishiga chidamli ekinlar).</p>
+                <p><strong>Qanday tayyorlanish?</strong></p>
+                <ul>
+                    <li>Biotexnologiya</li>
+                    <li>Genetika va kimyo</li>
+                    <li>CRISPR texnologiyasi</li>
+                    
+                </ul>
+            </section>
+            
+            <section class="job-item">
+                <h3><span class="material-icons">emoji_people</span> Insonni rivojlantirish mutaxassisi</h3>
+                <p><strong>Vazifasi:</strong> Har bir insonning qobiliyatlarini aniqlash va rivojlantirish.</p>
+                <p><strong>Qanday tayyorlanish?</strong></p>
+                <ul>
+                    <li>Psixologiya va pedagogika</li>
+                    <li>Kouching va NLP (neiro-lingvistik dasturlash)</li>
+                    <li>Shaxsiy rivojlanish strategiyalari</li>
+                </ul>
+            </section>
+            
+            <hr>
+
+            <div class="conclusion">
+                <h3>Xulosa</h3>
+                <p>Kelajakda sun’iy intellekt, ekologiya va individual yondashuv asosiy trend bo‘ladi. Hozirdan ushbu kasblarga mos ko‘nikmalarni o‘rgansangiz, 10–15 yil ichida eng talabgir mutaxassislardan biriga aylanasiz.</p>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="tests.html" class="cta-button">Testdan o‘ting va sizga mos kasbni aniqlang!</a>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA86zhSVi4FSw-GvFBdOZsCPaHMS67XA78",
+            authDomain: "carrer-path-a5810.firebaseapp.com",
+            projectId: "carrer-path-a5810",
+            storageBucket: "carrer-path-a5810.firebasestorage.app",
+            messagingSenderId: "693831778129",
+            appId: "1:693831778129:web:911293c5c284eefe295d70"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const userEmailDisplay = document.getElementById('user-email-display');
+        const profileBtn = document.getElementById('profile-btn');
+        const profileDropdown = document.getElementById('profile-dropdown');
+        const logoutLink = document.getElementById('logout-link');
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            if (userEmailDisplay) {
+                userEmailDisplay.textContent = user.email || 'Foydalanuvchi';
+            }
+        });
+
+        if (profileBtn && profileDropdown) {
+            profileBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
+            });
+            document.addEventListener('click', (e) => {
+                if (!profileBtn.contains(e.target)) {
+                    profileDropdown.style.display = 'none';
+                }
+            });
+        }
+
+        if (logoutLink) {
+            logoutLink.addEventListener('click', async (e) => {
+                e.preventDefault();
+                try {
+                    await signOut(auth);
+                    window.location.href = "login.html";
+                } catch (err) {
+                    console.error("Logout failed:", err);
+                }
+            });
+        }
+        
+        const menuToggle = document.getElementById('menu-toggle');
+        const sideNav = document.getElementById('side-nav');
+        const mainContent = document.getElementById('main-content-container');
+        const mainHeader = document.getElementById('main-header');
+
+        if (menuToggle && sideNav && mainContent && mainHeader) {
+            menuToggle.addEventListener('click', () => {
+                sideNav.classList.toggle('active');
+                mainHeader.classList.toggle('menu-open');
+                mainContent.classList.toggle('menu-open');
+                menuToggle.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>

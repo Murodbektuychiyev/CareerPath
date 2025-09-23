@@ -1,334 +1,538 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asosiy sahifa - CareerPath</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="icon" type="image/jpeg" href="./images/careerpathlogo.jpg">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
-:root {
-    --primary-color: #4CAF50;
-    --secondary-color: #2196F3;
-    --background-color: #f0f2f5;
-    --text-color: #333;
-    --light-text-color: #fff;
-    --card-bg: #fff;
-    --menu-bg: #2d3436;
-}
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #2196F3;
+            --background-color: #f0f2f5;
+            --text-color: #333;
+            --light-text-color: #fff;
+            --card-bg: #fff;
+            --menu-bg: #2d3436;
+        }
 
-* {
-    box-sizing: border-box;
-}
+        * {
+            box-sizing: border-box;
+        }
 
-body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    min-height: 100vh;
-    background: var(--background-color);
-    color: var(--text-color);
-    overflow-x: hidden;
-}
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--background-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
 
-.side-nav {
-    position: fixed;
-    top: 0;
-    left: -250px;
-    width: 250px;
-    height: 100%;
-    background-color: var(--menu-bg);
-    color: var(--light-text-color);
-    padding-top: 60px;
-    transition: left 0.3s ease;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
-    z-index: 20;
-}
+        .side-nav {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: var(--menu-bg);
+            color: var(--light-text-color);
+            padding-top: 60px;
+            transition: left 0.3s ease;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+            z-index: 20;
+        }
 
-.side-nav.active {
-    left: 0;
-}
+        .side-nav.active {
+            left: 0;
+        }
 
-.side-nav a {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 15px 20px;
-    color: var(--light-text-color);
-    text-decoration: none;
-    font-weight: 500;
-    transition: background-color 0.3s ease;
-}
+        .side-nav a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            color: var(--light-text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
 
-.side-nav a:hover {
-    background: #444;
-}
+        .side-nav a:hover {
+            background: #444;
+        }
 
-.side-nav a .material-icons {
-    font-size: 24px;
-    width: 24px;
-    height: 24px;
-    text-align: center;
-}
+        .side-nav a .material-icons {
+            font-size: 24px;
+            width: 24px;
+            height: 24px;
+            text-align: center;
+        }
 
-.main-content-container {
-    flex-grow: 1;
-    padding: 20px;
-    margin-left: 0;
-    transition: margin-left .3s ease;
-}
+        .main-content-container {
+            flex-grow: 1;
+            padding-top: 80px;
+            margin-left: 0;
+            transition: margin-left .3s ease;
+        }
 
-.main-content-container.menu-open {
-    margin-left: 250px;
-}
+        .main-content-container.menu-open {
+            margin-left: 250px;
+        }
 
-.header {
-    background-color: var(--primary-color);
-    color: var(--light-text-color);
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
+        .header {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: left .3s ease, width .3s ease;
+        }
 
-.header h1 {
-    margin: 0;
-    font-size: 1.5em;
-}
+        .header.menu-open {
+            left: 250px;
+            width: calc(100% - 250px);
+        }
 
-.menu-toggle {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-}
+        .header h1 {
+            margin: 0;
+            font-size: 1.5em;
+        }
 
-.menu-toggle span {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background-color: var(--light-text-color);
-    transition: transform .3s;
-}
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
 
-.menu-toggle.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px,5px);
-}
-.menu-toggle.active span:nth-child(2) {
-    opacity: 0;
-}
-.menu-toggle.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px,-5px);
-}
+        .menu-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--light-text-color);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
 
-.profile-menu {
-    position: relative;
-}
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
 
-.profile-btn {
-    background: transparent;
-    border: 0;
-    color: var(--light-text-color);
-    cursor: pointer;
-    font-weight: 600;
-    display: flex; /* O'zgartirilgan */
-    align-items: center; /* O'zgartirilgan */
-    gap: 8px; /* O'zgartirilgan */
-}
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
 
-.profile-dropdown {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 40px;
-    background: #fff;
-    color: #111;
-    border-radius: 8px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    overflow: hidden;
-    min-width: 160px;
-    z-index: 30;
-}
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
 
-.profile-dropdown a {
-    display: block;
-    padding: 10px 14px;
-    color: #111;
-    text-decoration: none;
-    border-bottom: 1px solid #eee;
-}
+        .profile-menu {
+            position: fixed;
+            top: 15px;
+            right: 20px;
+            z-index: 1001;
+        }
 
-.profile-dropdown a:hover {
-    background: #f6f6f6;
-}
+        .profile-btn {
+            background: transparent;
+            border: 0;
+            color: var(--light-text-color);
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-.container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: var(--card-bg);
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-    line-height: 1.6;
-}
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 40px;
+            background: #fff;
+            color: #111;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            min-width: 160px;
+            z-index: 30;
+        }
 
-.card-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    margin-bottom: 40px;
-}
+        .profile-dropdown a {
+            display: block;
+            padding: 10px 14px;
+            color: #111;
+            text-decoration: none;
+            border-bottom: 1px solid #eee;
+        }
 
-.card {
-    background-color: var(--card-bg);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    transition: transform .3s;
-}
+        .profile-dropdown a:hover {
+            background: #f6f6f6;
+        }
 
-.card:hover {
-    transform: translateY(-5px);
-}
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            line-height: 1.6;
+        }
 
-.card h3 {
-    color: var(--secondary-color);
-    margin-top: 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+        /* --- YANGILANGAN BANNER BO'LIMI --- */
+        .banner-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            background-size: 400% 400%;
+            animation: gradient-animation 5s ease infinite; /* Vaqt 5s ga o'zgartirildi */
+            color: var(--light-text-color);
+            text-align: center;
+            padding: 100px 20px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
 
-.card h3 .material-icons {
-    font-size: 28px;
-    color: var(--secondary-color);
-}
 
-.card p {
-    font-size:.95em;
-    line-height:1.6;
-    margin:0;
-}
-
-.cta-link {
-    display:inline-block;
-    padding:10px 20px;
-    background-color:var(--primary-color);
-    color:var(--light-text-color);
-    text-decoration:none;
-    border-radius:8px;
-    margin-top:15px;
-    transition:background-color .3s;
-}
-
-.cta-link:hover {
-    background-color:#45a049;
-}
-
-.small-card-container {
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
-    gap:15px;
-    text-align:center;
-    margin-top:20px;
-}
-
-.small-card {
-    background-color:var(--card-bg);
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 1px 5px rgba(0,0,0,0.05);
-}
-
-.small-card h4 {
-    color:var(--primary-color);
-    margin:0;
-    font-size:1.6rem;
-}
-
-.small-card p {
-    font-size:.95rem;
-    color:#777;
-    margin-top:8px;
-}
-
-/* --- TO'LIQ VA YANGILANGAN @media QOIDALARI --- */
-@media (max-width: 980px) {
-    .main-content-container.menu-open {
-        margin-left: 0;
+        /* Fon animatsiyasi uchun @keyframes qoidasi */
+        @keyframes gradient-animation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+             }
     }
-    .side-nav.active {
-        left: 0;
-        width: 250px;
-    }
-    .container {
-        max-width: 100%;
-        margin: 10px auto;
-        padding: 15px;
-        border-radius: 0;
-        box-shadow: none;
-    }
-    .card-container {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-    .card {
-        padding: 20px;
-    }
-    .header {
-        position: fixed;
-        width: 100%;
-        top: 0;
-        left: 0;
-        z-index: 100;
-        padding: 12px 15px;
-    }
-    .small-card-container {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    }
-    .profile-btn span {
-        display: none;
-    }
-    .profile-btn {
-        padding: 8px 12px;
-    }
-}
 
-@media (max-width: 576px) {
-    .header h1 {
-        font-size: 1.2em;
-    }
-    .menu-toggle {
-        gap: 4px;
-    }
-    .menu-toggle span {
-        width: 20px;
-    }
-    .profile-dropdown {
-        min-width: 140px;
-    }
-    .card h3 {
-        font-size: 1.2em;
-    }
-    .card h3 .material-icons {
-        font-size: 24px;
-    }
-    .cta-link {
-        width: 100%;
-        text-align: center;
-        padding: 8px;
-    }
-    .small-card h4 {
-        font-size: 1.4rem;
-    }
-    .small-card-container {
-        grid-template-columns: 1fr;
-    }
-}
+        /* Qolgan CSS kodlari o'zgarishsiz qoladi */
+        .banner-section h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .banner-section p {
+            font-size: 1.2em;
+            margin-bottom: 25px;
+        }
+        
+        .cta-btn {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        /* --- MAVJUD QISMLAR UCHUN CSS --- */
+        .greeting-card {
+            background: linear-gradient(to right, var(--primary-color), #43a047);
+            color: var(--light-text-color);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .greeting-card h2 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        .greeting-card p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform .3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3 .material-icons {
+            font-size: 28px;
+            color: var(--secondary-color);
+        }
+
+        .card p {
+            font-size: .95em;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .cta-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            text-decoration: none;
+            border-radius: 8px;
+            margin-top: 15px;
+            transition: background-color .3s;
+        }
+
+        .cta-link:hover {
+            background-color: #45a049;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-card h4 {
+            font-size: 3em;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .stat-card p {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin-top: 5px;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .step-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-card .material-icons {
+            font-size: 4em;
+            color: var(--secondary-color);
+        }
+
+        .step-card h3 {
+            margin-top: 10px;
+        }
+
+       .chart-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .chart-container img {
+            max-width: 55%; /* Rasmni 55% ga kichraytirish */
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animatziya uchun o'tish */
+            display: block;
+            margin: 0 auto; /* Rasmni o'rtaga olish */
+        }
+
+        /* Hover effekti */
+        .chart-container img:hover {
+            transform: scale(1.02); /* Yengil kattalashish */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Yengilroq soya */
+        }
+        
+        .blog-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .blog-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .blog-content {
+            padding: 20px;
+        }
+
+        .blog-content h3 {
+            margin-top: 0;
+            color: var(--secondary-color);
+        }
+
+        .blog-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 980px) {
+            .main-content-container {
+                padding-top: 80px;
+            }
+            .main-content-container.menu-open {
+                margin-left: 250px;
+            }
+            .side-nav.active {
+                left: 0;
+                width: 250px;
+            }
+            .header.menu-open {
+                left: 250px;
+                width: calc(100% - 250px);
+            }
+            .container {
+                max-width: 100%;
+                margin: 10px auto;
+                padding: 15px;
+                border-radius: 0;
+                box-shadow: none;
+            }
+            .card-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .card {
+                padding: 20px;
+            }
+            .header {
+                position: fixed;
+                width: 100%;
+                top: 0;
+                left: 0;
+                z-index: 100;
+                padding: 12px 15px;
+            }
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            .profile-btn span {
+                display: none;
+            }
+            .profile-btn {
+                padding: 8px 12px;
+            }
+            .banner-section {
+                padding: 80px 15px;
+            }
+        }
+        @media (max-width: 576px) {
+            .header h1 {
+                font-size: 1.2em;
+            }
+            .menu-toggle {
+                gap: 4px;
+            }
+            .menu-toggle span {
+                width: 20px;
+            }
+            .profile-dropdown {
+                min-width: 140px;
+            }
+            .card h3 {
+                font-size: 1.2em;
+            }
+            .card h3 .material-icons {
+                font-size: 24px;
+            }
+            .cta-link {
+                width: 100%;
+                text-align: center;
+                padding: 8px;
+            }
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            .stat-card h4 {
+                font-size: 2.5em;
+            }
+            .banner-section h1 {
+                font-size: 2em;
+            }
+            .banner-section p {
+                font-size: 1em;
+            }
+            .blog-cards-container {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 
     <script defer src="https://cdn.jsdelivr.net/npm/@vercel/speed-insights/dist/inject.min.js"></script>
@@ -345,47 +549,33 @@ body {
         <a href="./jobs.html"><span class="material-icons">work</span> Ish topish</a>
         <a href="./applications.html"><span class="material-icons">assignment</span> Arizalar</a>
         <a href="./about.html"><span class="material-icons">group</span> Biz haqimizda</a>
-        <a href="./contact.html"><span class="material-icons">contact_mail</span> Bog'lanish</a>
+    </div>
+
+    <header class="header" id="main-header">
+        <div style="display:flex;align-items:center;gap:12px">
+            <div class="menu-toggle" id="menu-toggle" aria-label="menu toggle" role="button" tabindex="0">
+                <span></span><span></span><span></span>
+            </div>
+            <h1 style="margin:0">CareerPath</h1>
+        </div>
+    </header>
+
+    <div class="profile-menu" id="profile-menu-container">
+        <button class="profile-btn" id="profile-btn"><span id="user-email-display">Foydalanuvchi</span> ▼</button>
+        <div class="profile-dropdown" id="profile-dropdown">
+            <a href="dashboard.html">Mening profilim</a>
+            <a href="#" id="logout-link">Tizimdan chiqish</a>
+        </div>
     </div>
 
     <div class="main-content-container" id="main-content-container">
-        <header class="header">
-            <div style="display:flex;align-items:center;gap:12px">
-                <div class="menu-toggle" id="menu-toggle" aria-label="menu toggle" role="button" tabindex="0">
-                    <span></span><span></span><span></span>
-                </div>
-                <h1 style="margin:0">CareerPath</h1>
-            </div>
-
-            <div class="profile-menu">
-                <button class="profile-btn" id="profile-btn"><span id="user-email-display">...</span> ▼</button>
-                <div class="profile-dropdown" id="profile-dropdown">
-                    <a href="dashboard.html">Mening profilim</a>
-                    <a href="#" id="logout-link">Tizimdan chiqish</a>
-                </div>
-            </div>
-        </header>
-
         <div class="container" role="main">
+            <div class="greeting-card">
+                <h2>Xush kelibsiz, Yuklanmoqda ... !</h2>
+                <p>O‘zingizga mos keladigan kasb yo‘lini topish sari birga qadam tashlaymiz.</p>
+            </div>
+            
             <div class="card-container">
-                <div class="card">
-                    <h3><span class="material-icons">info</span> Bosh sahifa</h3>
-                    <p>Saytning asosiy funksiyalari bilan tanishing va umumiy ma'lumotlarga ega bo'ling.</p>
-                    <a href="./index.html" class="cta-link">Sahifani ko'rish</a>
-                </div>
-
-                <div class="card">
-                    <h3><span class="material-icons">home</span> Asosiy sahifa</h3>
-                    <p>Barcha bo'limlarga tezkor o'tish imkoniyatiga ega bo'ling va asosiy xizmatlardan foydalaning.</p>
-                    <a href="./careerpath.html" class="cta-link">Sahifani ochish</a>
-                </div>
-
-                <div class="card">
-                    <h3><span class="material-icons">person</span> Mening profilim</h3>
-                    <p>Shaxsiy ma'lumotlaringizni tahrirlang, CV-ingizni va ariza holatini kuzatib boring.</p>
-                    <a href="./dashboard.html" class="cta-link">Profilga o'tish</a>
-                </div>
-
                 <div class="card">
                     <h3><span class="material-icons">menu_book</span> Testlar</h3>
                     <p>Shaxsiyatingiz, qiziqishlaringiz va qobiliyatlaringizga mos kasbni aniqlash uchun test topshiring.</p>
@@ -394,64 +584,115 @@ body {
                 
                 <div class="card">
                     <h3><span class="material-icons">auto_awesome</span> AI Maslahatchi</h3>
-                    <p>Sun'iy intellekt bilan suhbatlashing. U sizga kasb tanlash va rivojlanish bo'yicha maslahatlar beradi.</p>
+                    <p>Sun'iy intellekt bilan suhbatlashing. U sizga kasb tanlash bo'yicha maslahatlar beradi.</p>
                     <a href="aichat.html" class="cta-link">Chatni ochish</a>
                 </div>
                 
                 <div class="card">
                     <h3><span class="material-icons">description</span> CV Generator</h3>
-                    <p>Professional rezyume (CV) va motivatsion xatingizni tez va oson yaratish uchun ushbu xizmatdan foydalaning.</p>
+                    <p>Professional rezyume (CV) va motivatsion xatingizni tez va oson yaratish uchun foydalaning.</p>
                     <a href="cvgenerator.html" class="cta-link">CV yaratish</a>
                 </div>
+            </div>
 
-                <div class="card">
-                    <h3><span class="material-icons">lightbulb</span> Kasblar</h3>
-                    <p>Turli xil kasblar haqida batafsil ma'lumot, ularga qo'yiladigan talablar va kelajakdagi istiqbollarni o'rganing.</p>
-                    <a href="kasblar.html" class="cta-link">Ko'rib chiqish</a>
+            <h2 style="text-align: center; margin-top: 40px; font-size: 2em; color: var(--primary-color);">Bizning yutuqlarimiz</h2>
+            <p style="text-align: center; margin-bottom: 20px; color: var(--text-color);">CareerPath loyihasining erishgan natijalari haqida qisqacha ma'lumot.</p>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <h4 data-target="20" data-suffix="+">30+</h4>
+                    <p>Kasb yo'nalishlari</p>
                 </div>
-
-                <div class="card">
-                    <h3><span class="material-icons">work</span> Ish topish</h3>
-                    <p>Sizning malakangiz va tajribangizga mos keladigan ish e'lonlarini toping va arizalar yuboring.</p>
-                    <a href="./jobs.html" class="cta-link" id="jobs-cta-link">Ish qidirish</a>
+                <div class="stat-card">
+                    <h4 data-target="60" data-suffix="+">70+</h4>
+                    <p>Test savollari</p>
                 </div>
-
-                <div class="card">
-                    <h3><span class="material-icons">assignment</span> Arizalar</h3>
-                    <p>Yuborgan ishingizga arizalar holatini kuzatib boring va yangilanishlardan xabardor bo'ling.</p>
-                    <a href="applications.html" class="cta-link">Arizalarim</a>
-                </div>
-
-                <div class="card">
-                    <h3><span class="material-icons">group</span> Biz haqimizda</h3>
-                    <p>Loyiha haqida batafsil ma'lumotga ega bo'ling, bizning maqsad va qadriyatlarimizni o'rganing.</p>
-                    <a href="about.html" class="cta-link">Batafsil ma'lumot</a>
-                </div>
-
-                <div class="card">
-                    <h3><span class="material-icons">contact_mail</span> Bog'lanish</h3>
-                    <p>Biz bilan aloqaga chiqish uchun ma'lumotlarimizni toping yoki bizga xabar yuboring.</p>
-                    <a href="contact.html" class="cta-link">Bog'lanish</a>
+                <div class="stat-card">
+                    <h4 data-target="100" data-suffix="%">100%</h4>
+                    <p>Foydalanuvchi qoniqishi</p>
                 </div>
             </div>
             
-            <div class="small-card-container" aria-hidden="false">
-                <div class="small-card">
-                    <h4 data-target="20" data-suffix="+">0+</h4>
-                    <p>Kasb yo'nalishlari</p>
+            <hr>
+
+            <section class="banner-section">
+                <div class="banner-content">
+                    <h1>Kasbingizni toping – kelajagingizni yarating</h1>
+                    <p>Shaxsiyatingizga mos kasb yo‘lini aniqlash uchun birinchi qadamni qo‘ying.</p>
+                    <a href="tests.html" class="cta-btn">Boshlash</a>
                 </div>
-                <div class="small-card">
-                    <h4 data-target="60" data-suffix="+">0+</h4>
-                    <p>Savol testlari</p>
+            </section>
+
+            <hr>
+
+            <section class="steps-section">
+                <h2 class="section-title">Muvaffaqiyatga 4 qadam</h2>
+                <div class="steps-container">
+                    <div class="step-card">
+                        <span class="material-icons">task</span>
+                        <h3>Test topshirish</h3>
+                        <p>O‘zingizning qobiliyatlaringizni aniqlang.</p>
+                    </div>
+                    <div class="step-card">
+                        <span class="material-icons">check_circle_outline</span>
+                        <h3>Kasb tanlash</h3>
+                        <p>Natijalar asosida mos kasblarni toping.</p>
+                    </div>
+                    <div class="step-card">
+                        <span class="material-icons">create</span>
+                        <h3>CV yaratish</h3>
+                        <p>Professional rezyume tayyorlang.</p>
+                    </div>
+                    <div class="step-card">
+                        <span class="material-icons">work</span>
+                        <h3>Ishga ariza berish</h3>
+                        <p>Orzuingizdagi ishga yo‘l oling.</p>
+                    </div>
                 </div>
-                <div class="small-card">
-                    <h4 data-target="100" data-suffix="%">0%</h4>
-                    <p>Tushunish oson</p>
+            </section>
+            
+            <hr>
+
+            <section class="chart-section">
+                <h2 class="section-title">Eng ko‘p tanlangan kasblar</h2>
+                <div class="chart-container">
+                    <img src="./images/top_kasblar.jpg" alt="Top kasblar diagrammasi">
                 </div>
-            </div>
+            </section>
+            
+            <hr>
+
+            <section class="blog-section">
+                <h2 class="section-title">Foydali maslahatlar</h2>
+                <div class="blog-cards-container">
+                    <div class="blog-card">
+                        <img src="./images/blog1.png" alt="Blog rasmi">
+                        <div class="blog-content">
+                            <h3>Kelajakda trend kasblar</h3>
+                            <p>Kelajakda eng talabgir bo‘ladigan sohalar haqida o‘qing.</p>
+                            <a href="kelajak-kasblari.html" class="blog-link">Batafsil</a>
+                        </div>
+                    </div>
+                    <div class="blog-card">
+                        <img src="./images/blog2.webp" alt="Blog rasmi">
+                        <div class="blog-content">
+                            <h3>Intervyuda muvaffaqiyat siri</h3>
+                            <p>Ishga joylashish uchun eng muhim ko‘nikmalar.</p>
+                            <a href="intervyuda_muvaffaqiyat_siri.html" class="blog-link">Batafsil</a>
+                        </div>
+                    </div>
+                    <div class="blog-card">
+                        <img src="./images/blog3.webp" alt="Blog rasmi">
+                        <div class="blog-content">
+                            <h3>Qanday qilib yaxshi CV yozish mumkin?</h3>
+                            <p>Ish beruvchini qiziqtiradigan CV yaratish bo‘yicha qo‘llanma.</p>
+                            <a href="./qanday-qilib-yaxshi-CV-yaratish.html" class="blog-link">Batafsil</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
-
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
@@ -469,10 +710,9 @@ body {
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-
-        const jobsLink = document.getElementById('jobs-link');
-        const jobsCtaLink = document.getElementById('jobs-cta-link');
         const userEmailDisplay = document.getElementById('user-email-display');
+        const jobsLinkElements = document.querySelectorAll('a[href="./jobs.html"]');
+        const mainHeader = document.getElementById('main-header');
 
         onAuthStateChanged(auth, async (user) => {
             if (!user) {
@@ -480,32 +720,32 @@ body {
                 return;
             }
 
-            userEmailDisplay.textContent = user.email || 'Foydalanuvchi';
-
+            if (userEmailDisplay) {
+                userEmailDisplay.textContent = user.email || 'Foydalanuvchi';
+            }
+            
+            const greetingCardTitle = document.querySelector('.greeting-card h2');
+            if (greetingCardTitle) {
+                const greetingName = user.displayName || user.email.split('@')[0];
+                greetingCardTitle.textContent = `Xush kelibsiz, ${greetingName}!`;
+            }
+            
             try {
                 const userRef = doc(db, "users", user.uid);
                 const userSnap = await getDoc(userRef);
-
                 let role = 'user';
                 if (userSnap.exists()) {
                     const data = userSnap.data();
                     role = data.role || data.userType || 'user';
-                } else {
-                    role = 'user';
                 }
 
-                if (role === 'employer') {
-                    if (jobsLink) jobsLink.setAttribute('href', 'ish-beruvchi-dashboard.html');
-                    if (jobsCtaLink) jobsCtaLink.setAttribute('href', 'ish-beruvchi-dashboard.html');
-                } else {
-                    if (jobsLink) jobsLink.setAttribute('href', 'jobs.html');
-                    if (jobsCtaLink) jobsCtaLink.setAttribute('href', 'jobs.html');
-                }
-
+                jobsLinkElements.forEach(link => {
+                    if (role === 'employer') {
+                        link.href = 'ish-beruvchi-dashboard.html';
+                    }
+                });
             } catch (err) {
                 console.error("Role lookup error:", err);
-                if (jobsLink) jobsLink.setAttribute('href', 'jobs.html');
-                if (jobsCtaLink) jobsCtaLink.setAttribute('href', 'jobs.html');
             }
         });
 
@@ -516,54 +756,38 @@ body {
             e.stopPropagation();
             profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
         });
-        document.addEventListener('click', (e) => {
-            if (!profileBtn.contains(e.target)) profileDropdown.style.display = 'none';
-        });
 
-        const logoutLink = document.getElementById('logout-link');
-        logoutLink.addEventListener('click', async (e) => {
-            e.preventDefault();
-            try {
-                await signOut(auth);
-                window.location.href = "login.html";
-            } catch (err) {
-                console.error("Logout failed:", err);
+        document.addEventListener('click', (e) => {
+            if (!profileBtn.contains(e.target)) {
+                profileDropdown.style.display = 'none';
             }
         });
 
+        const logoutLink = document.getElementById('logout-link');
+        if (logoutLink) {
+            logoutLink.addEventListener('click', async (e) => {
+                e.preventDefault();
+                try {
+                    await signOut(auth);
+                    window.location.href = "login.html";
+                } catch (err) {
+                    console.error("Logout failed:", err);
+                }
+            });
+        }
+        
         const menuToggle = document.getElementById('menu-toggle');
         const sideNav = document.getElementById('side-nav');
         const mainContent = document.getElementById('main-content-container');
-        menuToggle.addEventListener('click', () => {
-            sideNav.classList.toggle('active');
-            mainContent.classList.toggle('menu-open');
-            menuToggle.classList.toggle('active');
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const counters = document.querySelectorAll('.small-card h4');
-            const speed = 250; // Animation speed
-            counters.forEach(counter => {
-                const target = parseInt(counter.getAttribute('data-target')) || 0;
-                const suffix = counter.getAttribute('data-suffix') || '';
-                let current = 0;
-                if (target <= 0) { counter.textContent = '0' + suffix; return; }
-                const step = Math.max(1, Math.floor(target / speed));
-                const run = () => {
-                    current += step;
-                    if (current < target) {
-                        counter.textContent = current + suffix;
-                        requestAnimationFrame(run);
-                    } else {
-                        counter.textContent = target + suffix;
-                    }
-                };
-                requestAnimationFrame(run);
+        
+        if (menuToggle && sideNav && mainContent && mainHeader) {
+            menuToggle.addEventListener('click', () => {
+                sideNav.classList.toggle('active');
+                mainHeader.classList.toggle('menu-open');
+                mainContent.classList.toggle('menu-open');
+                menuToggle.classList.toggle('active');
             });
-        });
-
+        }
     </script>
-
-    <script type="module" src="/role-router.js"></script>
 </body>
 </html>
